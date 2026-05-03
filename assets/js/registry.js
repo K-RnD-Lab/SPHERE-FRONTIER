@@ -99,10 +99,9 @@ function populateFilters(){
   });
 
   // Combo filter
+  const comboOrder = {"S":0,"E":1,"T":2,"S+T":3,"S+E":4,"S+E+T":5};
   const combos = [...new Set(base.map(s=>s.combo))].sort((a,b)=>{
-    const ah=a.includes("+"), bh=b.includes("+");
-    if(ah!==bh) return ah?1:-1;
-    return a.localeCompare(b);
+    return (comboOrder[a]??99)-(comboOrder[b]??99);
   });
   const comboSel = document.getElementById("comboFilter");
   comboSel.innerHTML = '<option value="all">All Combos</option>';
