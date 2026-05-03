@@ -99,7 +99,11 @@ function populateFilters(){
   });
 
   // Combo filter
-  const combos = [...new Set(base.map(s=>s.combo))].sort();
+  const combos = [...new Set(base.map(s=>s.combo))].sort((a,b)=>{
+    const ah=a.includes("+"), bh=b.includes("+");
+    if(ah!==bh) return ah?1:-1;
+    return a.localeCompare(b);
+  });
   const comboSel = document.getElementById("comboFilter");
   comboSel.innerHTML = '<option value="all">All Combos</option>';
   combos.forEach(c=>{
