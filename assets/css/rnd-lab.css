@@ -37,7 +37,52 @@ body{background:linear-gradient(180deg,var(--bg),#e8f2f0);color:var(--ink);font-
 .sphere-t{border-left:4px solid var(--technology)}
 .link-pill{display:inline-block;background:#fff;border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none;transition:all .15s}
 .link-pill:hover{background:var(--ink);color:#fff}
+/* Study Registry */
+.study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.study-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.study-topline{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.study-card h3{margin:0;font-size:17px}
+.study-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+.study-meta{font-size:13px;color:var(--muted);line-height:1.5}
+.study-meta strong{color:var(--ink)}
+.card-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.chip{border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700}
+.chip-s{background:rgba(30,122,94,.12);color:var(--science)}
+.chip-e{background:rgba(181,107,45,.14);color:var(--entrepreneurship)}
+.chip-t{background:rgba(36,79,143,.12);color:var(--technology)}
+.chip.subtle{background:rgba(12,30,46,.06);color:var(--muted)}
+
+/* Quest Viewer (same layout as mentorship hub) */
+.quest-layout{display:grid;grid-template-columns:220px 1fr;gap:0;min-height:80vh}
+.quest-nav{position:sticky;top:0;max-height:100vh;overflow-y:auto;border-right:1px solid var(--line);padding:16px 12px;background:var(--panel)}
+.quest-nav h3{font-size:14px;margin:0 0 8px;color:var(--muted)}
+.quest-nav a{display:block;padding:6px 10px;border-left:3px solid transparent;font-size:13px;color:var(--ink);text-decoration:none;border-radius:0 8px 8px 0;margin-bottom:2px}
+.quest-nav a:hover,.quest-nav a.active{background:rgba(30,122,94,.06);border-left-color:var(--accent)}
+.quest-nav .nav-S a:hover,.quest-nav .nav-S a.active{border-left-color:var(--science)}
+.quest-nav .nav-E a:hover,.quest-nav .nav-E a.active{border-left-color:var(--entrepreneurship)}
+.quest-nav .nav-T a:hover,.quest-nav .nav-T a.active{border-left-color:var(--technology)}
+.md-content{padding:24px 32px;max-width:780px}
+.md-content h1{font-size:28px;margin:0 0 12px}
+.md-content h2{font-size:22px;margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.md-content h3{font-size:18px;margin:18px 0 6px}
+.md-content p{margin:8px 0;line-height:1.6;color:var(--ink)}
+.md-content ul,.md-content ol{margin:8px 0;padding-left:24px}
+.md-content li{margin:4px 0;line-height:1.5}
+.md-content code{background:rgba(12,30,46,.06);padding:2px 6px;border-radius:4px;font-size:13px}
+.md-content pre{background:rgba(12,30,46,.04);border:1px solid var(--line);border-radius:12px;padding:14px;overflow-x:auto;font-size:13px;line-height:1.5}
+.md-content table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+.md-content th,.md-content td{border:1px solid var(--line);padding:8px 12px;text-align:left}
+.md-content th{background:rgba(12,30,46,.04);font-weight:600}
+.md-content blockquote{border-left:3px solid var(--accent);padding:8px 16px;margin:12px 0;color:var(--muted);font-style:italic}
+.md-content img{max-width:100%;border-radius:12px}
+.md-content input[type="checkbox"]{accent-color:var(--accent);margin-right:6px}
+.back-link{display:inline-block;color:var(--muted);font-size:.8rem;margin-bottom:12px;text-decoration:none}
+.back-link:hover{color:var(--ink)}
+
 @media(max-width:768px){
-  .sphere-grid{grid-template-columns:1fr}
+  .sphere-grid,.study-grid{grid-template-columns:1fr}
   .panel-section>div{grid-template-columns:1fr!important}
+  .quest-layout{grid-template-columns:1fr}
+  .quest-nav{position:static;max-height:none}
+  .md-content{padding:20px}
 }

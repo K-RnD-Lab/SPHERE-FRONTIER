@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K R&D Lab — Study Registry</title>
+  <link rel="stylesheet" href="./assets/css/rnd-lab.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">K R&D Lab / study registry</p>
+      <h1>Study Registry</h1>
+      <p class="lede">Browse and filter research studies across computational science domains.</p>
+      <div class="hero-links">
+        <a href="./index.html">Front Door</a>
+        <a href="./quest.html">Quest Viewer</a>
+        <a href="https://huggingface.co/spaces/K-RnD-Lab/Study-Registry_04-2026" target="_blank" rel="noreferrer">HuggingFace Space</a>
+      </div>
+    </section>
+
+    <section class="stats-row" id="statsRow"></section>
+
+    <section class="panel-section">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+        <input type="text" id="searchInput" placeholder="Search studies, domains, or methods..." style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-size:15px;background:#fff;color:var(--ink)">
+        <select id="domainFilter" style="border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-size:15px;background:#fff;color:var(--ink)">
+          <option value="all">All Domains</option>
+        </select>
+        <select id="statusFilter" style="border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-size:15px;background:#fff;color:var(--ink)">
+          <option value="all">All Statuses</option>
+          <option value="completed">Completed</option>
+          <option value="in-progress">In Progress</option>
+          <option value="planned">Planned</option>
+        </select>
+      </div>
+      <div id="studyGrid" class="study-grid"></div>
+    </section>
+  </main>
+  <script src="./assets/js/registry.js"></script>
+</body>
+</html>
