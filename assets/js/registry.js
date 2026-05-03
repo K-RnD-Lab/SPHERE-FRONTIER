@@ -48,10 +48,12 @@ function populateDomainFilter(){
 function renderStudies(){
   const query = document.getElementById("searchInput").value.toLowerCase();
   const domain = document.getElementById("domainFilter").value;
+  const sphere = document.getElementById("sphereFilter").value;
   const status = document.getElementById("statusFilter").value;
 
   const filtered = studies.filter(s=>{
     if(domain!=="all" && s.domain!==domain) return false;
+    if(sphere!=="all" && s.sphere!==sphere) return false;
     if(status!=="all" && s.status!==status) return false;
     if(query){
       const hay = [s.title,s.domain,s.summary,...s.methods].join(" ").toLowerCase();
@@ -89,6 +91,7 @@ function renderStudies(){
 
 document.getElementById("searchInput").addEventListener("input",renderStudies);
 document.getElementById("domainFilter").addEventListener("change",renderStudies);
+document.getElementById("sphereFilter").addEventListener("change",renderStudies);
 document.getElementById("statusFilter").addEventListener("change",renderStudies);
 
 renderStats();

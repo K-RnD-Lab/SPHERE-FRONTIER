@@ -25,11 +25,17 @@
 
     <section class="panel-section">
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
-        <input type="text" id="searchInput" placeholder="Search studies, domains, or methods..." style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-size:15px;background:#fff;color:var(--ink)">
-        <select id="domainFilter" style="border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-size:15px;background:#fff;color:var(--ink)">
+        <input type="text" id="searchInput" placeholder="Search studies, domains, or methods..." style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-size:15px;background:var(--input-bg);color:var(--ink)">
+        <select id="domainFilter" style="border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-size:15px;background:var(--input-bg);color:var(--ink)">
           <option value="all">All Domains</option>
         </select>
-        <select id="statusFilter" style="border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-size:15px;background:#fff;color:var(--ink)">
+        <select id="sphereFilter" style="border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-size:15px;background:var(--input-bg);color:var(--ink)">
+          <option value="all">All Spheres</option>
+          <option value="S">🩺 Science</option>
+          <option value="E">💼 Entrepreneurship</option>
+          <option value="T">⚙️ Technology</option>
+        </select>
+        <select id="statusFilter" style="border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-size:15px;background:var(--input-bg);color:var(--ink)">
           <option value="all">All Statuses</option>
           <option value="completed">Completed</option>
           <option value="in-progress">In Progress</option>
