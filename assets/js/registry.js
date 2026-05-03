@@ -1,103 +1,134 @@
 const studies = [
-  // S1 — 🩺 Biomedical & Oncology
-  {id:"S1-A",track:"S1",title:"🧬 PHYLO-GENOMICS",sphere:"S",status:"in-progress",methods:["scRNA-seq","spatial transcriptomics","phylogenomics"],summary:"Phylogenomic analysis pipeline for tumor microenvironment composition from single-cell and spatial data. Identifies immune cell subtypes and their spatial relationships in solid tumors.",date:"2026-04",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-A%20%C2%B7%20%F0%9F%A7%AC%20PHYLO-GENOMICS"},
-  {id:"S1-B",track:"S1",title:"🔬 PHYLO-RNA",sphere:"S",status:"in-progress",methods:["RNA-seq","differential expression","network analysis"],summary:"RNA-level phylogenetic profiling for transcriptomic classification and biomarker discovery across cancer types.",date:"2026-04",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-B%20%C2%B7%20%F0%9F%94%AC%20PHYLO-RNA"},
-  {id:"S1-C",track:"S1",title:"💊 PHYLO-DRUG",sphere:"S",status:"planned",methods:["drug repurposing","chemoinformatics","docking"],summary:"Computational drug repurposing framework using phylogenetic conservation and chemoinformatic similarity scoring.",date:"2026-05",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-C%20%C2%B7%20%F0%9F%92%8A%20PHYLO-DRUG"},
-  {id:"S1-D",track:"S1",title:"🧪 PHYLO-LNP",sphere:"S",status:"planned",methods:["LNP formulation","delivery modeling","molecular dynamics"],summary:"Lipid nanoparticle delivery modeling for nucleic acid therapeutics. Computational pipeline for formulation optimization.",date:"2026-06",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-D%20%C2%B7%20%F0%9F%A7%AA%20PHYLO-LNP"},
-  {id:"S1-E",track:"S1",title:"🩸 PHYLO-BIOMARKERS",sphere:"S",status:"planned",methods:["biomarker panels","clinical data","survival analysis"],summary:"Computational panel of blood-based biomarkers integrating proteomic and clinical data for early cancer detection.",date:"2026-06",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-E%20%C2%B7%20%F0%9F%A9%B8%20PHYLO-BIOMARKERS"},
-  {id:"S1-F",track:"S1",title:"🧠 PHYLO-RARE",sphere:"S",status:"planned",methods:["rare disease genomics","variant prioritization","HPO"],summary:"Phylogenetic approach to rare disease variant prioritization using Human Phenotype Ontology and cross-species conservation.",date:"2026-07",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-F%20%C2%B7%20%F0%9F%A7%A0%20PHYLO-RARE"},
-  // S2 — 🌿 Plant Science & Phytochemistry
-  {id:"S2-A",track:"S2",title:"🌱 PHYLO-CROP",sphere:"S",status:"in-progress",methods:["remote sensing","time-series analysis","deep learning"],summary:"Pipeline for predicting regional crop yields using satellite imagery and meteorological data. Focus on wheat and corn in Eastern Europe.",date:"2026-03",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S2%20%E2%80%94%20%F0%9F%8C%BF%20Plant%20Science%20%26%20Phytochemistry"},
-  {id:"S2-B",track:"S2",title:"🧫 PHYLO-PHYTO",sphere:"S",status:"planned",methods:["LC-MS/MS","GNPS","molecular networking"],summary:"Open workflow for phytochemical identification and annotation from mass spectrometry data. Uses molecular networking for dereplication.",date:"2026-05",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S2%20%E2%80%94%20%F0%9F%8C%BF%20Plant%20Science%20%26%20Phytochemistry"},
-  // S3 — 🌾 Agricultural Biology & Biofertilizers
-  {id:"S3-A",track:"S3",title:"🌾 PHYLO-AGBIO",sphere:"S",status:"planned",methods:["microbiome","biofertilizer screening","field trials"],summary:"Computational framework for biofertilizer candidate screening based on soil microbiome profiling and plant growth promotion scoring.",date:"2026-06",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S3%20%E2%80%94%20%F0%9F%8C%BE%20Agricultural%20Biology%20%26%20Biofertilizers"},
-  // S4 — ⚗️ Biochemistry & Metabolomics
-  {id:"S4-A",track:"S4",title:"⚗️ PHYLO-METABO",sphere:"S",status:"in-progress",methods:["metabolomics","GNPS","molecular networking"],summary:"Open workflow for metabolite identification and annotation from mass spectrometry data. Uses molecular networking for dereplication and novel compound discovery.",date:"2026-04",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S4%20%E2%80%94%20%E2%9A%97%EF%B8%8F%20Biochemistry%20%26%20Metabolomics"},
-  // S5 — 🧠 Neuroscience & Aging
-  {id:"S5-A",track:"S5",title:"🧠 PHYLO-NEURO",sphere:"S",status:"planned",methods:["EEG","signal processing","transformer models"],summary:"Classification of EEG patterns for sleep stage detection and epileptic seizure prediction. Planned as a reproducible benchmark study.",date:"2026-05",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S5%20%E2%80%94%20%F0%9F%A7%A0%20Neuroscience%20%26%20Aging"},
-  // S6 — 🌍 Ecology & Environmental Science
-  {id:"S6-A",track:"S6",title:"🌍 PHYLO-ECO",sphere:"S",status:"completed",methods:["GBIF API","Shannon index","interactive visualization"],summary:"Interactive dashboard computing biodiversity indices from GBIF occurrence data. Covers species richness, evenness, and Simpson diversity at regional scales.",date:"2026-03",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S6%20%E2%80%94%20%F0%9F%8C%8D%20Ecology%20%26%20Environmental%20Science"},
-  // S7 — 📚 K Life OS
-  {id:"S7-A",track:"S7",title:"📚 PHYLO-LIFE",sphere:"S",status:"planned",methods:["epigenetic clocks","proteomics","survival analysis"],summary:"Computational panel of aging biomarkers integrating epigenetic, proteomic, and clinical data. Aims for reproducible biological age estimation.",date:"2026-06",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
-  // E1 — 💼 Venture, Product & Opportunity Systems
-  {id:"E1-A",track:"E1",title:"💡 PHYLO-VENTURE",sphere:"E",status:"completed",methods:["customer interviews","hypothesis testing","lean canvas"],summary:"Applied research framework for validating early-stage startup ideas. Structured interview scripts, experiment trackers, and decision trees for go/no-go.",date:"2026-04",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP/tree/main/E1%20-%20Venture%2C%20Product%20%26%20Opportunity%20Systems"},
-  // E2 — 📊 Market, Audience & Behavioral Intelligence
-  {id:"E2-A",track:"E2",title:"📊 PHYLO-MARKET",sphere:"E",status:"in-progress",methods:["web scraping","NLP","market sizing"],summary:"Automated sector analysis tool that maps market size, competition, and entry points for SET-aligned venture directions.",date:"2026-04",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP/tree/main/E2%20-%20Market%2C%20Audience%20%26%20Behavioral%20Intelligence"},
-  // E3 — 🤝 Ecosystem, Partnerships & External Signals
-  {id:"E3-A",track:"E3",title:"🤝 PHYLO-ECOSYS",sphere:"E",status:"planned",methods:["network analysis","stakeholder mapping","visualization"],summary:"Atlas of innovation ecosystems mapping actors, resources, and connection patterns across science, entrepreneurship, and technology communities.",date:"2026-06",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP/tree/main/E3%20-%20Ecosystem%2C%20Partnerships%20%26%20External%20Signals"},
-  // E4 — 📋 Applied Investigations & Public Cases
-  {id:"E4-A",track:"E4",title:"📋 PHYLO-CASES",sphere:"E",status:"planned",methods:["case studies","public data","benchmarking"],summary:"Applied investigation framework for documenting and benchmarking public venture cases across SET domains.",date:"2026-07",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP/tree/main/E4%20-%20Applied%20Investigations%20%26%20Public%20Cases"},
-  // T1 — 🤖 Research Tools, ML & Analytical Engines
-  {id:"T1-A",track:"T1",title:"🤖 PHYLO-SCORE",sphere:"T",status:"completed",methods:["rubric design","inter-rater reliability","open scoring"],summary:"Open scoring system for evaluating research readiness of computational projects. Covers data quality, method transparency, and reproducibility.",date:"2026-03",repo:"https://github.com/K-RnD-Lab/SPHERE-III-TECHNOLOGY/tree/main/T1%20-%20Research%20Tools%2C%20ML%20%26%20Analytical%20Engines"},
-  // T2 — 💻 Reproducibility, Scoring & Method Systems
-  {id:"T2-A",track:"T2",title:"💻 PHYLO-DASH",sphere:"T",status:"completed",methods:["Plotly Dash","Python","GitHub API"],summary:"Dashboard tracking lab productivity metrics: study count, domain coverage, method diversity, and reproducibility scores. Auto-updates from GitHub.",date:"2026-04",repo:"https://github.com/K-RnD-Lab/SPHERE-III-TECHNOLOGY/tree/main/T2%20-%20Reproducibility%2C%20Scoring%20%26%20Method%20Systems"},
-  // T3 — 🖥️ Dashboards, Interfaces & Open Infrastructure
-  {id:"T3-A",track:"T3",title:"🖥️ PHYLO-INFRA",sphere:"T",status:"in-progress",methods:["Docker","GitHub Actions","Binder","Zenodo"],summary:"Toolkit for making computational studies reproducible: containerized environments, CI/CD for analysis, and automated archival to Zenodo.",date:"2026-05",repo:"https://github.com/K-RnD-Lab/SPHERE-III-TECHNOLOGY/tree/main/T3%20-%20Dashboards%2C%20Interfaces%20%26%20Open%20Infrastructure"}
+  // ── SCIENCE ──
+  {id:"SPHERE-I-SCIENCE",track:"Root",combo:"S",artifact:"Repository",validation:"Taxonomy",delivery:"GitHub",title:"SPHERE-I-SCIENCE",summary:"Computational science research across oncology, plant science, metabolomics, neuroscience, ecology, and life systems.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE"},
+  {id:"S1",track:"S1",combo:"S",artifact:"Lane",validation:"Taxonomy",delivery:"GitHub",title:"🩺 S1 Biomedical & Oncology",summary:"S1 is the biomedical and translational oncology block inside SPHERE-I-SCIENCE.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology"},
+  {id:"S1-A-R1",track:"S1-A",combo:"S+T",artifact:"Research Tool",validation:"Prototype",delivery:"GitHub",title:"OpenVariant: An Open-Source Variant Pathogenicity Classifier",summary:"AUC-ROC = 0.942 (XGBoost) | AUC-ROC = 0.935 (AlphaMissense placeholder) | N = 1,804 (⚠ SIMULATED)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-A%20%C2%B7%20%F0%9F%A7%AC%20PHYLO-GENOMICS"},
+  {id:"S1-B-R1",track:"S1-B",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"Tumor Suppressor miRNAs Silenced in BRCA2-Mutant Breast Cancer",summary:"25 significant DE miRNAs identified (padj ≤ 0.05, |log2FC| ≥ 0.3) | N = 300 (13 BRCA2-mutant, 287 wildtype) — ⚠️ SIMULATED",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-B%20%C2%B7%20%F0%9F%94%AC%20PHYLO-RNA"},
+  {id:"S1-B-R2",track:"S1-B",combo:"S+E+T",artifact:"Research Tool",validation:"Prototype",delivery:"GitHub",title:"siRNA Synthetic Lethal Targets in TP53-Mutant Lung Adenocarcinoma",summary:"PLK1 and CDK1 recovered as positive clinical controls | N = 566 (295 TP53-mut + 271 WT) [SIMULATED]",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-B%20%C2%B7%20%F0%9F%94%AC%20PHYLO-RNA"},
+  {id:"S1-B-R3",track:"S1-B",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"lncRNA Networks Controlling TREM2-Dependent Microglial Inflammation",summary:"Simulated iPSC-derived microglia RNA-seq (TREM2-KO vs WT) | 2 independent simulated datasets × 12 samples each",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-B%20%C2%B7%20%F0%9F%94%AC%20PHYLO-RNA"},
+  {id:"S1-C-R1",track:"S1-C",combo:"S+T",artifact:"Research Tool",validation:"Prototype",delivery:"GitHub",title:"Small Molecules Targeting FGFR3 mRNA for Bladder Cancer",summary:"Top-2 RNA-binding score = 0.793 / 0.789 (SIMULATED) | N = 200 compounds (SIMULATED virtual screen)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-C%20%C2%B7%20%F0%9F%92%8A%20PHYLO-DRUG"},
+  {id:"S1-D-R1",track:"S1-D",combo:"S+T",artifact:"Research Tool",validation:"Prototype",delivery:"GitHub",title:"ML Prediction of Protein Corona in LNPs from Physicochemical Properties",summary:"Macro-OvR AUC = 0.791 (reported) / 0.836 [SIMULATED-CIRCULAR] | N = 19,200 (LNPDB, simulated)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-D%20%C2%B7%20%F0%9F%A7%AA%20PHYLO-LNP"},
+  {id:"S1-D-R2a",track:"S1-D",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"ML Prediction of Protein Corona in LNPs (Hypothesis)",summary:"XGBoost AUC = 0.877 (5-fold CV, simulated; target spec: 0.791) | Corona PoC AUC = 0.834 (LOOCV) | N = 19,200 (SIMULATED)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-D%20%C2%B7%20%F0%9F%A7%AA%20PHYLO-LNP"},
+  {id:"S1-D-R2b",track:"S1-D",combo:"S+T",artifact:"Research Tool",validation:"Prototype",delivery:"GitHub",title:"Predicting Protein Corona Remodeling Under Physiological Flow",summary:"RF Train R² = 0.781 | LOOCV R² = −0.281 (underpowered, N=32) | N = 32 matched pairs (SIMULATED)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-D%20%C2%B7%20%F0%9F%A7%AA%20PHYLO-LNP"},
+  {id:"S1-D-R3",track:"S1-D",combo:"S+T",artifact:"Research Tool",validation:"Prototype",delivery:"GitHub",title:"Ionizable Lipid Properties Predicting ApoE Enrichment for BBB Crossing",summary:"LOO-CV R² = 0.542 | Pearson r = 0.780, MAE = 4.9% | N = 22 (SIMULATED — literature-grounded)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-D%20%C2%B7%20%F0%9F%A7%AA%20PHYLO-LNP"},
+  {id:"S1-D-R4a",track:"S1-D",combo:"S+T",artifact:"Research Tool",validation:"Prototype",delivery:"GitHub",title:"AutoCorona: NLP Pipeline for Automated LNP Protein Corona Data Extraction",summary:"F1 = 0.71 (proteinsource) | N = 43 entries (22 GS + 21 new)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-D%20%C2%B7%20%F0%9F%A7%AA%20PHYLO-LNP"},
+  {id:"S1-D-R4b",track:"S1-D",combo:"S+T",artifact:"Research Tool",validation:"Prototype",delivery:"GitHub",title:"K R&D Lab — LNP Corona Research Projects",summary:"Demo space for LNP corona research projects aggregation and visualization.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-D%20%C2%B7%20%F0%9F%A7%AA%20PHYLO-LNP"},
+  {id:"S1-D-R4c",track:"S1-D",combo:"S",artifact:"Hypothesis",validation:"Scaffold",delivery:"GitHub",title:"ML Prediction of Protein Corona in LNPs (Scaffold)",summary:"XGBoost AUC = 0.791 (5-fold CV) | N = 19,200 transfection records",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-D%20%C2%B7%20%F0%9F%A7%AA%20PHYLO-LNP"},
+  {id:"S1-E-R1a",track:"S1-E",combo:"S+E",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"ML Prediction of LNP Transfection Efficacy",summary:"XGBoost AUC = 0.782 (5-fold CV) | N = 19,200 (SIMULATED — based on LNPDB statistics)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-E%20%C2%B7%20%F0%9F%A9%B8%20PHYLO-BIOMARKERS"},
+  {id:"S1-E-R1b",track:"S1-E",combo:"S+E",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"Protein Corona Fingerprinting as Liquid Biopsy Biomarker",summary:"RF GroupKFold AUC = 0.993 ± 0.005 (tissue-level only) | N = 576 samples × 8,843 proteins (SIMULATED — CPTAC)",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S1%20%E2%80%94%20%F0%9F%A9%BA%20%20Biomedical%20%26%20Oncology/S1-E%20%C2%B7%20%F0%9F%A9%B8%20PHYLO-BIOMARKERS"},
+  {id:"S2",track:"S2",combo:"S",artifact:"Lane",validation:"Taxonomy",delivery:"GitHub",title:"🌿 S2 Plant Science & Phytochemistry",summary:"S2 covers plant-intrinsic biology rather than agricultural intervention systems.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S2%20%E2%80%94%20%F0%9F%8C%BF%20Plant%20Science%20%26%20Phytochemistry"},
+  {id:"S3",track:"S3",combo:"S+T",artifact:"Lane",validation:"Taxonomy",delivery:"GitHub",title:"🌾 S3 Agricultural Biology & Biofertilizers",summary:"S3 covers applied agro-biology and intervention logic around crop systems.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S3%20%E2%80%94%20%F0%9F%8C%BE%20Agricultural%20Biology%20%26%20Biofertilizers"},
+  {id:"S4",track:"S4",combo:"S",artifact:"Lane",validation:"Taxonomy",delivery:"GitHub",title:"⚗️ S4 Biochemistry & Metabolomics",summary:"S4 is the cross-organism chemistry and mechanism lane inside SPHERE-I-SCIENCE.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S4%20%E2%80%94%20%E2%9A%97%EF%B8%8F%20Biochemistry%20%26%20Metabolomics"},
+  {id:"S5",track:"S5",combo:"S+T",artifact:"Lane",validation:"Taxonomy",delivery:"GitHub",title:"🧠 S5 Neuroscience & Aging",summary:"S5 covers brain, cognition, neuroinflammation, and computational aging questions.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S5%20%E2%80%94%20%F0%9F%A7%A0%20Neuroscience%20%26%20Aging"},
+  {id:"S6",track:"S6",combo:"S",artifact:"Lane",validation:"Taxonomy",delivery:"GitHub",title:"🌍 S6 Ecology & Environmental Science",summary:"S6 covers environmental systems rather than organism-intrinsic molecular biology.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S6%20%E2%80%94%20%F0%9F%8C%8D%20Ecology%20%26%20Environmental%20Science"},
+  {id:"S7",track:"S7",combo:"S+T",artifact:"Lane",validation:"Taxonomy",delivery:"GitHub",title:"📚 S7 K Life OS",summary:"Science-facing lane for measurable life systems, cognition, adaptive training, self-tracking, and longitudinal human-pattern research.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-A",track:"S7-A",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🚀 S7-A Creativity or Self-Expression",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-B",track:"S7-B",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"👨‍🏫 S7-B Personal Development or Self-Care",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-C",track:"S7-C",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🏠 S7-C Domestic Life or Household",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-D",track:"S7-D",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"💵 S7-D Finance",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-E",track:"S7-E",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🤝 S7-E Parenting or Family",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-F",track:"S7-F",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"📚 S7-F Recreation and Hobbies",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-G",track:"S7-G",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"👤 S7-G Community Involvement",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-H",track:"S7-H",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🌳 S7-H Physical Health",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-I-R1",track:"S7-I",combo:"S+T",artifact:"Research Tool",validation:"Live",delivery:"GitHub",title:"R1 Master Prep Analytics",summary:"A combined research case for magistracy preparation, learning systems, cognition, live dashboarding, and the actual trainer workspace.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-I",track:"S7-I",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🔎 S7-I Career or Education",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-J",track:"S7-J",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🌿 S7-J Environmental or Charity",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-K",track:"S7-K",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"👥 S7-K Personal Relationship",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-L",track:"S7-L",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🧘 S7-L Spirituality",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-M",track:"S7-M",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🧭 S7-M Longitudinal Reviews & Life Wheel Synthesis",summary:"A meta-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  // ── ENTREPRENEURSHIP ──
+  {id:"SPHERE-II-ENTREPRENEURSHIP",track:"Root",combo:"E",artifact:"Repository",validation:"Taxonomy",delivery:"GitHub",title:"SPHERE-II-ENTREPRENEURSHIP",summary:"Applied research for venture design, market intelligence, ecosystem mapping, and public cases.",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP"},
+  {id:"E1-R1",track:"E1",combo:"S+E",artifact:"Venture Case",validation:"Exploratory",delivery:"GitHub",title:"R1a Lab-to-Market Opportunity Map",summary:"Which translational opportunity spaces are the most plausible first commercial or collaboration paths for K R&D Lab outputs?",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP/tree/main/E1%20-%20Venture%2C%20Product%20%26%20Opportunity%20Systems"},
+  {id:"E2-R1",track:"E2",combo:"S+E+T",artifact:"Venture Case",validation:"Scaffold",delivery:"GitHub",title:"R1a Translational Audience Segments",summary:"Which audience groups are most distinct and strategically relevant for K R&D Lab outputs across science, tooling, and public-facing artifacts?",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP/tree/main/E2%20-%20Market%2C%20Audience%20%26%20Behavioral%20Intelligence"},
+  {id:"E3-R1",track:"E3",combo:"S+E+T",artifact:"Public Case",validation:"Active Case",delivery:"GitHub",title:"R1a Bio-AI Translation Landscape",summary:"Which ecosystems, conferences, partners, and open communities matter most for translating K R&D Lab work?",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP/tree/main/E3%20-%20Ecosystem%2C%20Partnerships%20%26%20External%20Signals"},
+  {id:"E4-A",track:"E4",combo:"S+E+T",artifact:"Public Case",validation:"Active Case",delivery:"GitHub",title:"R1a Three-Sphere Research Ops Case",summary:"How should K R&D Lab structure research, tooling, and public-facing artifacts across GitHub and Hugging Face?",repo:"https://github.com/K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP/tree/main/E4%20-%20Applied%20Investigations%20%26%20Public%20Cases"},
+  // ── TECHNOLOGY ──
+  {id:"SPHERE-III-TECHNOLOGY",track:"Root",combo:"T",artifact:"Repository",validation:"Taxonomy",delivery:"GitHub",title:"SPHERE-III-TECHNOLOGY",summary:"Reusable research tools, scoring systems, dashboards, and open infrastructure for K R&D Lab.",repo:"https://github.com/K-RnD-Lab/SPHERE-III-TECHNOLOGY"},
+  {id:"T1-R1",track:"T1",combo:"S+T",artifact:"Tool",validation:"Prototype",delivery:"GitHub",title:"R1a Bioinformatics Pipeline Template",summary:"How should K R&D Lab package reusable analytical engines so the same method can support multiple science studies?",repo:"https://github.com/K-RnD-Lab/SPHERE-III-TECHNOLOGY/tree/main/T1%20-%20Research%20Tools%2C%20ML%20%26%20Analytical%20Engines"},
+  {id:"T2-R1",track:"T2",combo:"S+T",artifact:"Scoring System",validation:"Prototype",delivery:"GitHub",title:"R1a Study Readiness Scoring",summary:"How can K R&D Lab score whether a study is ready to move from exploratory computational work into a more reproducible stage?",repo:"https://github.com/K-RnD-Lab/SPHERE-III-TECHNOLOGY/tree/main/T2%20-%20Reproducibility%2C%20Scoring%20%26%20Method%20Systems"},
+  {id:"T3-R1",track:"T3",combo:"S+E+T",artifact:"Dashboard",validation:"Live Prototype",delivery:"GitHub, Hugging Face",title:"R1a Study Registry Dashboard Template",summary:"What is the minimal reusable dashboard or registry pattern that can make K R&D Lab studies easier to browse, compare, and audit?",repo:"https://github.com/K-RnD-Lab/SPHERE-III-TECHNOLOGY/tree/main/T3%20-%20Dashboards%2C%20Interfaces%20%26%20Open%20Infrastructure"}
 ];
 
-const trackMeta = {
-  "S1":{emoji:"🩺",label:"Biomedical & Oncology"},
-  "S2":{emoji:"🌿",label:"Plant Science & Phytochemistry"},
-  "S3":{emoji:"🌾",label:"Agricultural Biology & Biofertilizers"},
-  "S4":{emoji:"⚗️",label:"Biochemistry & Metabolomics"},
-  "S5":{emoji:"🧠",label:"Neuroscience & Aging"},
-  "S6":{emoji:"🌍",label:"Ecology & Environmental Science"},
-  "S7":{emoji:"📚",label:"K Life OS"},
-  "E1":{emoji:"💼",label:"Venture, Product & Opportunity"},
-  "E2":{emoji:"📊",label:"Market, Audience & Behavioral"},
-  "E3":{emoji:"🤝",label:"Ecosystem, Partnerships & Signals"},
-  "E4":{emoji:"📋",label:"Applied Investigations & Cases"},
-  "T1":{emoji:"🤖",label:"Research Tools, ML & Analytical"},
-  "T2":{emoji:"💻",label:"Reproducibility, Scoring & Methods"},
-  "T3":{emoji:"🖥️",label:"Dashboards, Interfaces & Infra"}
-};
+const comboColors = {"S":"var(--science)","E":"var(--entrepreneurship)","T":"var(--technology)","S+T":"var(--technology)","S+E":"var(--entrepreneurship)","S+E+T":"var(--accent)"};
+const comboLabels = {"S":"🩺 Science","E":"💼 Entrepreneurship","T":"⚙️ Technology","S+T":"🩺+⚙️","S+E":"🩺+💼","S+E+T":"🩺+💼+⚙️"};
+const artifactIcons = {"Repository":"📦","Lane":"🛤️","Hypothesis":"💡","Research Tool":"🔧","Venture Case":"📈","Public Case":"📋","Tool":"🛠️","Scoring System":"📊","Dashboard":"🖥️"};
+const validationIcons = {"Taxonomy":"🏷️","Exploratory":"🔬","Prototype":"🧪","Scaffold":"🏗️","Active Case":"✅","Live":"🟢","Live Prototype":"🟢"};
 
-const statusIcons = {completed:"✅", "in-progress":"🔄", planned:"📋"};
+function getHomeSphere(combo){return combo.split("+")[0]}
+function getSphereEntries(sphere){return studies.filter(s=>getHomeSphere(s.combo)===sphere)}
 
 function renderStats(){
-  const completed = studies.filter(s=>s.status==="completed").length;
-  const inProgress = studies.filter(s=>s.status==="in-progress").length;
-  const planned = studies.filter(s=>s.status==="planned").length;
-  const tracks = [...new Set(studies.map(s=>s.track))].length;
+  const sCount = getSphereEntries("S").length;
+  const eCount = getSphereEntries("E").length;
+  const tCount = getSphereEntries("T").length;
+  const hybrids = studies.filter(s=>s.combo.includes("+")).length;
   document.getElementById("statsRow").innerHTML = `
-    <div class="stat-card science"><div class="stat-value">${studies.length}</div><div class="stat-label">Studies</div></div>
-    <div class="stat-card"><div class="stat-value">${tracks}</div><div class="stat-label">Tracks</div></div>
-    <div class="stat-card"><div class="stat-value">${completed}</div><div class="stat-label">✅ Completed</div></div>
-    <div class="stat-card"><div class="stat-value">${inProgress}</div><div class="stat-label">🔄 In Progress</div></div>
-    <div class="stat-card"><div class="stat-value">${planned}</div><div class="stat-label">📋 Planned</div></div>
+    <div class="stat-card science"><div class="stat-value">${studies.length}</div><div class="stat-label">Total entries</div></div>
+    <div class="stat-card"><div class="stat-value">${sCount}</div><div class="stat-label">🩺 Science</div></div>
+    <div class="stat-card"><div class="stat-value">${eCount}</div><div class="stat-label">💼 Entrepreneurship</div></div>
+    <div class="stat-card"><div class="stat-value">${tCount}</div><div class="stat-label">⚙️ Technology</div></div>
+    <div class="stat-card"><div class="stat-value">${hybrids}</div><div class="stat-label">� Hybrid lanes</div></div>
   `;
 }
 
 function getFilteredBase(){
   const sphere = document.getElementById("sphereFilter").value;
-  return sphere==="all" ? studies : studies.filter(s=>s.sphere===sphere);
+  return sphere==="all" ? studies : studies.filter(s=>getHomeSphere(s.combo)===sphere);
 }
 
 function populateFilters(){
   const base = getFilteredBase();
   const curTrack = document.getElementById("trackFilter").value;
-  const curStatus = document.getElementById("statusFilter").value;
+  const curCombo = document.getElementById("comboFilter").value;
+  const curArtifact = document.getElementById("artifactFilter").value;
+  const curValidation = document.getElementById("validationFilter").value;
 
-  const tracks = [...new Set(base.map(s=>s.track))].sort();
-  const statuses = [...new Set(base.map(s=>s.status))].sort();
-
+  // Track filter — S tracks first, then E, then T
+  const tracks = [...new Set(base.map(s=>s.track))].sort((a,b)=>{
+    const sa=a.match(/^[SET]/)?a[0]:"Z", sb=b.match(/^[SET]/)?b[0]:"Z";
+    if(sa!==sb) return sa<sb?-1:1;
+    return a.localeCompare(b);
+  });
   const trackSel = document.getElementById("trackFilter");
   trackSel.innerHTML = '<option value="all">All Tracks</option>';
   tracks.forEach(t=>{
     const opt = document.createElement("option");
-    const meta = trackMeta[t]||{emoji:"",label:t};
-    opt.value = t; opt.textContent = `${meta.emoji} ${t} ${meta.label}`;
+    opt.value = t; opt.textContent = t;
     if(t===curTrack) opt.selected = true;
     trackSel.appendChild(opt);
   });
 
-  const statusSel = document.getElementById("statusFilter");
-  statusSel.innerHTML = '<option value="all">All Statuses</option>';
-  statuses.forEach(st=>{
+  // Combo filter
+  const combos = [...new Set(base.map(s=>s.combo))].sort();
+  const comboSel = document.getElementById("comboFilter");
+  comboSel.innerHTML = '<option value="all">All Combos</option>';
+  combos.forEach(c=>{
     const opt = document.createElement("option");
-    opt.value = st; opt.textContent = `${statusIcons[st]||""} ${st.replace("-"," ")}`;
-    if(st===curStatus) opt.selected = true;
-    statusSel.appendChild(opt);
+    opt.value = c; opt.textContent = comboLabels[c]||c;
+    if(c===curCombo) opt.selected = true;
+    comboSel.appendChild(opt);
+  });
+
+  // Artifact filter
+  const artifacts = [...new Set(base.map(s=>s.artifact))].sort();
+  const artSel = document.getElementById("artifactFilter");
+  artSel.innerHTML = '<option value="all">All Artifacts</option>';
+  artifacts.forEach(a=>{
+    const opt = document.createElement("option");
+    opt.value = a; opt.textContent = `${artifactIcons[a]||""} ${a}`;
+    if(a===curArtifact) opt.selected = true;
+    artSel.appendChild(opt);
+  });
+
+  // Validation filter
+  const validations = [...new Set(base.map(s=>s.validation))].sort();
+  const valSel = document.getElementById("validationFilter");
+  valSel.innerHTML = '<option value="all">All Validation</option>';
+  validations.forEach(v=>{
+    const opt = document.createElement("option");
+    opt.value = v; opt.textContent = `${validationIcons[v]||""} ${v}`;
+    if(v===curValidation) opt.selected = true;
+    valSel.appendChild(opt);
   });
 }
 
@@ -105,14 +136,18 @@ function renderStudies(){
   const query = document.getElementById("searchInput").value.toLowerCase();
   const track = document.getElementById("trackFilter").value;
   const sphere = document.getElementById("sphereFilter").value;
-  const status = document.getElementById("statusFilter").value;
+  const combo = document.getElementById("comboFilter").value;
+  const artifact = document.getElementById("artifactFilter").value;
+  const validation = document.getElementById("validationFilter").value;
 
   const filtered = studies.filter(s=>{
     if(track!=="all" && s.track!==track) return false;
-    if(sphere!=="all" && s.sphere!==sphere) return false;
-    if(status!=="all" && s.status!==status) return false;
+    if(sphere!=="all" && getHomeSphere(s.combo)!==sphere) return false;
+    if(combo!=="all" && s.combo!==combo) return false;
+    if(artifact!=="all" && s.artifact!==artifact) return false;
+    if(validation!=="all" && s.validation!==validation) return false;
     if(query){
-      const hay = [s.title,s.track,s.summary,...s.methods].join(" ").toLowerCase();
+      const hay = [s.id,s.title,s.summary,s.combo,s.track,s.artifact,s.validation].join(" ").toLowerCase();
       if(!hay.includes(query)) return false;
     }
     return true;
@@ -120,25 +155,26 @@ function renderStudies(){
 
   const grid = document.getElementById("studyGrid");
   if(!filtered.length){
-    grid.innerHTML = '<p style="text-align:center;color:var(--muted);padding:28px">No studies match the current filters.</p>';
+    grid.innerHTML = '<p style="text-align:center;color:var(--muted);padding:28px">No entries match the current filters.</p>';
     return;
   }
 
   grid.innerHTML = filtered.map(s=>{
-    const si = statusIcons[s.status]||"";
-    const meta = trackMeta[s.track]||{emoji:"",label:s.track};
+    const comboLabel = comboLabels[s.combo]||s.combo;
+    const artIcon = artifactIcons[s.artifact]||"";
+    const valIcon = validationIcons[s.validation]||"";
     return `
     <article class="study-card">
       <div class="study-topline">
-        <span class="chip chip-${s.sphere.toLowerCase()}">${s.sphere}</span>
-        <span class="chip" style="background:var(--panel);color:var(--ink)">${meta.emoji} ${s.track}</span>
-        <span class="chip subtle">${si} ${s.status.replace("-"," ")}</span>
+        <span class="chip" style="background:color-mix(in srgb,${comboColors[s.combo]||"var(--muted)"} 15%,transparent);color:${comboColors[s.combo]||"var(--ink)"}">${comboLabel}</span>
+        <span class="chip subtle">${artIcon} ${s.artifact}</span>
+        <span class="chip subtle">${valIcon} ${s.validation}</span>
       </div>
-      <h3>${s.id} · ${s.title}</h3>
-      <p>${s.summary}</p>
+      <h3>${s.id}</h3>
+      <p>${s.title}</p>
+      <p style="color:var(--muted);font-size:13px;margin-top:4px">${s.summary}</p>
       <div class="study-meta">
-        <div><strong>Methods:</strong> ${s.methods.join(", ")}</div>
-        <div><strong>Date:</strong> ${s.date}</div>
+        <div><strong>Track:</strong> ${s.track} · <strong>Delivery:</strong> ${s.delivery}</div>
       </div>
       <a href="${s.repo}" target="_blank" rel="noreferrer" class="link-pill">Open Repo →</a>
     </article>`;
@@ -148,7 +184,9 @@ function renderStudies(){
 document.getElementById("searchInput").addEventListener("input",renderStudies);
 document.getElementById("trackFilter").addEventListener("change",renderStudies);
 document.getElementById("sphereFilter").addEventListener("change",()=>{populateFilters();renderStudies();});
-document.getElementById("statusFilter").addEventListener("change",renderStudies);
+document.getElementById("comboFilter").addEventListener("change",renderStudies);
+document.getElementById("artifactFilter").addEventListener("change",renderStudies);
+document.getElementById("validationFilter").addEventListener("change",renderStudies);
 
 renderStats();
 populateFilters();
