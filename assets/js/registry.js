@@ -71,89 +71,120 @@ function renderStats(){
   `;
 }
 
-function getFilteredBase(){
-  const sphere = document.getElementById("sphereFilter").value;
-  return sphere==="all" ? studies : studies.filter(s=>getHomeSphere(s.combo)===sphere);
+function getActiveFilters(exclude){
+  const f = {sphere:document.getElementById("sphereFilter").value,
+    combo:document.getElementById("comboFilter").value,
+    track:document.getElementById("trackFilter").value,
+    artifact:document.getElementById("artifactFilter").value,
+    validation:document.getElementById("validationFilter").value};
+  if(exclude) delete f[exclude];
+  return f;
 }
 
-function populateFilters(){
-  const base = getFilteredBase();
-  const curTrack = document.getElementById("trackFilter").value;
+function applyFilters(arr,filters){
+  return arr.filter(s=>{
+    if(filters.sphere!=="all" && getHomeSphere(s.combo)!==filters.sphere) return false;
+    if(filters.combo!=="all" && s.combo!==filters.combo) return false;
+    if(filters.track!=="all" && s.track!==filters.track) return false;
+    if(filters.artifact!=="all" && s.artifact!==filters.artifact) return false;
+    if(filters.validation!=="all" && s.validation!==filters.validation) return false;
+    return true;
+  });
+}
+
+function populateFilters(changed){
+  const filters = getActiveFilters(changed);
+  const base = applyFilters(studies,filters);
+
+  const curSphere = document.getElementById("sphereFilter").value;
   const curCombo = document.getElementById("comboFilter").value;
+  const curTrack = document.getElementById("trackFilter").value;
   const curArtifact = document.getElementById("artifactFilter").value;
   const curValidation = document.getElementById("validationFilter").value;
 
-  // Track filter — S tracks first, then E, then T
-  const tracks = [...new Set(base.map(s=>s.track))].sort((a,b)=>{
-    const sa=a.match(/^[SET]/)?a[0]:"Z", sb=b.match(/^[SET]/)?b[0]:"Z";
-    if(sa!==sb) return sa<sb?-1:1;
-    return a.localeCompare(b);
-  });
-  const trackSel = document.getElementById("trackFilter");
-  trackSel.innerHTML = '<option value="all">All Tracks</option>';
-  tracks.forEach(t=>{
-    const opt = document.createElement("option");
-    opt.value = t; opt.textContent = t;
-    if(t===curTrack) opt.selected = true;
-    trackSel.appendChild(opt);
-  });
+  // Sphere
+  if(changed!=="sphere"){
+    const spheres = [...new Set(base.map(s=>getHomeSphere(s.combo)))].sort();
+    const sphereSel = document.getElementById("sphereFilter");
+    const prev = spheres.includes(curSphere)?curSphere:"all";
+    sphereSel.innerHTML = '<option value="all">Home sphere</option>';
+    spheres.forEach(sp=>{
+      const opt = document.createElement("option");
+      opt.value = sp; opt.textContent = comboLabels[sp]||sp;
+      if(sp===prev) opt.selected = true;
+      sphereSel.appendChild(opt);
+    });
+  }
 
-  // Combo filter
-  const comboOrder = {"S":0,"E":1,"T":2,"S+T":3,"S+E":4,"S+E+T":5};
-  const combos = [...new Set(base.map(s=>s.combo))].sort((a,b)=>{
-    return (comboOrder[a]??99)-(comboOrder[b]??99);
-  });
-  const comboSel = document.getElementById("comboFilter");
-  comboSel.innerHTML = '<option value="all">All Combos</option>';
-  combos.forEach(c=>{
-    const opt = document.createElement("option");
-    opt.value = c; opt.textContent = comboLabels[c]||c;
-    if(c===curCombo) opt.selected = true;
-    comboSel.appendChild(opt);
-  });
+  // Combo
+  if(changed!=="combo"){
+    const comboOrder = {"S":0,"E":1,"T":2,"S+T":3,"S+E":4,"S+E+T":5};
+    const combos = [...new Set(base.map(s=>s.combo))].sort((a,b)=>(comboOrder[a]??99)-(comboOrder[b]??99));
+    const comboSel = document.getElementById("comboFilter");
+    const prev = combos.includes(curCombo)?curCombo:"all";
+    comboSel.innerHTML = '<option value="all">Hybrid combo</option>';
+    combos.forEach(c=>{
+      const opt = document.createElement("option");
+      opt.value = c; opt.textContent = comboLabels[c]||c;
+      if(c===prev) opt.selected = true;
+      comboSel.appendChild(opt);
+    });
+  }
 
-  // Artifact filter
-  const artifacts = [...new Set(base.map(s=>s.artifact))].sort();
-  const artSel = document.getElementById("artifactFilter");
-  artSel.innerHTML = '<option value="all">All Artifacts</option>';
-  artifacts.forEach(a=>{
-    const opt = document.createElement("option");
-    opt.value = a; opt.textContent = `${artifactIcons[a]||""} ${a}`;
-    if(a===curArtifact) opt.selected = true;
-    artSel.appendChild(opt);
-  });
+  // Track
+  if(changed!=="track"){
+    const tracks = [...new Set(base.map(s=>s.track))].sort((a,b)=>{
+      const sa=a.match(/^[SET]/)?a[0]:"Z", sb=b.match(/^[SET]/)?b[0]:"Z";
+      if(sa!==sb) return sa<sb?-1:1;
+      return a.localeCompare(b);
+    });
+    const trackSel = document.getElementById("trackFilter");
+    const prev = tracks.includes(curTrack)?curTrack:"all";
+    trackSel.innerHTML = '<option value="all">All Tracks</option>';
+    tracks.forEach(t=>{
+      const opt = document.createElement("option");
+      opt.value = t; opt.textContent = t;
+      if(t===prev) opt.selected = true;
+      trackSel.appendChild(opt);
+    });
+  }
 
-  // Validation filter
-  const validations = [...new Set(base.map(s=>s.validation))].sort();
-  const valSel = document.getElementById("validationFilter");
-  valSel.innerHTML = '<option value="all">All Validation</option>';
-  validations.forEach(v=>{
-    const opt = document.createElement("option");
-    opt.value = v; opt.textContent = `${validationIcons[v]||""} ${v}`;
-    if(v===curValidation) opt.selected = true;
-    valSel.appendChild(opt);
-  });
+  // Artifact
+  if(changed!=="artifact"){
+    const artifacts = [...new Set(base.map(s=>s.artifact))].sort();
+    const artSel = document.getElementById("artifactFilter");
+    const prev = artifacts.includes(curArtifact)?curArtifact:"all";
+    artSel.innerHTML = '<option value="all">Artifact type</option>';
+    artifacts.forEach(a=>{
+      const opt = document.createElement("option");
+      opt.value = a; opt.textContent = `${artifactIcons[a]||""} ${a}`;
+      if(a===prev) opt.selected = true;
+      artSel.appendChild(opt);
+    });
+  }
+
+  // Validation
+  if(changed!=="validation"){
+    const validations = [...new Set(base.map(s=>s.validation))].sort();
+    const valSel = document.getElementById("validationFilter");
+    const prev = validations.includes(curValidation)?curValidation:"all";
+    valSel.innerHTML = '<option value="all">Validation</option>';
+    validations.forEach(v=>{
+      const opt = document.createElement("option");
+      opt.value = v; opt.textContent = `${validationIcons[v]||""} ${v}`;
+      if(v===prev) opt.selected = true;
+      valSel.appendChild(opt);
+    });
+  }
 }
 
 function renderStudies(){
   const query = document.getElementById("searchInput").value.toLowerCase();
-  const track = document.getElementById("trackFilter").value;
-  const sphere = document.getElementById("sphereFilter").value;
-  const combo = document.getElementById("comboFilter").value;
-  const artifact = document.getElementById("artifactFilter").value;
-  const validation = document.getElementById("validationFilter").value;
-
-  const filtered = studies.filter(s=>{
-    if(track!=="all" && s.track!==track) return false;
-    if(sphere!=="all" && getHomeSphere(s.combo)!==sphere) return false;
-    if(combo!=="all" && s.combo!==combo) return false;
-    if(artifact!=="all" && s.artifact!==artifact) return false;
-    if(validation!=="all" && s.validation!==validation) return false;
-    if(query){
-      const hay = [s.id,s.title,s.summary,s.combo,s.track,s.artifact,s.validation].join(" ").toLowerCase();
-      if(!hay.includes(query)) return false;
-    }
-    return true;
+  const filters = getActiveFilters();
+  const filtered = applyFilters(studies,filters).filter(s=>{
+    if(!query) return true;
+    const hay = [s.id,s.title,s.summary,s.combo,s.track,s.artifact,s.validation].join(" ").toLowerCase();
+    return hay.includes(query);
   });
 
   const grid = document.getElementById("studyGrid");
@@ -177,19 +208,24 @@ function renderStudies(){
       <p>${s.title}</p>
       <p style="color:var(--muted);font-size:13px;margin-top:4px">${s.summary}</p>
       <div class="study-meta">
-        <div><strong>Track:</strong> ${s.track} · <strong>Delivery:</strong> ${s.delivery}</div>
+        <div><strong>Track:</strong> ${s.track} \u00B7 <strong>Delivery:</strong> ${s.delivery}</div>
       </div>
-      <a href="${s.repo}" target="_blank" rel="noreferrer" class="link-pill">Open Repo →</a>
+      <a href="${s.repo}" target="_blank" rel="noreferrer" class="link-pill">Open Repo \u2192</a>
     </article>`;
   }).join("");
 }
 
+function onFilterChange(which){
+  populateFilters(which);
+  renderStudies();
+}
+
 document.getElementById("searchInput").addEventListener("input",renderStudies);
-document.getElementById("trackFilter").addEventListener("change",renderStudies);
-document.getElementById("sphereFilter").addEventListener("change",()=>{populateFilters();renderStudies();});
-document.getElementById("comboFilter").addEventListener("change",renderStudies);
-document.getElementById("artifactFilter").addEventListener("change",renderStudies);
-document.getElementById("validationFilter").addEventListener("change",renderStudies);
+document.getElementById("sphereFilter").addEventListener("change",()=>onFilterChange("sphere"));
+document.getElementById("comboFilter").addEventListener("change",()=>onFilterChange("combo"));
+document.getElementById("trackFilter").addEventListener("change",()=>onFilterChange("track"));
+document.getElementById("artifactFilter").addEventListener("change",()=>onFilterChange("artifact"));
+document.getElementById("validationFilter").addEventListener("change",()=>onFilterChange("validation"));
 
 renderStats();
 populateFilters();
