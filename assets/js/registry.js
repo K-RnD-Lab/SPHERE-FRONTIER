@@ -251,6 +251,9 @@ function renderStudies(){
 }
 
 function onFilterChange(which){
+  // Reset other filters to "all" to avoid empty intersections
+  const ids = {sphere:"sphereFilter",combo:"comboFilter",track:"trackFilter",artifact:"artifactFilter",validation:"validationFilter"};
+  Object.keys(ids).forEach(k=>{if(k!==which) document.getElementById(ids[k]).value="all";});
   populateFilters(which);
   renderStudies();
 }
