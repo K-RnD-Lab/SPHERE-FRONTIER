@@ -50,9 +50,9 @@ const studies = [
 ];
 
 const comboColors = {"S":"var(--science)","E":"var(--entrepreneurship)","T":"var(--technology)","S+T":"var(--technology)","S+E":"var(--entrepreneurship)","S+E+T":"var(--accent)"};
-const comboLabels = {"S":"🩺 Science","E":"💼 Entrepreneurship","T":"⚙️ Technology","S+T":"🩺+⚙️","S+E":"🩺+💼","S+E+T":"🩺+💼+⚙️"};
-const artifactIcons = {"Repository":"📦","Lane":"🛤️","Hypothesis":"💡","Research Tool":"🔧","Venture Case":"📈","Public Case":"📋","Tool":"🛠️","Scoring System":"📊","Dashboard":"🖥️"};
-const validationIcons = {"Taxonomy":"🏷️","Exploratory":"🔬","Prototype":"🧪","Scaffold":"🏗️","Active Case":"✅","Live":"🟢","Live Prototype":"🟢"};
+const comboLabels = {"S":"\u{1FA7A} Science","E":"\u{1F4BC} Entrepreneurship","T":"\u{1F4BB} Technology","S+T":"\u{1FA7A}+\u{1F4BB}","S+E":"\u{1FA7A}+\u{1F4BC}","S+E+T":"\u{1FA7A}+\u{1F4BC}+\u{1F4BB}"};
+const artifactIcons = {"Repository":"\u{1F4E6}","Lane":"\u{1F6E4}\uFE0F","Hypothesis":"\u{1F4A1}","Research Tool":"\u{1F527}","Venture Case":"\u{1F4C8}","Public Case":"\u{1F4CB}","Tool":"\u{1F6E0}\uFE0F","Scoring System":"\u{1F4CA}","Dashboard":"\u{1F5A5}\uFE0F"};
+const validationIcons = {"Taxonomy":"\u{1F3F7}\uFE0F","Exploratory":"\u{1F52C}","Prototype":"\u{1F9EA}","Scaffold":"\u{1F3D7}\uFE0F","Active Case":"\u2705","Live":"\u{1F7E2}","Live Prototype":"\u{1F7E2}"};
 
 function getHomeSphere(combo){return combo.split("+")[0]}
 function getSphereEntries(sphere){return studies.filter(s=>getHomeSphere(s.combo)===sphere)}
@@ -64,10 +64,10 @@ function renderStats(){
   const hybrids = studies.filter(s=>s.combo.includes("+")).length;
   document.getElementById("statsRow").innerHTML = `
     <div class="stat-card science"><div class="stat-value">${studies.length}</div><div class="stat-label">Total entries</div></div>
-    <div class="stat-card"><div class="stat-value">${sCount}</div><div class="stat-label">🩺 Science</div></div>
-    <div class="stat-card"><div class="stat-value">${eCount}</div><div class="stat-label">💼 Entrepreneurship</div></div>
-    <div class="stat-card"><div class="stat-value">${tCount}</div><div class="stat-label">⚙️ Technology</div></div>
-    <div class="stat-card"><div class="stat-value">${hybrids}</div><div class="stat-label">� Hybrid lanes</div></div>
+    <div class="stat-card"><div class="stat-value">${sCount}</div><div class="stat-label">\u{1FA7A} Science</div></div>
+    <div class="stat-card"><div class="stat-value">${eCount}</div><div class="stat-label">\u{1F4BC} Entrepreneurship</div></div>
+    <div class="stat-card"><div class="stat-value">${tCount}</div><div class="stat-label">\u{1F4BB} Technology</div></div>
+    <div class="stat-card"><div class="stat-value">${hybrids}</div><div class="stat-label">\u{1F517} Hybrid lanes</div></div>
   `;
 }
 
