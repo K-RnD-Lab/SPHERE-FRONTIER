@@ -35,13 +35,35 @@ function renderStats(){
   `;
 }
 
-function populateDomainFilter(){
-  const domains = [...new Set(studies.map(s=>s.domain))].sort();
-  const sel = document.getElementById("domainFilter");
+function getFilteredBase(){
+  const sphere = document.getElementById("sphereFilter").value;
+  return sphere==="all" ? studies : studies.filter(s=>s.sphere===sphere);
+}
+
+function populateFilters(){
+  const base = getFilteredBase();
+  const curDomain = document.getElementById("domainFilter").value;
+  const curStatus = document.getElementById("statusFilter").value;
+
+  const domains = [...new Set(base.map(s=>s.domain))].sort();
+  const statuses = [...new Set(base.map(s=>s.status))].sort();
+
+  const domainSel = document.getElementById("domainFilter");
+  domainSel.innerHTML = '<option value="all">All Domains</option>';
   domains.forEach(d=>{
     const opt = document.createElement("option");
     opt.value = d; opt.textContent = d;
-    sel.appendChild(opt);
+    if(d===curDomain) opt.selected = true;
+    domainSel.appendChild(opt);
+  });
+
+  const statusSel = document.getElementById("statusFilter");
+  statusSel.innerHTML = '<option value="all">All Statuses</option>';
+  statuses.forEach(st=>{
+    const opt = document.createElement("option");
+    opt.value = st; opt.textContent = st.replace("-"," ");
+    if(st===curStatus) opt.selected = true;
+    statusSel.appendChild(opt);
   });
 }
 
@@ -91,9 +113,9 @@ function renderStudies(){
 
 document.getElementById("searchInput").addEventListener("input",renderStudies);
 document.getElementById("domainFilter").addEventListener("change",renderStudies);
-document.getElementById("sphereFilter").addEventListener("change",renderStudies);
+document.getElementById("sphereFilter").addEventListener("change",()=>{populateFilters();renderStudies();});
 document.getElementById("statusFilter").addEventListener("change",renderStudies);
 
 renderStats();
-populateDomainFilter();
+populateFilters();
 renderStudies();
