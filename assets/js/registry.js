@@ -92,6 +92,39 @@ function applyFilters(arr,filters){
   });
 }
 
+function initFilters(){
+  const sphereOrder = {"S":0,"E":1,"T":2};
+  const comboOrder = {"S":0,"E":1,"T":2,"S+T":3,"S+E":4,"S+E+T":5};
+
+  const spheres = [...new Set(studies.map(s=>getHomeSphere(s.combo)))].sort((a,b)=>(sphereOrder[a]??99)-(sphereOrder[b]??99));
+  const sphereSel = document.getElementById("sphereFilter");
+  sphereSel.innerHTML = '<option value="all">Home sphere</option>';
+  spheres.forEach(sp=>{const o=document.createElement("option");o.value=sp;o.textContent=comboLabels[sp]||sp;sphereSel.appendChild(o);});
+
+  const combos = [...new Set(studies.map(s=>s.combo))].sort((a,b)=>(comboOrder[a]??99)-(comboOrder[b]??99));
+  const comboSel = document.getElementById("comboFilter");
+  comboSel.innerHTML = '<option value="all">Hybrid combo</option>';
+  combos.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=comboLabels[c]||c;comboSel.appendChild(o);});
+
+  const tracks = [...new Set(studies.map(s=>s.track))].sort((a,b)=>{
+    const sa=a.match(/^[SET]/)?a[0]:"Z",sb=b.match(/^[SET]/)?b[0]:"Z";
+    if(sa!==sb)return sa<sb?-1:1;return a.localeCompare(b);
+  });
+  const trackSel = document.getElementById("trackFilter");
+  trackSel.innerHTML = '<option value="all">All Tracks</option>';
+  tracks.forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;trackSel.appendChild(o);});
+
+  const artifacts = [...new Set(studies.map(s=>s.artifact))].sort();
+  const artSel = document.getElementById("artifactFilter");
+  artSel.innerHTML = '<option value="all">Artifact type</option>';
+  artifacts.forEach(a=>{const o=document.createElement("option");o.value=a;o.textContent=`${artifactIcons[a]||""} ${a}`;artSel.appendChild(o);});
+
+  const validations = [...new Set(studies.map(s=>s.validation))].sort();
+  const valSel = document.getElementById("validationFilter");
+  valSel.innerHTML = '<option value="all">Validation</option>';
+  validations.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=`${validationIcons[v]||""} ${v}`;valSel.appendChild(o);});
+}
+
 function populateFilters(changed){
   const filters = getActiveFilters(changed);
   const base = applyFilters(studies,filters);
@@ -102,9 +135,12 @@ function populateFilters(changed){
   const curArtifact = document.getElementById("artifactFilter").value;
   const curValidation = document.getElementById("validationFilter").value;
 
+  const sphereOrder = {"S":0,"E":1,"T":2};
+  const comboOrder = {"S":0,"E":1,"T":2,"S+T":3,"S+E":4,"S+E+T":5};
+
   // Sphere
   if(changed!=="sphere"){
-    const spheres = [...new Set(base.map(s=>getHomeSphere(s.combo)))].sort();
+    const spheres = [...new Set(base.map(s=>getHomeSphere(s.combo)))].sort((a,b)=>(sphereOrder[a]??99)-(sphereOrder[b]??99));
     const sphereSel = document.getElementById("sphereFilter");
     const prev = spheres.includes(curSphere)?curSphere:"all";
     sphereSel.innerHTML = '<option value="all">Home sphere</option>';
@@ -118,7 +154,6 @@ function populateFilters(changed){
 
   // Combo
   if(changed!=="combo"){
-    const comboOrder = {"S":0,"E":1,"T":2,"S+T":3,"S+E":4,"S+E+T":5};
     const combos = [...new Set(base.map(s=>s.combo))].sort((a,b)=>(comboOrder[a]??99)-(comboOrder[b]??99));
     const comboSel = document.getElementById("comboFilter");
     const prev = combos.includes(curCombo)?curCombo:"all";
@@ -228,5 +263,5 @@ document.getElementById("artifactFilter").addEventListener("change",()=>onFilter
 document.getElementById("validationFilter").addEventListener("change",()=>onFilterChange("validation"));
 
 renderStats();
-populateFilters();
+initFilters();
 renderStudies();
