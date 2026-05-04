@@ -1,0 +1,27 @@
+Q["Tech Literacy"]=[
+{q:"What is an operating system?",opts:["A hardware component","Software managing hardware and software resources","A programming language","A database"],ans:1},
+{q:"What is cloud computing?",opts:["Weather prediction","On-demand computing resources over the internet","Local server management","A programming paradigm"],ans:1},
+{q:"What is open source software?",opts:["Free but closed","Software with source code freely available to use, modify, distribute","Government software","Trial software"],ans:1},
+{q:"What is a browser?",opts:["A search engine","Application for accessing and viewing websites","An operating system","A server"],ans:1},
+{q:"What is an IP address?",opts:["A password","Unique identifier for a device on a network","A website name","A protocol"],ans:1},
+{q:"What is the difference between hardware and software?",opts:["Same thing","Hardware=physical components, Software=programs and instructions","Software is physical","Hardware is code"],ans:1},
+{q:"What is a firewall?",opts:["Physical wall","Network security system filtering traffic","Heating system","Data storage"],ans:1},
+{q:"What is encryption?",opts:["Deleting data","Converting data to unreadable form for protection","Compressing files","Speeding up network"],ans:1},
+{q:"What is a domain name?",opts:["IP address","Human-readable website address (e.g., google.com)","Server location","Password"],ans:1},
+{q:"What is a cookie in web browsing?",opts:["A snack","Small data file stored by browser for user preferences","A virus","A server type"],ans:1},
+{q:"What is bandwidth?",opts:["Band width","Maximum data transfer rate of a network","Storage capacity","Signal strength"],ans:1},
+{q:"What is a processor/CPU?",opts:["Storage device","Central unit executing program instructions","Display unit","Network device"],ans:1},
+{q:"What is RAM?",opts:["Permanent storage","Volatile memory for active data and programs","A processor","A network protocol"],ans:1},
+{q:"What is phishing?",opts:["Fishing sport","Deceptive attempt to obtain sensitive information","Firewall feature","Encryption method"],ans:1},
+{q:"What is two-factor authentication?",opts:["Two passwords","Security requiring two different verification factors","Double login","Password rotation"],ans:1}];
+Q["Digital Ethics"]=[
+{q:"What is digital privacy?",opts:["Hiding devices","Right to control personal data and online presence","Being offline","Encryption only"],ans:1},
+{q:"What is GDPR?",opts:["A programming language","EU regulation protecting personal data and privacy","A database","A protocol"],ans:1},
+{q:"What is algorithmic bias?",opts:["Algorithm speed","Systematic unfairness in algorithmic decisions due to biased data","Algorithm complexity","Debugging method"],ans:1},
+{q:"What is digital divide?",opts:["Screen split","Gap between those with and without access to technology","Digital art","Code separation"],ans:1},
+{q:"What is intellectual property in tech?",opts:["Computer hardware","Legal rights protecting creations: patents, copyrights, trademarks","Open source code","Public domain"],ans:1},
+{q:"What is net neutrality?",opts:["Network speed","Principle that ISPs treat all data equally without discrimination","Network security","Protocol standard"],ans:1},
+{q:"What is data minimization?",opts:["Reducing file size","Collecting only necessary personal data for a purpose","Deleting all data","Compressing data"],ans:1},
+{q:"What is AI transparency?",opts:["Clear AI code","Ability to understand and explain how AI systems make decisions","Open source AI","AI visibility"],ans:1},
+{q:"What is consent in data collection?",opts:["Agreement to terms","Informed, freely given permission for data use","Default acceptance","Legal requirement only"],ans:1},
+{q:"What is a data breach?",opts:["Data improvement","Unauthorized access to sensitive data","Data compression","Data migration"],ans:1}];

@@ -1,0 +1,35 @@
+const Q={
+"Biology":[
+{q:"What organelle produces energy?",opts:["Nucleus","Mitochondria","Golgi","Ribosome"],ans:1},
+{q:"Basic unit of heredity?",opts:["Protein","Gene","Cell","Chromosome"],ans:1},
+{q:"Molecule carrying genetic info?",opts:["RNA","DNA","Protein","Lipid"],ans:1},
+{q:"Glucose to ATP without oxygen?",opts:["Aerobic resp","Fermentation","Photosynthesis","Osmosis"],ans:1},
+{q:"Natural selection means?",opts:["Random mutation","Survival of favorable traits","Breeding","Drift"],ans:1},
+{q:"Mushrooms belong to?",opts:["Plantae","Animalia","Fungi","Protista"],ans:2},
+{q:"Ribosomes do?",opts:["Energy","Protein synthesis","DNA copy","Division"],ans:1},
+{q:"Osmosis is?",opts:["Active transport","Water across membrane","Protein build","Division"],ans:1},
+{q:"DNA strands held by?",opts:["Covalent","Hydrogen","Ionic","Metallic"],ans:1},
+{q:"Mutation is?",opts:["DNA change","Protein fold","Cell type","Pathway"],ans:0}],
+"Chemistry":[
+{q:"pH of neutral?",opts:["0","7","14","1"],ans:1},
+{q:"Bond sharing electrons?",opts:["Ionic","Covalent","Metallic","Hydrogen"],ans:1},
+{q:"Avogadro number?",opts:["6.022e23","3.14e23","1.6e-19","9.8e24"],ans:0},
+{q:"Exothermic = ?",opts:["Absorbs heat","Releases heat","No change","Nuclear"],ans:1},
+{q:"Water formula?",opts:["HO","H2O","H2O2","OH2"],ans:1},
+{q:"Catalyst does?",opts:["Is reactant","Speeds reaction, not consumed","Inhibits","Is product"],ans:1},
+{q:"Electronegativity?",opts:["Electron count","Atom attracting electrons","Mass","Ion size"],ans:1},
+{q:"Isotope: same element, different?",opts:["Protons","Neutrons","Electrons","Charge"],ans:1},
+{q:"Oxidation = ?",opts:["Gain electrons","Lose electrons","No change","Gain protons"],ans:1},
+{q:"Mole measures?",opts:["Animal","Amount of substance","Molecule type","Pressure"],ans:1}],
+"Physics":[
+{q:"Newton's 2nd law?",opts:["F=ma","E=mc2","F=mg","PV=nRT"],ans:0},
+{q:"Speed of light?",opts:["3e6","3e8","3e10","3e4 m/s"],ans:1},
+{q:"Kinetic energy = ?",opts:["Position","Motion","Thermal","Nuclear"],ans:1},
+{q:"Ohm's law?",opts:["V=IR","F=ma","P=VI","E=hv"],ans:0},
+{q:"Resistance unit?",opts:["Volt","Ampere","Ohm","Watt"],ans:2},
+{q:"1st thermodynamics law?",opts:["Energy conserved","Entropy up","Abs zero","Equal reaction"],ans:0},
+{q:"Refraction = ?",opts:["Bouncing","Bending light between media","Absorption","Scattering"],ans:1},
+{q:"Earth g ~?",opts:["5.8","9.8","12.8","1.6 m/s2"],ans:1},
+{q:"Doppler effect?",opts:["Freq change from motion","Interference","Diffraction","Polarization"],ans:0},
+{q:"Entropy measures?",opts:["Order","Disorder","Energy","Force"],ans:1}]
+};

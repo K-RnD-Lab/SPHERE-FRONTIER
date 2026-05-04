@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Master Training — K R&D Lab</title>
+  <link rel="stylesheet" href="./assets/css/rnd-lab.css">
+  <style>
+    .sphere-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+    .sphere-card{background:var(--card-bg);border:1px solid var(--line);border-radius:22px;padding:22px;cursor:pointer;transition:all .15s;text-align:center}
+    .sphere-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .sphere-card.active{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+    .sphere-card .icon{font-size:42px;margin-bottom:8px}
+    .sphere-card h3{margin:0 0 4px;font-size:16px}
+    .sphere-card .sub{font-size:13px;color:var(--muted)}
+    .s-card{border-left:4px solid var(--science)}.e-card{border-left:4px solid var(--entrepreneurship)}.t-card{border-left:4px solid var(--technology)}
+    .level-tabs,.mode-tabs,.analytics-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+    .level-tabs button,.mode-tabs button,.analytics-tabs button{border:1px solid var(--line);border-radius:999px;padding:6px 16px;font-size:13px;cursor:pointer;background:var(--card-bg);color:var(--ink);transition:all .15s}
+    .level-tabs button.active,.mode-tabs button.active,.analytics-tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .q-card{background:var(--card-bg);border:1px solid var(--line);border-radius:18px;padding:22px}
+    .q-card h3{margin:0 0 16px;font-size:17px;line-height:1.5}
+    .q-options{display:flex;flex-direction:column;gap:8px}
+    .q-opt{padding:12px 16px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:14px;transition:all .12s}
+    .q-opt:hover{border-color:var(--accent)}
+    .q-opt.selected{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
+    .q-opt.correct{border-color:#22c55e;background:rgba(34,197,94,.08);cursor:default}
+    .q-opt.wrong{border-color:#ef4444;background:rgba(239,68,68,.08);cursor:default}
+    .q-opt.reveal{opacity:.5;cursor:default}
+    .stat-pill{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;font-size:13px;margin:2px}
+    .stat-pill .val{font-weight:700}
+    .readiness{font-weight:700;font-size:15px}
+    .readiness.high{color:#22c55e}.readiness.medium{color:#eab308}.readiness.low{color:#ef4444}
+    .acc-bar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:6px}
+    .acc-bar .fill{height:100%;border-radius:999px;transition:width .3s}
+    .link-pill{display:inline-block;padding:4px 14px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--ink);text-decoration:none;transition:all .12s}
+    .link-pill:hover{border-color:var(--accent);color:var(--accent)}
+    .trainer-grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    @media(max-width:768px){.trainer-grid{grid-template-columns:1fr}}
+    .side-panel{display:flex;flex-direction:column;gap:14px}
+    .side-panel section{background:var(--card-bg);border:1px solid var(--line);border-radius:16px;padding:16px}
+    .side-panel h4{margin:0 0 8px;font-size:14px}
+    .side-panel a{display:block;font-size:13px;margin:4px 0;color:var(--technology)}
+    #sessionEnd{text-align:center;padding:40px 20px}
+    #sessionEnd h2{font-size:28px;margin:0 0 8px}
+    #finalScore{font-size:64px;font-weight:800}
+    select{padding:6px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card-bg);color:var(--ink);font-size:13px}
+    label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+  <script>const th=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",th);document.getElementById("themeToggle").textContent=th==="dark"?"☀️":"🌙";</script>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow" data-i18n="eyebrow">K R&D Lab / S7-I-R1 / 🎓 Master Training</p>
+      <h1 data-i18n="title">Master Training</h1>
+      <p class="lede" data-i18n="lede">🤝 You've got this. Pick your sphere — 🩺 Science, 💼 Entrepreneurship, 💻 Technology — and train alongside the community.</p>
+      <div class="hero-links">
+        <a href="./training-analytics.html" class="link-pill">← Analytics</a>
+        <a href="./index.html" class="link-pill">R&D Lab</a>
+      </div>
+    </section>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0">
+      <label><span data-i18n="uiLang">Interface language</span>
+        <select id="uiLang"><option value="ua">Українська</option><option value="en">English</option></select>
+      </label>
+      <label><span data-i18n="qLang">Question language</span>
+        <select id="qLang" disabled><option value="en" selected>English</option></select>
+      </label>
+    </div>
+
+    <section id="sphereSection">
+      <div class="sphere-cards">
+        <div class="sphere-card s-card" data-sphere="S">
+          <div class="icon">🩺</div>
+          <h3>Science</h3>
+          <div class="sub" data-i18n="subS">🔬 Biology, chemistry, physics, medicine, ecology</div>
+        </div>
+        <div class="sphere-card e-card" data-sphere="E">
+          <div class="icon">💼</div>
+          <h3>Entrepreneurship</h3>
+          <div class="sub" data-i18n="subE">📈 Management, marketing, finance, venture, innovation</div>
+        </div>
+        <div class="sphere-card t-card" data-sphere="T">
+          <div class="icon">💻</div>
+          <h3>Technology</h3>
+          <div class="sub" data-i18n="subT">🛠️ Programming, AI, systems, security, DevOps</div>
+        </div>
+      </div>
+      <div class="level-tabs" id="levelTabs">
+        <button data-level="bachelor" class="active">Bachelor</button>
+        <button data-level="master">Master</button>
+      </div>
+    </section>
+
+    <section id="msgBox" style="text-align:center;padding:32px">
+      <h2 data-i18n="msgTitle">Your trainer is right here.</h2>
+      <p data-i18n="msgBody">Pick a sphere and level — let's start together. You've got this!</p>
+    </section>
+
+    <div id="trainerMain" class="trainer-grid" style="display:none">
+      <div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+          <select id="subjectFilter"></select>
+          <div class="mode-tabs">
+            <button data-mode="practice" class="active" data-i18n="practice">Practice</button>
+            <button data-mode="simulation" data-i18n="simulation">Simulation</button>
+          </div>
+        </div>
+        <div id="questionArea"></div>
+        <div id="qNav" style="display:flex;gap:8px;margin-top:12px">
+          <button id="prevBtn" class="link-pill">← <span data-i18n="back">Back</span></button>
+          <span id="qCounter" style="font-size:13px;color:var(--muted);align-self:center"></span>
+          <button id="nextBtn" class="link-pill"><span data-i18n="next">Next</span> →</button>
+        </div>
+        <div style="margin-top:12px" id="sessionStats"></div>
+        <div style="margin-top:8px">
+          <span data-i18n="readiness" style="font-size:13px;color:var(--muted)">Readiness signal</span>
+          <span id="readinessValue" class="readiness low">New</span>
+          <div class="acc-bar" style="margin-top:4px"><div id="readinessBar" class="fill" style="width:10%;background:#ef4444"></div></div>
+        </div>
+      </div>
+      <div class="side-panel">
+        <section>
+          <h4 data-i18n="resources">Resources</h4>
+          <div id="resourceLinks"></div>
+        </section>
+        <section>
+          <h4>Analytics</h4>
+          <div class="analytics-tabs">
+            <button data-type="descriptive" class="active" data-i18n="desc">Descriptive</button>
+            <button data-type="diagnostic" data-i18n="diag">Diagnostic</button>
+            <button data-type="prescriptive" data-i18n="presc">Prescriptive</button>
+            <button data-type="predictive" data-i18n="pred">Predictive</button>
+          </div>
+          <h5 id="chartTitle" style="margin:8px 0 4px;font-size:13px;color:var(--muted)"></h5>
+          <canvas id="mainChart" style="width:100%;height:180px"></canvas>
+          <h5 style="margin:12px 0 4px;font-size:13px;color:var(--muted)" data-i18n="sharedTitle">Shared progress</h5>
+          <canvas id="sharedChart" style="width:100%;height:180px"></canvas>
+        </section>
+      </div>
+    </div>
+
+    <div id="sessionEnd" style="display:none">
+      <h2 data-i18n="endTitle">Session complete!</h2>
+      <p data-i18n="endGreat" style="font-size:18px;color:var(--accent)">You did great!</p>
+      <div id="finalScore">0%</div>
+      <div id="finalStats" style="margin:12px 0"></div>
+      <p data-i18n="endMsg" style="color:var(--muted);font-size:14px">Every session is a step forward. Keep going!</p>
+      <button onclick="location.reload()" class="link-pill" style="margin-top:12px" data-i18n="newSession">New Session</button>
+      <a href="./training-analytics.html" class="link-pill" style="margin-top:8px">📊 View Analytics →</a>
+    </div>
+  </main>
+
+  <script src="./assets/js/trainer/questions.js"></script>
+  <script src="./assets/js/trainer/q1.js"></script><script src="./assets/js/trainer/q2.js"></script><script src="./assets/js/trainer/q3.js"></script>
+  <script src="./assets/js/trainer/q4.js"></script><script src="./assets/js/trainer/q5.js"></script><script src="./assets/js/trainer/q6.js"></script>
+  <script src="./assets/js/trainer/q7.js"></script><script src="./assets/js/trainer/q8.js"></script><script src="./assets/js/trainer/q9.js"></script>
+  <script src="./assets/js/trainer/q10.js"></script><script src="./assets/js/trainer/q11.js"></script><script src="./assets/js/trainer/q12.js"></script><script src="./assets/js/trainer/q13.js"></script>
+  <script src="./assets/js/trainer/resources.js"></script>
+  <script src="./assets/js/trainer/trainer.js"></script>
+  <script>document.getElementById("themeToggle").addEventListener("click",function(){const c=this.textContent==="🌙"?"dark":"light";document.documentElement.setAttribute("data-theme",c);localStorage.setItem("theme",c);this.textContent=c==="dark"?"☀️":"🌙";});</script>
+</body>
+</html>
