@@ -1,18 +1,13 @@
-// Exam blocks for Ukrainian UCEQA — TZNK + English as exam blocks, IT by SET spheres
+// Universal SET structure — 3 spheres, Technology has subcategories
+// TZNK exam = Science sphere, English = cross-cutting priority
 const SPHERES={
-  tznk:{name:"TZNK",icon:"\u{1FA7A}",color:"var(--science)",
+  S:{name:"Science",icon:"\u{1FA7A}",color:"var(--science)",exam:"TZNK",
     bachelor:["Biology","Chemistry","Physics","Math","Logic"],
     master:["Molecular Biology","Biochemistry","Biophysics","Statistics","Logic"]},
-  english:{name:"English",icon:"\u{1F1EC}\u{1F1E7}",color:"var(--entrepreneurship)",
-    bachelor:["Reading","Grammar","Vocabulary","Listening"],
-    master:["Academic Reading","Advanced Grammar","Academic Writing","Listening"]},
-  "it-science":{name:"IT \u00b7 Science",icon:"\u{1FA7A}",color:"var(--science)",
-    bachelor:["Bioinformatics","Scientific Computing","Data Analysis"],
-    master:["Computational Biology","Bioinformatics Engineering"]},
-  "it-entrepreneurship":{name:"IT \u00b7 Entrepreneurship",icon:"\u{1F4BC}",color:"var(--entrepreneurship)",
-    bachelor:["Digital Marketing","ERP Systems","Business Analytics"],
-    master:["Strategic Leadership","Venture Finance","Innovation Mgmt"]},
-  "it-technology":{name:"IT \u00b7 Technology",icon:"\u{1F4BB}",color:"var(--technology)",
-    bachelor:["Programming","Algorithms","Databases","Networking","Tech Literacy"],
+  E:{name:"Entrepreneurship",icon:"\u{1F4BC}",color:"var(--entrepreneurship)",
+    bachelor:["Management","Marketing","Finance","Economics","English"],
+    master:["Strategic Leadership","Innovation Mgmt","Venture Finance","Behavioral Econ","English"]},
+  T:{name:"Technology",icon:"\u{1F4BB}",color:"var(--technology)",
+    bachelor:["Programming","Algorithms","Databases","Networking","Tech Literacy","AI/ML Basics"],
     master:["AI/ML Engineering","Software Systems","Data Science","Cybersecurity","Digital Ethics"]}
 };
