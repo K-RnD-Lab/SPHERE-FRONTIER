@@ -45,6 +45,17 @@
     #finalScore{font-size:64px;font-weight:800}
     select{padding:6px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card-bg);color:var(--ink);font-size:13px}
     label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+    label.dimmed{opacity:.45;pointer-events:none}
+    label.dimmed select{cursor:not-allowed}
+    #startScreen{text-align:center;padding:40px 20px}
+    #startScreen h2{font-size:22px;margin:0 0 8px}
+    #startScreen p{color:var(--muted);font-size:14px;margin:0 0 16px}
+    .start-btn{display:inline-block;padding:12px 32px;border:2px solid var(--accent);border-radius:999px;font-size:16px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff;transition:all .15s}
+    .start-btn:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+    #timerBar{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:8px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card-bg);font-size:14px}
+    #timerBar .timer-icon{font-size:18px}
+    #timerBar .timer-value{font-weight:700;font-variant-numeric:tabular-nums}
+    #timerBar .timer-label{color:var(--muted);font-size:12px}
   </style>
 </head>
 <body>
@@ -65,8 +76,8 @@
       <label><span data-i18n="uiLang">Interface language</span>
         <select id="uiLang"><option value="ua">Українська</option><option value="en">English</option></select>
       </label>
-      <label><span data-i18n="qLang">Question language</span>
-        <select id="qLang" disabled><option value="en" selected>English</option></select>
+      <label class="dimmed"><span data-i18n="qLang">Question language</span>
+        <select id="qLang" disabled><option value="en" selected>English (only)</option></select>
       </label>
     </div>
 
@@ -99,8 +110,19 @@
       <p data-i18n="msgBody">Pick a sphere and level — let's start together. You've got this!</p>
     </section>
 
+    <section id="startScreen" style="display:none">
+      <h2 id="startTitle">Ready to begin?</h2>
+      <p id="startDesc">Practice: 10 questions at your own pace. Simulation: timed exam format.</p>
+      <button class="start-btn" id="startBtn">Start Session</button>
+    </section>
+
     <div id="trainerMain" class="trainer-grid" style="display:none">
       <div>
+        <div id="timerBar" style="display:none">
+          <span class="timer-icon">⏱</span>
+          <span class="timer-value" id="timerValue">00:00</span>
+          <span class="timer-label" id="timerLabel">elapsed</span>
+        </div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
           <select id="subjectFilter"></select>
           <div class="mode-tabs">

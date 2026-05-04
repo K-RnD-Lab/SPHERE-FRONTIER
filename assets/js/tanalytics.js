@@ -7,8 +7,20 @@ const APPS_SCRIPT="https://script.google.com/macros/s/AKfycbzDJy4ysMJpXiDXI1_nwZ
 let allSessions=[];
 
 function v(val){if(typeof val==="object"&&val!==null)return val.f||val.v||"";return val||"";}
-function sphereLabel(s){return{s:"🩺 Science",e:"💼 Entrepreneurship",t:"💻 Technology",tznk:"🩺 TZNK",english:"🇬🇧 English",it:"💻 IT"}[s]||s;}
+
+// Subject → sphere + display label
+const SUBJECT_MAP={
+  tznk:{sphere:"S",label:"🩺 TZNK",cls:"science"},
+  english:{sphere:"E",label:"🇬🇧 English",cls:"entrepreneurship"},
+  it:{sphere:"T",label:"💻 IT",cls:"technology"},
+  // Legacy localStorage format
+  S:{sphere:"S",label:"🩺 Science",cls:"science"},
+  E:{sphere:"E",label:"💼 Entrepreneurship",cls:"entrepreneurship"},
+  T:{sphere:"T",label:"💻 Technology",cls:"technology"},
+};
+function subjectInfo(s){return SUBJECT_MAP[(s||"").toLowerCase()]||{sphere:"?",label:s||"Unknown",cls:"technology"};}
 function accColor(a){return a>=80?"#22c55e":a>=60?"#eab308":"#ef4444";}
+function modeLabel(m){const c=(m||"").toLowerCase();return c.includes("sim")?"Simulation":"Practice";}
 
 /* ── Tabs ── */
 document.querySelectorAll("#tabbar button").forEach(b=>{
@@ -35,10 +47,11 @@ async function loadSessions(){
       const fromGviz=rows.map(r=>{
         const c=r.c;
         return{
-          date:v(c[1]),subject:v(c[2]),mode:v(c[4]),
+          id:v(c[0]),date:v(c[1]),subject:v(c[2]),platform:v(c[3]),mode:v(c[4]),
+          sourceGroup:v(c[5]),isInternal:v(c[6]),
           total:parseInt(v(c[7]))||0,correct:parseInt(v(c[8]))||0,
           accuracy:parseInt(v(c[9]))||0,minutes:parseInt(v(c[10]))||0,
-          predicted:parseInt(v(c[12]))||0,label:v(c[11]),log:[]
+          label:v(c[11]),predicted:parseInt(v(c[12]))||0,log:[]
         };
       }).filter(s=>s.date&&s.total>0);
       sessions=fromGviz;
@@ -62,8 +75,11 @@ async function loadSessions(){
   // 3. Merge localStorage
   try{
     const local=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
-    const existing=new Set(sessions.map(s=>s.date));
-    local.forEach(s=>{if(!existing.has(s.date))sessions.push(s);});
+    const existing=new Set(sessions.map(s=>s.id||s.date));
+    local.forEach(s=>{
+      const key=s.id||s.date;
+      if(!existing.has(key))sessions.push(s);
+    });
   }catch(e){}
 
   return sessions.sort((a,b)=>new Date(b.date)-new Date(a.date));
@@ -75,7 +91,7 @@ function renderStats(sessions){
   const avg=n?Math.round(sessions.reduce((s,x)=>s+(x.accuracy||0),0)/n):0;
   const totQ=sessions.reduce((s,x)=>s+(x.total||0),0);
   const totMin=sessions.reduce((s,x)=>s+(x.minutes||0),0);
-  const best=Math.max(...sessions.map(s=>s.accuracy||0),0);
+  const best=n?Math.max(...sessions.map(s=>s.accuracy||0)):0;
   document.getElementById("aggStats").innerHTML=`
     <div class="stat-card"><div class="stat-value">${n}</div><div class="stat-label">Sessions</div></div>
     <div class="stat-card science"><div class="stat-value">${avg}%</div><div class="stat-label">Avg Accuracy</div></div>
@@ -88,7 +104,7 @@ function renderStats(sessions){
 function renderGoals(sessions){
   const bySub={};
   sessions.forEach(s=>{
-    const sp=s.subject||"?";
+    const sp=s.subject||"unknown";
     if(!bySub[sp])bySub[sp]={c:0,t:0,mins:0,n:0};
     bySub[sp].c+=s.correct||0;bySub[sp].t+=s.total||0;
     bySub[sp].mins+=s.minutes||0;bySub[sp].n++;
@@ -98,10 +114,10 @@ function renderGoals(sessions){
     grid.innerHTML='<p style="color:var(--muted);font-size:14px">No sessions yet.</p>';return;
   }
   grid.innerHTML=Object.entries(bySub).map(([sp,d])=>{
+    const info=subjectInfo(sp);
     const acc=d.t?Math.round(d.c/d.t*100):0;
-    const cls=sp==="tznk"||sp==="S"?"science":sp==="english"||sp==="E"?"entrepreneurship":"technology";
-    return `<div class="goal-card" style="border-left:4px solid var(--${cls})">
-      <div class="label">${sphereLabel(sp)}</div>
+    return `<div class="goal-card" style="border-left:4px solid var(--${info.cls})">
+      <div class="label">${info.label}</div>
       <div class="value" style="color:${accColor(acc)}">${acc}%</div>
       <div class="sub">${d.c}/${d.t} correct · ${d.n} sessions · ${d.mins} min</div>
     </div>`;
@@ -119,8 +135,8 @@ function renderInsights(sessions){
   const simCount=sessions.filter(s=>(s.mode||"").includes("sim")).length;
   const insights=[
     {icon:"🎯",title:"Average accuracy",text:`${Math.round(avg)}% across ${sessions.length} sessions`},
-    {icon:"✅",title:"Strongest subject",text:`${sphereLabel(bestSub.name)} at ${bestSub.acc}%`},
-    {icon:"⚠️",title:"Needs work",text:`${sphereLabel(worstSub.name)} at ${worstSub.acc}%`},
+    {icon:"✅",title:"Strongest subject",text:`${subjectInfo(bestSub.name).label} at ${bestSub.acc}%`},
+    {icon:"⚠️",title:"Needs work",text:`${subjectInfo(worstSub.name).label} at ${worstSub.acc}%`},
     {icon:"⏱",title:"Total invested",text:`${totalMin} minutes (${simCount} simulations)`},
   ];
   grid.innerHTML=insights.map(i=>`<article class="stack-card"><strong>${i.icon} ${i.title}</strong><span>${i.text}</span></article>`).join("");
@@ -136,10 +152,15 @@ function renderLog(sessions){
     const d=new Date(s.date);
     const ds=d.toLocaleDateString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
     const acc=s.accuracy||0;
-    const modeLabel=(s.mode||"").includes("sim")?"simulation":"practice";
+    const info=subjectInfo(s.subject);
+    const mode=modeLabel(s.mode);
     return `<article class="session-card">
-      <div class="session-topline"><span class="chip chip-s">${sphereLabel(s.subject)}</span><span class="chip subtle">${modeLabel}</span>${s.label?`<span class="chip subtle">${s.label}</span>`:""}</div>
-      <div class="session-meta"><strong>${acc}%</strong> · ${s.correct||0}/${s.total||0} · ${s.minutes||1} min<br><span style="font-size:11px">${ds}</span></div>
+      <div class="session-topline">
+        <span class="chip" style="color:var(--${info.cls})">${info.label}</span>
+        <span class="chip subtle">${mode}</span>
+        ${s.label?`<span class="chip subtle">${s.label}</span>`:""}
+      </div>
+      <div class="session-meta"><strong style="color:${accColor(acc)}">${acc}%</strong> · ${s.correct}/${s.total} · ${s.minutes} min<br><span style="font-size:11px">${ds}</span></div>
       <div class="acc-bar"><div class="acc-fill" style="width:${acc}%;background:${accColor(acc)}"></div></div>
     </article>`;
   }).join("");
@@ -164,7 +185,7 @@ function drawAcc(ctx,c){
   allSessions.forEach(s=>{const sub=s.subject||"all";if(!bySub[sub])bySub[sub]={c:0,t:0};bySub[sub].t+=s.total||0;bySub[sub].c+=s.correct||0;});
   const labels=Object.keys(bySub),vals=labels.map(l=>bySub[l].t?Math.round(bySub[l].c/bySub[l].t*100):0);
   if(!labels.length){ctx.fillStyle="#888";ctx.font="14px system-ui";ctx.fillText("No data yet",60,100);return;}
-  barChart(ctx,c.width,c.height,labels.map(sphereLabel),vals,["#3b82f6","#8b5cf6","#06b6d4","#f59e0b","#ef4444","#22c55e","#ec4899","#14b8a6"],"Accuracy by Subject");
+  barChart(ctx,c.width,c.height,labels.map(l=>subjectInfo(l).label),vals,["#3b82f6","#8b5cf6","#06b6d4","#f59e0b","#ef4444","#22c55e","#ec4899","#14b8a6"],"Accuracy by Subject");
 }
 
 function drawWeak(ctx,c){
@@ -172,7 +193,7 @@ function drawWeak(ctx,c){
   allSessions.forEach(s=>{const sub=s.subject||"all";if(!bySub[sub])bySub[sub]={c:0,t:0};bySub[sub].t+=s.total||0;bySub[sub].c+=s.correct||0;});
   const labels=Object.keys(bySub),vals=labels.map(l=>{const t=bySub[l].t,c=bySub[l].c;return t?Math.round(((t-c)/t)*100):0;});
   if(!labels.length){ctx.fillStyle="#888";ctx.font="14px system-ui";ctx.fillText("No data yet",60,100);return;}
-  barChart(ctx,c.width,c.height,labels.map(sphereLabel),vals,["#ef4444","#f97316","#eab308","#f43f5e","#dc2626","#b91c1c","#c2410c","#a16207"],"Weak Zones (Error %)");
+  barChart(ctx,c.width,c.height,labels.map(l=>subjectInfo(l).label),vals,["#ef4444","#f97316","#eab308","#f43f5e","#dc2626","#b91c1c","#c2410c","#a16207"],"Weak Zones (Error %)");
 }
 
 function drawTrend(ctx,c){

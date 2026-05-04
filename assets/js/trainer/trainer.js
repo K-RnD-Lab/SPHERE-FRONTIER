@@ -9,13 +9,14 @@ const I18N={
   ua:{
     eyebrow:"K Mentorship Hub / 🧭 REAL-PREP-EDUCATION",
     title:"Master Training",
-    lede:"🤝 Ми з тобою, ти впораєшся. Обери сферу — 🩺 Science, � Entrepreneurship, 💻 Technology — і тренуйся поруч із спільнотою.",
+    lede:"\u{1F91D} Ми з тобою, ти впораєшся. Обери сферу \u2014 \u{1FA7A} Science, \u{1F4BC} Entrepreneurship, \u{1F4BB} Technology \u2014 і тренуйся поруч із спільнотою.",
     frontDoor:"Головна",
     uiLang:"Мова інтерфейсу",qLang:"Мова питань",
     subS:"🔬 Біологія, хімія, фізика, медицина, екологія",
     subE:"📈 Менеджмент, маркетинг, фінанси, венчур, інновації",
     subT:"🛠️ Програмування, AI, системи, безпека, DevOps",
-    msgTitle:"Твій тренер поруч.",msgBody:"Обери сферу та рівень — і почнемо разом. Ти впораєшся!",
+    msgTitle:"Твій тренер поруч.",msgBody:"Обери сферу та рівень — і натисни Почати. Ти впораєшся!",
+    startTitle:"Готові почати?",startDesc:"Практика: 10 питань у своєму темпі. Симуляція: формат іспиту з таймером.",startBtn:"Почати сесію",timerLabel:"минуло",timerExam:"залишилось",
     practice:"Практика",simulation:"Симуляція",
     resources:"Ресурси",back:"Назад",next:"Далі",
     desc:"Описова",diag:"Діагностична",presc:"Прескриптивна",pred:"Предиктивна",
@@ -36,13 +37,14 @@ const I18N={
   en:{
     eyebrow:"K Mentorship Hub / 🧭 REAL-PREP-EDUCATION",
     title:"Master Training",
-    lede:"🤝 You've got this. Pick your sphere — 🩺 Science, � Entrepreneurship, 💻 Technology — and train alongside the community.",
+    lede:"\u{1F91D} You've got this. Pick your sphere \u2014 \u{1FA7A} Science, \u{1F4BC} Entrepreneurship, \u{1F4BB} Technology \u2014 and train alongside the community.",
     frontDoor:"Front Door",
     uiLang:"Interface language",qLang:"Question language",
     subS:"🔬 Biology, chemistry, physics, medicine, ecology",
     subE:"📈 Management, marketing, finance, venture, innovation",
     subT:"🛠️ Programming, AI, systems, security, DevOps",
-    msgTitle:"Your trainer is right here.",msgBody:"Pick a sphere and level — let's start together. You've got this!",
+    msgTitle:"Your trainer is right here.",msgBody:"Pick a sphere and level — then press Start. You've got this!",
+    startTitle:"Ready to begin?",startDesc:"Practice: 10 questions at your own pace. Simulation: timed exam format.",startBtn:"Start Session",timerLabel:"elapsed",timerExam:"remaining",
     practice:"Practice",simulation:"Simulation",
     resources:"Resources",back:"Back",next:"Next",
     desc:"Descriptive",diag:"Diagnostic",presc:"Prescriptive",pred:"Predictive",
@@ -137,8 +139,7 @@ document.querySelectorAll(".sphere-card").forEach(c=>{
     state.sphere=c.dataset.sphere;
     document.getElementById("sphereSection").style.display="none";
     document.getElementById("msgBox").style.display="none";
-    document.getElementById("trainerMain").style.display="grid";
-    initSubjects();startSession();
+    showStartScreen();
   });
 });
 
@@ -178,15 +179,65 @@ function initSubjects(){
   subs.forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;sel.appendChild(o);});
 }
 
+function showStartScreen(){
+  initSubjects();
+  const ss=document.getElementById("startScreen");
+  ss.style.display="block";
+  document.getElementById("startTitle").textContent=t('startTitle');
+  document.getElementById("startDesc").textContent=t('startDesc');
+  document.getElementById("startBtn").textContent=t('startBtn');
+  document.getElementById("trainerMain").style.display="none";
+  document.getElementById("sessionEnd").style.display="none";
+}
+
+document.getElementById("startBtn").addEventListener("click",()=>{
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("trainerMain").style.display="grid";
+  startSession();
+});
+
+let timerInterval=null;
+const EXAM_MINUTES={S:90,E:90,T:120}; // real exam durations by sphere
+
+function startTimer(){
+  if(timerInterval)clearInterval(timerInterval);
+  const bar=document.getElementById("timerBar");
+  bar.style.display="flex";
+  const isSim=state.mode==="simulation";
+  const examMins=EXAM_MINUTES[state.sphere]||90;
+  const startMs=Date.now();
+  const limitMs=isSim?examMins*60000:0;
+  document.getElementById("timerLabel").textContent=isSim?t('timerExam'):t('timerLabel');
+  timerInterval=setInterval(()=>{
+    const elapsed=Date.now()-startMs;
+    const totalSec=Math.floor(elapsed/1000);
+    const mm=String(Math.floor(totalSec/60)).padStart(2,'0');
+    const ss=String(totalSec%60).padStart(2,'0');
+    if(isSim&&limitMs>0){
+      const remain=Math.max(0,limitMs-elapsed);
+      const rm=String(Math.floor(remain/60000)).padStart(2,'0');
+      const rs=String(Math.floor((remain%60000)/1000)).padStart(2,'0');
+      document.getElementById("timerValue").textContent=rm+':'+rs;
+      if(remain<=0){clearInterval(timerInterval);endSession();}
+    }else{
+      document.getElementById("timerValue").textContent=mm+':'+ss;
+    }
+  },1000);
+}
+
+function stopTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;}}
+
 function startSession(){
   const subs=state.subject==="all"?SPHERES[state.sphere][state.level]:[state.subject];
   let pool=[];
   subs.forEach(sub=>{if(Q[sub])Q[sub].forEach((q,i)=>pool.push({...q,subject:sub,idx:i}));});
   for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
-  const n=state.mode==="simulation"?Math.min(pool.length,30):Math.min(pool.length,10);
+  // Simulation: use all available questions (up to 60) to mimic real exam; Practice: 10
+  const n=state.mode==="simulation"?Math.min(pool.length,60):Math.min(pool.length,10);
   state.questions=pool.slice(0,n);state.currentIdx=0;state.answers={};state.sessionStart=Date.now();state.sessionLog=[];
   document.getElementById("sessionEnd").style.display="none";
   document.getElementById("trainerMain").style.display="grid";
+  startTimer();
   renderQ();renderResources();renderStats();renderAnalytics();
 }
 
@@ -222,6 +273,7 @@ function endSession(){
   state.sessions.push({sphere:state.sphere,level:state.level,subject:state.subject,mode:state.mode,date:new Date().toISOString(),minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
   localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
   saveToSheet(state.sessions[state.sessions.length-1]);
+  stopTimer();
   document.getElementById("trainerMain").style.display="none";
   document.getElementById("sessionEnd").style.display="block";
   document.getElementById("finalScore").textContent=acc+"%";
