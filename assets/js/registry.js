@@ -54,8 +54,16 @@ const comboLabels = {"S":"\u{1FA7A} Science","E":"\u{1F680} Entrepreneurship","T
 const artifactIcons = {"Repository":"\u{1F4E6}","Lane":"\u{1F6E4}\uFE0F","Hypothesis":"\u{1F4A1}","Research Tool":"\u{1F527}","Venture Case":"\u{1F4C8}","Public Case":"\u{1F4CB}","Tool":"\u{1F6E0}\uFE0F","Scoring System":"\u{1F4CA}","Dashboard":"\u{1F5A5}\uFE0F"};
 const validationIcons = {"Taxonomy":"\u{1F3F7}\uFE0F","Exploratory":"\u{1F52C}","Prototype":"\u{1F9EA}","Scaffold":"\u{1F3D7}\uFE0F","Active Case":"\u2705","Live":"\u{1F7E2}","Live Prototype":"\u{1F7E2}"};
 
-function getHomeSphere(combo){return combo.split("+")[0]}
-function getSphereEntries(sphere){return studies.filter(s=>getHomeSphere(s.combo)===sphere)}
+function getPrimarySphere(s){
+  if(s.track==="Root"){
+    if(s.id.includes("SCIENCE")) return "S";
+    if(s.id.includes("ENTREPRENEURSHIP")) return "E";
+    if(s.id.includes("TECHNOLOGY")) return "T";
+  }
+  const m = s.track.match(/^[SET]/);
+  return m ? m[0] : "S";
+}
+function getSphereEntries(sphere){return studies.filter(s=>getPrimarySphere(s)===sphere)}
 
 function renderStats(){
   const sCount = getSphereEntries("S").length;
@@ -81,7 +89,7 @@ function getFilterValues(){
 
 function applyFilters(arr,filters,exclude){
   return arr.filter(s=>{
-    if(exclude!=="sphere" && filters.sphere!=="all" && getHomeSphere(s.combo)!==filters.sphere) return false;
+    if(exclude!=="sphere" && filters.sphere!=="all" && getPrimarySphere(s)!==filters.sphere) return false;
     if(exclude!=="combo" && filters.combo!=="all" && s.combo!==filters.combo) return false;
     if(exclude!=="track" && filters.track!=="all" && s.track!==filters.track) return false;
     if(exclude!=="artifact" && filters.artifact!=="all" && s.artifact!==filters.artifact) return false;
@@ -94,7 +102,7 @@ function initFilters(){
   const sphereOrder = {"S":0,"E":1,"T":2};
   const comboOrder = {"S":0,"E":1,"T":2,"S+T":3,"S+E":4,"S+E+T":5};
 
-  const spheres = [...new Set(studies.map(s=>getHomeSphere(s.combo)))].sort((a,b)=>(sphereOrder[a]??99)-(sphereOrder[b]??99));
+  const spheres = [...new Set(studies.map(s=>getPrimarySphere(s)))].sort((a,b)=>(sphereOrder[a]??99)-(sphereOrder[b]??99));
   const sphereSel = document.getElementById("sphereFilter");
   sphereSel.innerHTML = '<option value="all">Home sphere</option>';
   spheres.forEach(sp=>{const o=document.createElement("option");o.value=sp;o.textContent=comboLabels[sp]||sp;sphereSel.appendChild(o);});
@@ -133,7 +141,7 @@ function populateFilters(){
 
   // Sphere
   const sphereBase = applyFilters(studies,filters,"sphere");
-  const spheres = [...new Set(sphereBase.map(s=>getHomeSphere(s.combo)))].sort((a,b)=>(sphereOrder[a]??99)-(sphereOrder[b]??99));
+  const spheres = [...new Set(sphereBase.map(s=>getPrimarySphere(s)))].sort((a,b)=>(sphereOrder[a]??99)-(sphereOrder[b]??99));
   const sphereSel = document.getElementById("sphereFilter");
   const curSphere = filters.sphere;
   sphereSel.innerHTML = '<option value="all">Home sphere</option>';
