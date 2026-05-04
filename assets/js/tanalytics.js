@@ -10,15 +10,13 @@ function v(val){if(typeof val==="object"&&val!==null)return val.f||val.v||"";ret
 
 // Subject → sphere + display label
 const SUBJECT_MAP={
-  tznk:{sphere:"S",label:"\u{1FA7A} TZNK",cls:"science"},
-  english:{sphere:"E",label:"\u{1F1EC}\u{1F1E7} English",cls:"entrepreneurship"},
-  "it-science":{sphere:"S",label:"\u{1FA7A} IT \u00b7 Science",cls:"science"},
-  "it-entrepreneurship":{sphere:"E",label:"\u{1F4BC} IT \u00b7 Entrepreneurship",cls:"entrepreneurship"},
-  "it-technology":{sphere:"T",label:"\u{1F4BB} IT \u00b7 Technology",cls:"technology"},
-  // Legacy localStorage format
+  foundation:{sphere:"F",label:"\u{1F4DA} Foundation",cls:"science"},
   S:{sphere:"S",label:"\u{1FA7A} Science",cls:"science"},
   E:{sphere:"E",label:"\u{1F4BC} Entrepreneurship",cls:"entrepreneurship"},
   T:{sphere:"T",label:"\u{1F4BB} Technology",cls:"technology"},
+  ST:{sphere:"ST",label:"\u{1FA7A}\u{1F4BB} Science+Tech",cls:"science"},
+  ET:{sphere:"ET",label:"\u{1F4BC}\u{1F4BB} Ent+Tech",cls:"entrepreneurship"},
+  SE:{sphere:"SE",label:"\u{1FA7A}\u{1F4BC} Sci+Ent",cls:"science"},
 };
 function subjectInfo(s){return SUBJECT_MAP[(s||"").toLowerCase()]||SUBJECT_MAP[s]||{sphere:"?",label:s||"Unknown",cls:"technology"};}
 function accColor(a){return a>=80?"#22c55e":a>=60?"#eab308":"#ef4444";}

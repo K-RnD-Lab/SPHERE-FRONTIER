@@ -82,21 +82,48 @@
     </div>
 
     <section id="sphereSection">
+      <h3 style="font-size:14px;color:var(--muted);margin:0 0 8px">📚 Foundation — base for all exams</h3>
+      <div class="sphere-cards">
+        <div class="sphere-card" data-sphere="foundation" style="border-left:4px solid var(--ink)">
+          <div class="icon">📚</div>
+          <h3>Foundation</h3>
+          <div class="sub" data-i18n="subF">🧮 TZNK · Logic, Math + 🇬🇧 English · Reading, Grammar</div>
+        </div>
+      </div>
+      <h3 style="font-size:14px;color:var(--muted);margin:16px 0 8px">🎓 ЄФВВ — specialized exam by sphere</h3>
       <div class="sphere-cards">
         <div class="sphere-card s-card" data-sphere="S">
           <div class="icon">🩺</div>
           <h3>Science</h3>
-          <div class="sub" data-i18n="subS">🔬 TZNK · Біологія, хімія, фізика, математика, логіка</div>
+          <div class="sub" data-i18n="subS">🔬 Biology, Chemistry, Physics, Bioinformatics</div>
         </div>
         <div class="sphere-card e-card" data-sphere="E">
           <div class="icon">💼</div>
           <h3>Entrepreneurship</h3>
-          <div class="sub" data-i18n="subE">📈 Менеджмент, маркетинг, фінанси, English</div>
+          <div class="sub" data-i18n="subE">📈 Management, Marketing, Finance, Analytics</div>
         </div>
         <div class="sphere-card t-card" data-sphere="T">
           <div class="icon">💻</div>
           <h3>Technology</h3>
-          <div class="sub" data-i18n="subT">🛠️ IT · Програмування, AI, алгоритми, БД, кібербезпека</div>
+          <div class="sub" data-i18n="subT">🛠️ Programming, AI, Algorithms, Databases</div>
+        </div>
+      </div>
+      <h3 style="font-size:14px;color:var(--muted);margin:16px 0 8px">🔀 Combos — cross-sphere paths</h3>
+      <div class="sphere-cards">
+        <div class="sphere-card s-card" data-sphere="ST">
+          <div class="icon">🩺💻</div>
+          <h3>Science + Tech</h3>
+          <div class="sub" data-i18n="subST">🧬 Biotech, Bioinformatics, Data Analysis</div>
+        </div>
+        <div class="sphere-card e-card" data-sphere="ET">
+          <div class="icon">💼💻</div>
+          <h3>Entrepreneurship + Tech</h3>
+          <div class="sub" data-i18n="subET">📊 Digital Marketing, ERP, IT Management</div>
+        </div>
+        <div class="sphere-card" data-sphere="SE" style="border-left:4px solid var(--science)">
+          <div class="icon">🩺💼</div>
+          <h3>Science + Entrepreneurship</h3>
+          <div class="sub" data-i18n="subSE">💊 Pharma, Health Economics, Biotech Business</div>
         </div>
       </div>
       <div class="level-tabs" id="levelTabs">
@@ -188,6 +215,9 @@
   <script src="./assets/js/trainer/q20.js"></script><script src="./assets/js/trainer/q21.js"></script><script src="./assets/js/trainer/q22.js"></script>
   <script src="./assets/js/trainer/q23.js"></script><script src="./assets/js/trainer/q24.js"></script><script src="./assets/js/trainer/q25.js"></script>
   <script src="./assets/js/trainer/q26.js"></script><script src="./assets/js/trainer/q27.js"></script>
+  <script src="./assets/js/trainer/q28.js"></script><script src="./assets/js/trainer/q29.js"></script>
+  <script src="./assets/js/trainer/q30.js"></script><script src="./assets/js/trainer/q31.js"></script>
+  <script src="./assets/js/trainer/q32.js"></script><script src="./assets/js/trainer/q33.js"></script>
   <script src="./assets/js/trainer/resources.js"></script>
   <script src="./assets/js/trainer/trainer.js"></script>
   <script>document.getElementById("themeToggle").addEventListener("click",function(){const c=this.textContent==="🌙"?"dark":"light";document.documentElement.setAttribute("data-theme",c);localStorage.setItem("theme",c);this.textContent=c==="dark"?"☀️":"🌙";});</script>
