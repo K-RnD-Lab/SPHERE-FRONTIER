@@ -204,6 +204,22 @@ document.getElementById("startBtn").addEventListener("click",()=>{
   startSession();
 });
 
+// Back to sphere selection
+document.getElementById("backToSpheres").addEventListener("click",()=>{
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("sphereSection").style.display="block";
+  document.getElementById("msgBox").style.display="block";
+  document.querySelectorAll(".sphere-card").forEach(x=>x.classList.remove("active"));
+  state.sphere=null;
+});
+
+// Back to start screen (from session)
+document.getElementById("backToStart").addEventListener("click",()=>{
+  stopTimer();
+  document.getElementById("trainerMain").style.display="none";
+  document.getElementById("startScreen").style.display="block";
+});
+
 let timerInterval=null;
 const EXAM_MINUTES={S:90,E:90,T:120}; // real exam durations by sphere
 
