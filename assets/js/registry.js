@@ -30,7 +30,7 @@ const studies = [
   {id:"S7-F",track:"S7-F",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"📚 S7-F Recreation and Hobbies",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
   {id:"S7-G",track:"S7-G",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"👤 S7-G Community Involvement",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
   {id:"S7-H",track:"S7-H",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🌳 S7-H Physical Health",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
-  {id:"S7-I-R1",track:"S7-I",combo:"S+T",artifact:"Research Tool",validation:"Live",delivery:"GitHub",title:"R1 Master Prep Analytics",summary:"A combined research case for magistracy preparation, learning systems, cognition, live dashboarding, and the actual trainer workspace.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
+  {id:"S7-I-R1",track:"S7-I",combo:"S+T",artifact:"Research Tool",validation:"Live",delivery:"GitHub, Web App",title:"🎓 R1 Master Prep Analytics",summary:"A live research case for adaptive testing, cognition tracking, and self-quantified learning — connected to the K-Mentorship-Hub Master Training module. Practice/simulation mode, 4-level analytics, readiness signal, Google Sheets sync.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS",url:"./training-analytics.html"},
   {id:"S7-I",track:"S7-I",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🔎 S7-I Career or Education",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
   {id:"S7-J",track:"S7-J",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"🌿 S7-J Environmental or Charity",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
   {id:"S7-K",track:"S7-K",combo:"S",artifact:"Hypothesis",validation:"Exploratory",delivery:"GitHub",title:"👥 S7-K Personal Relationship",summary:"A sub-lane inside 📚 S7 — K Life OS.",repo:"https://github.com/K-RnD-Lab/SPHERE-I-SCIENCE/tree/main/S7%20%E2%80%94%20%F0%9F%93%9A%20K%20Life%20OS"},
@@ -235,7 +235,10 @@ function renderStudies(){
       <div class="study-meta">
         <div><strong>Track:</strong> ${s.track} \u00B7 <strong>Delivery:</strong> ${s.delivery}</div>
       </div>
-      <a href="${s.repo}" target="_blank" rel="noreferrer" class="link-pill">Open Repo \u2192</a>
+      <div class="card-actions">
+        <a href="${s.repo}" target="_blank" rel="noreferrer" class="link-pill">Open Repo →</a>
+        ${s.url?`<a href="${s.url}" class="link-pill">Open App →</a>`:""}
+      </div>
     </article>`;
   }).join("");
 }
