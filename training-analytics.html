@@ -192,15 +192,34 @@
         <p style="color:var(--muted);font-size:14px;margin-bottom:12px">This is a <strong>live case study</strong>: here's how you can customize the environment for your own lab or classroom.</p>
         <div class="setup-grid">
           <div class="setup-card"><h4>📦 Client-side storage</h4><p>Auto-saves to localStorage. No backend needed — works on any static host.</p><code>JSON.parse(localStorage.getItem("mt_sessions")||"[]")</code></div>
-          <div class="setup-card"><h4>📊 Google Sheets sync</h4><p>Set APPS_SCRIPT_URL in trainer.js. Sessions POST on completion via Apps Script.</p><code>APPS_SCRIPT_URL="https://script.google.com/.../exec"</code></div>
-          <div class="setup-card"><h4>🔑 Sheet credentials</h4><p>Change SHEET_ID in trainer.js. Sheet must be "Anyone with link can view".</p><code>const SHEET_ID="your-sheet-id";</code></div>
-          <div class="setup-card"><h4>🧬 Cross-domain reading</h4><p>This page reads from Sheets via gviz API. Same pattern works for any site.</p><code>fetch(SHEET_URL) // gviz/tq?tqx=out:json</code></div>
+          <div class="setup-card"><h4>� Sheet ID</h4><p>Change SHEET_ID in trainer.js and tanalytics.js. This identifies which Sheet to use.</p><code>const SHEET_ID="your-sheet-id";</code></div>
         </div>
+
+        <h3 style="margin-top:20px;font-size:16px">🌐 Two ways to connect your Sheet</h3>
+        <p style="color:var(--muted);font-size:14px;margin-bottom:12px">Choose based on whether your Sheet is public or private. Both work — the dashboard auto-detects which method succeeds.</p>
+        <div class="setup-grid">
+          <div class="setup-card" style="border-color:var(--science)">
+            <h4>� Path A: Public Sheet (gviz)</h4>
+            <p><strong>Easiest.</strong> Set Sheet sharing to "Anyone with link can view". The dashboard reads directly via gviz API — no Apps Script needed for reading.</p>
+            <p style="margin-top:6px">For <strong>writing</strong> sessions, you still need an Apps Script endpoint deployed from Extensions → Apps Script.</p>
+            <code>GVIZ_URL = gviz/tq?tqx=out:json&gid=YOUR_GID</code>
+            <p style="margin-top:6px;font-size:11px;color:var(--muted)">After exam: change to "can comment" to prevent new entries while keeping data visible.</p>
+          </div>
+          <div class="setup-card" style="border-color:var(--entrepreneurship)">
+            <h4>🔵 Path B: Private Sheet (Apps Script)</h4>
+            <p><strong>More private.</strong> Sheet stays restricted. Deploy an Apps Script web app that reads and returns JSON. The dashboard fetches from the script instead.</p>
+            <p style="margin-top:6px">Same Apps Script handles both <strong>reading and writing</strong> — one endpoint does it all.</p>
+            <code>APPS_SCRIPT = "https://script.google.com/.../exec"</code>
+            <p style="margin-top:6px;font-size:11px;color:var(--muted)">After exam: disable the web app or restrict access in Apps Script settings.</p>
+          </div>
+        </div>
+
         <div style="margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card-bg)">
-          <h4 style="margin:0 0 8px">🔗 Connected endpoints</h4>
-          <p style="font-size:13px;color:var(--muted);margin:0 0 4px"><strong>Sheet:</strong> <a href="https://docs.google.com/spreadsheets/d/1GcgjCJEPDAFtqOwONsfN_np5zdZFe3v2qa2lNzqDZd4" target="_blank" rel="noreferrer" style="color:var(--technology)">1GcgjCJEPDAFtqOwONsfN_np5zdZFe3v2qa2lNzqDZd4</a></p>
-          <p style="font-size:13px;color:var(--muted);margin:0 0 4px"><strong>Apps Script:</strong> <code style="font-size:11px">AKfycbzDJy4ysMJpXiDXI1_nwZYP1BCx0S1bZ7y9NHmDiD6wPhgfyRb4oXwDRO4twW2NfwNr1A</code></p>
-          <p style="font-size:13px;color:var(--muted);margin:0"><strong>gviz read:</strong> <code style="font-size:11px">gviz/tq?tqx=out:json</code></p>
+          <h4 style="margin:0 0 8px">🔗 Current endpoints</h4>
+          <p style="font-size:13px;color:var(--muted);margin:0 0 4px"><strong>Sheet:</strong> <a href="https://docs.google.com/spreadsheets/d/1GcgjCJEPDAFtqOwONsfN_np5zdZFe3v2qa2lNzqDZd4" target="_blank" rel="noreferrer" style="color:var(--technology)">1GcgjCJEPDAFtqOwONsfN_np5zdZFe3v2qa2lNzqDZd4</a> (public, comment access)</p>
+          <p style="font-size:13px;color:var(--muted);margin:0 0 4px"><strong>gviz (reading):</strong> <code style="font-size:11px">gviz/tq?tqx=out:json&gid=1089917585</code></p>
+          <p style="font-size:13px;color:var(--muted);margin:0 0 4px"><strong>Apps Script (writing + fallback):</strong> <code style="font-size:11px">AKfycbzDJy4ysMJpXiDXI1_nwZYP1BCx0S1bZ7y9NHmDiD6wPhgfyRb4oXwDRO4twW2NfwNr1A</code></p>
+          <p style="font-size:13px;color:var(--muted);margin:0"><strong>Auto-detect:</strong> <span style="color:var(--science)">gviz first</span> → <span style="color:var(--entrepreneurship)">Apps Script fallback</span> → localStorage</p>
         </div>
       </section>
     </section>

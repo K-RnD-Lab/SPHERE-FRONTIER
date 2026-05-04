@@ -1,11 +1,13 @@
 /* tanalytics.js — S7-I-R1 Master Prep Analytics dashboard
-   Reads from Apps Script endpoint (same as sphere-i-science) + localStorage */
+   Reads from Google Sheets gviz (public) + Apps Script (private fallback) + localStorage */
 const SHEET_ID="1GcgjCJEPDAFtqOwONsfN_np5zdZFe3v2qa2lNzqDZd4";
+const SESSIONS_GID="1089917585";
+const GVIZ_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SESSIONS_GID}`;
 const APPS_SCRIPT="https://script.google.com/macros/s/AKfycbzDJy4ysMJpXiDXI1_nwZYP1BCx0S1bZ7y9NHmDiD6wPhgfyRb4oXwDRO4twW2NfwNr1A/exec";
 let allSessions=[];
 
 function v(val){if(typeof val==="object"&&val!==null)return val.f||val.v||"";return val||"";}
-function sphereLabel(s){return{s:"🩺 Science",e:"💼 Entrepreneurship",t:"💻 Technology"}[s]||s;}
+function sphereLabel(s){return{s:"🩺 Science",e:"💼 Entrepreneurship",t:"💻 Technology",tznk:"🩺 TZNK",english:"🇬🇧 English",it:"💻 IT"}[s]||s;}
 function accColor(a){return a>=80?"#22c55e":a>=60?"#eab308":"#ef4444";}
 
 /* ── Tabs ── */
@@ -19,25 +21,51 @@ document.querySelectorAll("#tabbar button").forEach(b=>{
   });
 });
 
-/* ── Load data via Apps Script (same method as sphere-i-science) ── */
+/* ── Load data: gviz (public) → Apps Script (private) → localStorage ── */
 async function loadSessions(){
   let sessions=[];
-  // localStorage first
-  try{sessions=JSON.parse(localStorage.getItem("mt_sessions")||"[]");}catch(e){}
-  // Apps Script endpoint (works even if Sheet is not public)
+
+  // 1. Try gviz (works when Sheet is "Anyone with link can view")
   try{
-    const r=await fetch(APPS_SCRIPT);
-    const data=await r.json();
-    // Apps Script returns {sessions:[...]} or flat array
-    const rows=data.sessions||data||[];
-    const fromSheet=rows.map(r=>{
-      // Handle both object and array formats
-      if(Array.isArray(r))return{date:r[0],sphere:r[1],level:r[2],subject:r[3],mode:r[4],minutes:parseInt(r[5])||1,total:parseInt(r[6])||0,correct:parseInt(r[7])||0,accuracy:parseInt(r[8])||0,log:[]};
-      return{date:r.date||r.timestamp,sphere:r.sphere||r.sphere_id,level:r.level,subject:r.subject,mode:r.mode,minutes:parseInt(r.minutes)||1,total:parseInt(r.questions_total||r.total)||0,correct:parseInt(r.correct)||0,accuracy:parseInt(r.accuracy_pct||r.accuracy)||0,log:[]};
-    }).filter(s=>s.date);
+    const r=await fetch(GVIZ_URL);
+    const txt=await r.text();
+    const json=JSON.parse(txt.replace(/^\)\]\}'\n/,""));
+    if(json.status==="ok"&&json.table&&json.table.rows){
+      const rows=json.table.rows;
+      const fromGviz=rows.map(r=>{
+        const c=r.c;
+        return{
+          date:v(c[1]),subject:v(c[2]),mode:v(c[4]),
+          total:parseInt(v(c[7]))||0,correct:parseInt(v(c[8]))||0,
+          accuracy:parseInt(v(c[9]))||0,minutes:parseInt(v(c[10]))||0,
+          predicted:parseInt(v(c[12]))||0,label:v(c[11]),log:[]
+        };
+      }).filter(s=>s.date&&s.total>0);
+      sessions=fromGviz;
+    }
+  }catch(e){console.log("gviz:",e.message);}
+
+  // 2. Fallback: Apps Script (works when Sheet is private)
+  if(!sessions.length){
+    try{
+      const r=await fetch(APPS_SCRIPT);
+      const data=await r.json();
+      const rows=data.sessions||data||[];
+      const fromScript=rows.map(r=>{
+        if(Array.isArray(r))return{date:r[0],subject:r[3],mode:r[4],total:parseInt(r[6])||0,correct:parseInt(r[7])||0,accuracy:parseInt(r[8])||0,minutes:parseInt(r[5])||0,log:[]};
+        return{date:r.date||r.timestamp,subject:r.subject,mode:r.mode,total:parseInt(r.questions_total||r.total)||0,correct:parseInt(r.correct)||0,accuracy:parseInt(r.accuracy_pct||r.accuracy)||0,minutes:parseInt(r.minutes)||0,log:[]};
+      }).filter(s=>s.date&&s.total>0);
+      sessions=fromScript;
+    }catch(e){console.log("Apps Script:",e.message);}
+  }
+
+  // 3. Merge localStorage
+  try{
+    const local=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
     const existing=new Set(sessions.map(s=>s.date));
-    fromSheet.forEach(s=>{if(!existing.has(s.date))sessions.push(s);});
-  }catch(e){console.log("Apps Script load:",e.message);}
+    local.forEach(s=>{if(!existing.has(s.date))sessions.push(s);});
+  }catch(e){}
+
   return sessions.sort((a,b)=>new Date(b.date)-new Date(a.date));
 }
 
@@ -58,20 +86,21 @@ function renderStats(sessions){
 
 /* ── Overview: Goals ── */
 function renderGoals(sessions){
-  const bySphere={};
+  const bySub={};
   sessions.forEach(s=>{
-    const sp=s.sphere||"?";
-    if(!bySphere[sp])bySphere[sp]={c:0,t:0,mins:0,n:0};
-    bySphere[sp].c+=s.correct||0;bySphere[sp].t+=s.total||0;
-    bySphere[sp].mins+=s.minutes||0;bySphere[sp].n++;
+    const sp=s.subject||"?";
+    if(!bySub[sp])bySub[sp]={c:0,t:0,mins:0,n:0};
+    bySub[sp].c+=s.correct||0;bySub[sp].t+=s.total||0;
+    bySub[sp].mins+=s.minutes||0;bySub[sp].n++;
   });
   const grid=document.getElementById("goalGrid");
-  if(!Object.keys(bySphere).length){
-    grid.innerHTML='<p style="color:var(--muted);font-size:14px">No sessions yet. Complete a training session first.</p>';return;
+  if(!Object.keys(bySub).length){
+    grid.innerHTML='<p style="color:var(--muted);font-size:14px">No sessions yet.</p>';return;
   }
-  grid.innerHTML=Object.entries(bySphere).map(([sp,d])=>{
+  grid.innerHTML=Object.entries(bySub).map(([sp,d])=>{
     const acc=d.t?Math.round(d.c/d.t*100):0;
-    return `<div class="goal-card" style="border-left:4px solid var(--${sp==="S"?"science":sp==="E"?"entrepreneurship":"technology"})">
+    const cls=sp==="tznk"||sp==="S"?"science":sp==="english"||sp==="E"?"entrepreneurship":"technology";
+    return `<div class="goal-card" style="border-left:4px solid var(--${cls})">
       <div class="label">${sphereLabel(sp)}</div>
       <div class="value" style="color:${accColor(acc)}">${acc}%</div>
       <div class="sub">${d.c}/${d.t} correct · ${d.n} sessions · ${d.mins} min</div>
@@ -87,11 +116,12 @@ function renderInsights(sessions){
   const bestSub=sessions.reduce((best,s)=>(s.accuracy||0)>(best.acc||0)?{name:s.subject||"all",acc:s.accuracy}:best,{name:"—",acc:0});
   const worstSub=sessions.reduce((worst,s)=>(s.accuracy||100)<(worst.acc||100)?{name:s.subject||"all",acc:s.accuracy}:worst,{name:"—",acc:100});
   const totalMin=sessions.reduce((s,x)=>s+(x.minutes||0),0);
+  const simCount=sessions.filter(s=>(s.mode||"").includes("sim")).length;
   const insights=[
     {icon:"🎯",title:"Average accuracy",text:`${Math.round(avg)}% across ${sessions.length} sessions`},
-    {icon:"✅",title:"Strongest subject",text:`${bestSub.name} at ${bestSub.acc}%`},
-    {icon:"⚠️",title:"Needs work",text:`${worstSub.name} at ${worstSub.acc}%`},
-    {icon:"⏱",title:"Total invested",text:`${totalMin} minutes of practice`},
+    {icon:"✅",title:"Strongest subject",text:`${sphereLabel(bestSub.name)} at ${bestSub.acc}%`},
+    {icon:"⚠️",title:"Needs work",text:`${sphereLabel(worstSub.name)} at ${worstSub.acc}%`},
+    {icon:"⏱",title:"Total invested",text:`${totalMin} minutes (${simCount} simulations)`},
   ];
   grid.innerHTML=insights.map(i=>`<article class="stack-card"><strong>${i.icon} ${i.title}</strong><span>${i.text}</span></article>`).join("");
 }
@@ -106,9 +136,9 @@ function renderLog(sessions){
     const d=new Date(s.date);
     const ds=d.toLocaleDateString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
     const acc=s.accuracy||0;
+    const modeLabel=(s.mode||"").includes("sim")?"simulation":"practice";
     return `<article class="session-card">
-      <div class="session-topline"><span class="chip chip-s">${sphereLabel(s.sphere)}</span><span class="chip subtle">${s.level||"bachelor"}</span><span class="chip subtle">${s.mode||"practice"}</span></div>
-      <h3>${s.subject||"All subjects"}</h3>
+      <div class="session-topline"><span class="chip chip-s">${sphereLabel(s.subject)}</span><span class="chip subtle">${modeLabel}</span>${s.label?`<span class="chip subtle">${s.label}</span>`:""}</div>
       <div class="session-meta"><strong>${acc}%</strong> · ${s.correct||0}/${s.total||0} · ${s.minutes||1} min<br><span style="font-size:11px">${ds}</span></div>
       <div class="acc-bar"><div class="acc-fill" style="width:${acc}%;background:${accColor(acc)}"></div></div>
     </article>`;
@@ -134,7 +164,7 @@ function drawAcc(ctx,c){
   allSessions.forEach(s=>{const sub=s.subject||"all";if(!bySub[sub])bySub[sub]={c:0,t:0};bySub[sub].t+=s.total||0;bySub[sub].c+=s.correct||0;});
   const labels=Object.keys(bySub),vals=labels.map(l=>bySub[l].t?Math.round(bySub[l].c/bySub[l].t*100):0);
   if(!labels.length){ctx.fillStyle="#888";ctx.font="14px system-ui";ctx.fillText("No data yet",60,100);return;}
-  barChart(ctx,c.width,c.height,labels,vals,["#3b82f6","#8b5cf6","#06b6d4","#f59e0b","#ef4444","#22c55e","#ec4899","#14b8a6"],"Accuracy by Subject");
+  barChart(ctx,c.width,c.height,labels.map(sphereLabel),vals,["#3b82f6","#8b5cf6","#06b6d4","#f59e0b","#ef4444","#22c55e","#ec4899","#14b8a6"],"Accuracy by Subject");
 }
 
 function drawWeak(ctx,c){
@@ -142,7 +172,7 @@ function drawWeak(ctx,c){
   allSessions.forEach(s=>{const sub=s.subject||"all";if(!bySub[sub])bySub[sub]={c:0,t:0};bySub[sub].t+=s.total||0;bySub[sub].c+=s.correct||0;});
   const labels=Object.keys(bySub),vals=labels.map(l=>{const t=bySub[l].t,c=bySub[l].c;return t?Math.round(((t-c)/t)*100):0;});
   if(!labels.length){ctx.fillStyle="#888";ctx.font="14px system-ui";ctx.fillText("No data yet",60,100);return;}
-  barChart(ctx,c.width,c.height,labels,vals,["#ef4444","#f97316","#eab308","#f43f5e","#dc2626","#b91c1c","#c2410c","#a16207"],"Weak Zones (Error %)");
+  barChart(ctx,c.width,c.height,labels.map(sphereLabel),vals,["#ef4444","#f97316","#eab308","#f43f5e","#dc2626","#b91c1c","#c2410c","#a16207"],"Weak Zones (Error %)");
 }
 
 function drawTrend(ctx,c){
@@ -188,11 +218,8 @@ function drawEffort(ctx,c){
 
 function renderAllCharts(){
   [["accChart",drawAcc],["weakChart",drawWeak],["forecastChart",drawTrend],["effortChart",drawEffort]].forEach(([id,fn])=>{
-    const c=document.getElementById(id);
-    if(!c)return;
-    const ctx=c.getContext("2d");
-    c.width=c.offsetWidth*2;c.height=400;ctx.clearRect(0,0,c.width,c.height);
-    fn(ctx,c);
+    const c=document.getElementById(id);if(!c)return;
+    const ctx=c.getContext("2d");c.width=c.offsetWidth*2;c.height=400;ctx.clearRect(0,0,c.width,c.height);fn(ctx,c);
   });
   const tc=document.getElementById("trendChart");
   if(tc){const ctx=tc.getContext("2d");tc.width=tc.offsetWidth*2;tc.height=400;ctx.clearRect(0,0,tc.width,tc.height);drawTrend(ctx,tc);}
