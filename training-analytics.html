@@ -120,32 +120,8 @@
 
     <!-- Trainer -->
     <section class="tab-panel" data-panel="trainer">
-      <div class="two-col">
-        <section class="panel-section" style="grid-column:1/-1">
-          <h2>🎓 Interactive Trainer</h2>
-          <p style="color:var(--muted);font-size:14px;margin-bottom:8px">The same trainer workspace embedded here. Complete sessions and they'll appear in the Charts and Sessions tabs.</p>
-          <div class="trainer-frame-wrap">
-            <iframe class="trainer-frame" src="./trainer.html" title="Master Prep Trainer"></iframe>
-          </div>
-        </section>
-      </div>
-      <div class="two-col">
-        <article class="stack-card">
-          <strong>What it does</strong>
-          <span>Runs training sessions, simulations, and tracks progress with 4-level analytics and readiness signals.</span>
-        </article>
-        <article class="stack-card">
-          <strong>Where data goes</strong>
-          <span>Sessions auto-save to localStorage + Google Sheets via the same Apps Script endpoint as sphere-i-science.</span>
-        </article>
-        <article class="stack-card">
-          <strong>Why it matters</strong>
-          <span>This dashboard shows the results; the trainer proves the underlying workflow is real and reproducible.</span>
-        </article>
-        <article class="stack-card">
-          <strong>Customize it</strong>
-          <span>Change SHEET_ID and APPS_SCRIPT_URL in trainer.js to point to your own Sheet. See the Setup Guide tab.</span>
-        </article>
+      <div class="trainer-frame-wrap" style="margin-top:0">
+        <iframe class="trainer-frame" src="./trainer.html" title="Master Prep Trainer"></iframe>
       </div>
     </section>
 

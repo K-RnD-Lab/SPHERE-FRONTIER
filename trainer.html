@@ -112,7 +112,15 @@
 
     <section id="startScreen" style="display:none">
       <h2 id="startTitle">Ready to begin?</h2>
-      <p id="startDesc">Practice: 10 questions at your own pace. Simulation: timed exam format.</p>
+      <p id="startDesc" style="color:var(--muted);font-size:14px;margin-bottom:16px">Choose your subject and mode, then press Start.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;margin-bottom:16px">
+        <select id="subjectFilter"></select>
+        <div class="mode-tabs">
+          <button data-mode="practice" class="active" data-i18n="practice">Practice</button>
+          <button data-mode="simulation" data-i18n="simulation">Simulation</button>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px" id="modeHint">Practice: 10 questions at your pace. Simulation: all available questions with countdown timer.</p>
       <button class="start-btn" id="startBtn">Start Session</button>
     </section>
 
@@ -122,13 +130,6 @@
           <span class="timer-icon">⏱</span>
           <span class="timer-value" id="timerValue">00:00</span>
           <span class="timer-label" id="timerLabel">elapsed</span>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
-          <select id="subjectFilter"></select>
-          <div class="mode-tabs">
-            <button data-mode="practice" class="active" data-i18n="practice">Practice</button>
-            <button data-mode="simulation" data-i18n="simulation">Simulation</button>
-          </div>
         </div>
         <div id="questionArea"></div>
         <div id="qNav" style="display:flex;gap:8px;margin-top:12px">

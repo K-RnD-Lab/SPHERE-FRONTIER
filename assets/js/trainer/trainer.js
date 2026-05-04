@@ -16,7 +16,7 @@ const I18N={
     subE:"📈 Менеджмент, маркетинг, фінанси, венчур, інновації",
     subT:"🛠️ Програмування, AI, системи, безпека, DevOps",
     msgTitle:"Твій тренер поруч.",msgBody:"Обери сферу та рівень — і натисни Почати. Ти впораєшся!",
-    startTitle:"Готові почати?",startDesc:"Практика: 10 питань у своєму темпі. Симуляція: формат іспиту з таймером.",startBtn:"Почати сесію",timerLabel:"минуло",timerExam:"залишилось",
+    startTitle:"Готові почати?",startDesc:"Оберіть предмет і режим, потім натисніть Почати.",startBtn:"Почати сесію",timerLabel:"минуло",timerExam:"залишилось",pracHint:"Практика: 10 питань у своєму темпі.",simHint:"Симуляція: усі наявні питання з таймером.",
     practice:"Практика",simulation:"Симуляція",
     resources:"Ресурси",back:"Назад",next:"Далі",
     desc:"Описова",diag:"Діагностична",presc:"Прескриптивна",pred:"Предиктивна",
@@ -44,7 +44,7 @@ const I18N={
     subE:"📈 Management, marketing, finance, venture, innovation",
     subT:"🛠️ Programming, AI, systems, security, DevOps",
     msgTitle:"Your trainer is right here.",msgBody:"Pick a sphere and level — then press Start. You've got this!",
-    startTitle:"Ready to begin?",startDesc:"Practice: 10 questions at your own pace. Simulation: timed exam format.",startBtn:"Start Session",timerLabel:"elapsed",timerExam:"remaining",
+    startTitle:"Ready to begin?",startDesc:"Choose your subject and mode, then press Start.",startBtn:"Start Session",timerLabel:"elapsed",timerExam:"remaining",pracHint:"Practice: 10 questions at your own pace.",simHint:"Simulation: all available questions with countdown timer.",
     practice:"Practice",simulation:"Simulation",
     resources:"Resources",back:"Back",next:"Next",
     desc:"Descriptive",diag:"Diagnostic",presc:"Prescriptive",pred:"Predictive",
@@ -152,13 +152,7 @@ document.querySelectorAll("#levelTabs button").forEach(b=>{
   });
 });
 
-// Mode tabs
-document.querySelectorAll(".mode-tabs button").forEach(b=>{
-  b.addEventListener("click",()=>{
-    document.querySelectorAll(".mode-tabs button").forEach(x=>x.classList.remove("active"));
-    b.classList.add("active");state.mode=b.dataset.mode;startSession();
-  });
-});
+// Mode tabs (wired dynamically in showStartScreen)
 
 // Analytics tabs
 document.querySelectorAll(".analytics-tabs button").forEach(b=>{
@@ -168,7 +162,6 @@ document.querySelectorAll(".analytics-tabs button").forEach(b=>{
   });
 });
 
-document.getElementById("subjectFilter").addEventListener("change",e=>{state.subject=e.target.value;startSession();});
 document.getElementById("prevBtn").addEventListener("click",()=>{if(state.currentIdx>0){state.currentIdx--;renderQ();}});
 document.getElementById("nextBtn").addEventListener("click",()=>{if(state.currentIdx<state.questions.length-1){state.currentIdx++;renderQ();}else endSession();});
 
@@ -188,6 +181,23 @@ function showStartScreen(){
   document.getElementById("startBtn").textContent=t('startBtn');
   document.getElementById("trainerMain").style.display="none";
   document.getElementById("sessionEnd").style.display="none";
+  // Wire mode tabs on start screen
+  const modeTabs=ss.querySelectorAll(".mode-tabs button");
+  modeTabs.forEach(b=>{
+    b.onclick=()=>{
+      modeTabs.forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      state.mode=b.dataset.mode;
+      const hint=document.getElementById("modeHint");
+      if(hint)hint.textContent=state.mode==="simulation"?t('simHint'):t('pracHint');
+    };
+  });
+  // Wire subject filter on start screen
+  const sf=document.getElementById("subjectFilter");
+  if(sf)sf.onchange=e=>{state.subject=e.target.value;};
+  // Update mode hint
+  const hint=document.getElementById("modeHint");
+  if(hint)hint.textContent=state.mode==="simulation"?t('simHint'):t('pracHint');
 }
 
 document.getElementById("startBtn").addEventListener("click",()=>{
