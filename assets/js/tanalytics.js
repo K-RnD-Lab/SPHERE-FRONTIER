@@ -150,7 +150,8 @@ function renderLog(sessions){
   empty.style.display="none";
   grid.innerHTML=sessions.map(s=>{
     const d=new Date(s.date);
-    const ds=d.toLocaleDateString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+    const hasTime=d.getHours()!==0||d.getMinutes()!==0;
+    const ds=hasTime?d.toLocaleDateString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
     const acc=s.accuracy||0;
     const info=subjectInfo(s.subject);
     const mode=modeLabel(s.mode);
