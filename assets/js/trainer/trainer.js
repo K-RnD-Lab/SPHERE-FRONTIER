@@ -129,13 +129,16 @@ async function loadSheetsData(){
     const rows=json.table.rows;
     state.sheetsData=rows.map(r=>r.c.map(c=>c?v(c.v):""));
     // Merge sheets data into sessions if not already present
+    // Sheet columns: session_id(0), date(1), subject(2), platform(3), mode(4), source_group(5),
+    // is_internal(6), questions_total(7), correct(8), accuracy_pct(9), minutes(10),
+    // session_label(11), predicted_score(12), actual_score(13), notes(14)
     if(state.sheetsData.length>0){
       const existing=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
-      const existingDates=new Set(existing.map(s=>s.date));
-      const fromSheet=state.sheetsData.filter(r=>r[0]&&!existingDates.has(r[0])).map(r=>({
-        date:r[0],sphere:r[1],level:r[2],subject:r[3],mode:r[4],
-        minutes:parseInt(r[5])||1,total:parseInt(r[6])||0,correct:parseInt(r[7])||0,
-        accuracy:parseInt(r[8])||0,log:[]
+      const existingIds=new Set(existing.map(s=>s.id||s.date));
+      const fromSheet=state.sheetsData.filter(r=>r[1]&&!existingIds.has(r[0]||r[1])).map(r=>({
+        id:r[0],date:r[1],sphere:r[2],subject:r[2],mode:r[4],
+        minutes:parseInt(r[10])||1,total:parseInt(r[7])||0,correct:parseInt(r[8])||0,
+        accuracy:parseInt(r[9])||0,label:r[11],log:[]
       }));
       if(fromSheet.length){
         state.sessions=[...existing,...fromSheet];
@@ -149,10 +152,30 @@ async function loadSheetsData(){
 async function saveToSheet(session){
   if(!APPS_SCRIPT_URL)return;
   try{
+    const modeLabel=state.mode==="simulation"?"simulation":"training";
+    const sessionId=`${modeLabel}-${Date.now()}`;
+    const sessLabel=state.mode==="simulation"?"s001-exam":"s001";
+    const predScore=getReadiness().pct||session.accuracy;
     await fetch(APPS_SCRIPT_URL,{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({date:session.date,sphere:session.sphere,level:session.level,subject:session.subject,mode:session.mode,minutes:session.minutes,total:session.total,correct:session.correct,accuracy:session.accuracy})
+      body:JSON.stringify({
+        session_id:sessionId,
+        date:session.date,
+        subject:session.sphere,  // sphere key: S, E, T, foundation, ST, ET, SE
+        platform:"Master Trainer",
+        mode:modeLabel,
+        source_group:"internal",
+        is_internal:true,
+        questions_total:session.total,
+        correct:session.correct,
+        accuracy_pct:session.accuracy,
+        minutes:session.minutes,
+        session_label:sessLabel,
+        predicted_score:predScore,
+        actual_score:session.accuracy,
+        notes:session.subject  // specific subject or sphere if "all"
+      })
     });
   }catch(e){console.log("Sheets save skipped:",e.message);}
 }
@@ -264,7 +287,7 @@ document.getElementById("backToStart").addEventListener("click",()=>{
 });
 
 let timerInterval=null;
-const EXAM_MINUTES={S:90,E:90,T:120}; // real exam durations by sphere
+const EXAM_MINUTES={foundation:60,S:90,E:90,T:120,ST:120,ET:120,SE:90}; // real exam durations by sphere
 
 function startTimer(){
   if(timerInterval)clearInterval(timerInterval);
@@ -337,7 +360,9 @@ function endSession(){
   const el=Math.max(1,Math.round((Date.now()-state.sessionStart)/60000));
   const tot=state.sessionLog.length,cor=state.sessionLog.filter(l=>l.correct).length;
   const acc=tot?Math.round(cor/tot*100):0;
-  state.sessions.push({sphere:state.sphere,level:state.level,subject:state.subject,mode:state.mode,date:new Date().toISOString(),minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
+  // Derive subject label: sphere key if "all", else specific subject
+  const subjLabel=state.subject==="all"?state.sphere:state.subject;
+  state.sessions.push({sphere:state.sphere,level:state.level,subject:subjLabel,mode:state.mode,date:new Date().toISOString(),minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
   localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
   saveToSheet(state.sessions[state.sessions.length-1]);
   stopTimer();
