@@ -122,9 +122,9 @@ let state={sphere:null,level:"bachelor",subject:"all",mode:"practice",analyticsT
 // Load from Google Sheets on init
 async function loadSheetsData(){
   try{
+    // 1. Try gviz (works when Sheet is "Anyone with link can view")
     const r=await fetch(SHEET_URL);
     const txt=await r.text();
-    // gviz returns jsonp-like: )]}',{table:...}
     const json=JSON.parse(txt.replace(/^\)\]\}'\n/,""));
     const rows=json.table.rows;
     state.sheetsData=rows.map(r=>r.c.map(c=>c?v(c.v):""));
@@ -145,7 +145,27 @@ async function loadSheetsData(){
         localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
       }
     }
-  }catch(e){console.log("Sheets load skipped:",e.message);}
+  }catch(e){
+    console.log("gviz skipped:",e.message);
+    // 2. Fallback: Apps Script GET (returns named objects)
+    try{
+      const r2=await fetch(APPS_SCRIPT_URL);
+      const data=await r2.json();
+      const rows=data.sessions||[];
+      const existing=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
+      const existingIds=new Set(existing.map(s=>s.id||s.date));
+      const fromScript=rows.filter(r=>r.date&&!existingIds.has(r.session_id||r.date)).map(r=>({
+        id:r.session_id,date:r.date,sphere:r.subject,subject:r.subject,mode:r.mode,
+        minutes:parseInt(r.minutes)||1,total:parseInt(r.questions_total)||0,
+        correct:parseInt(r.correct)||0,accuracy:parseInt(r.accuracy_pct)||0,
+        label:r.session_label,log:[]
+      }));
+      if(fromScript.length){
+        state.sessions=[...existing,...fromScript];
+        localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
+      }
+    }catch(e2){console.log("Apps Script load skipped:",e2.message);}
+  }
 }
 
 // Save session to Google Sheets via Apps Script
@@ -156,26 +176,27 @@ async function saveToSheet(session){
     const sessionId=`${modeLabel}-${Date.now()}`;
     const sessLabel=state.mode==="simulation"?"s001-exam":"s001";
     const predScore=getReadiness().pct||session.accuracy;
+    const row={
+      session_id:sessionId,
+      date:session.date,
+      subject:session.sphere,  // sphere key: S, E, T, foundation, ST, ET, SE
+      platform:"Master Trainer",
+      mode:modeLabel,
+      source_group:"internal",
+      is_internal:true,
+      questions_total:session.total,
+      correct:session.correct,
+      accuracy_pct:session.accuracy,
+      minutes:session.minutes,
+      session_label:sessLabel,
+      predicted_score:predScore,
+      actual_score:session.accuracy,
+      notes:session.subject  // specific subject or sphere if "all"
+    };
     await fetch(APPS_SCRIPT_URL,{
-      method:"POST",mode:"no-cors",
+      method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        session_id:sessionId,
-        date:session.date,
-        subject:session.sphere,  // sphere key: S, E, T, foundation, ST, ET, SE
-        platform:"Master Trainer",
-        mode:modeLabel,
-        source_group:"internal",
-        is_internal:true,
-        questions_total:session.total,
-        correct:session.correct,
-        accuracy_pct:session.accuracy,
-        minutes:session.minutes,
-        session_label:sessLabel,
-        predicted_score:predScore,
-        actual_score:session.accuracy,
-        notes:session.subject  // specific subject or sphere if "all"
-      })
+      body:JSON.stringify({type:"session",row:row})
     });
   }catch(e){console.log("Sheets save skipped:",e.message);}
 }
