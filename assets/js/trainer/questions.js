@@ -5,11 +5,14 @@
 const SPHERES={
   // Foundation — base literacy for all exams
   foundation:{name:"Foundation",icon:"\u{1F4DA}",color:"var(--ink)",
-    bachelor:["Logic","Math","Reading","Grammar","Vocabulary","Listening"],
-    master:["Logic","Statistics","Academic Reading","Advanced Grammar","Academic Writing","Listening"]},
+    bachelor:["Logic","Math"],  // core foundation (no English)
+    master:["Logic","Statistics"]},
   F:{name:"Foundation",icon:"\u{1F4DA}",color:"var(--ink)",
-    bachelor:["Logic","Math","Reading","Grammar","Vocabulary","Listening"],
-    master:["Logic","Statistics","Academic Reading","Advanced Grammar","Academic Writing","Listening"]},
+    bachelor:["Logic","Math"],  // core foundation (no English)
+    master:["Logic","Statistics"]},
+  english:{name:"English",icon:"\u{1F1EC}\u{1F1E7}",color:"var(--ink)",
+    bachelor:["Reading","Grammar","Vocabulary","Listening"],
+    master:["Academic Reading","Advanced Grammar","Academic Writing","Listening"]},
   // SET spheres — specialized exams
   S:{name:"Science",icon:"\u{1FA7A}",color:"var(--science)",
     bachelor:["Biology","Chemistry","Physics","Bioinformatics","Scientific Computing"],

@@ -10,7 +10,8 @@ const I18N={
     eyebrow:"K Mentorship Hub / 🧭 REAL-PREP-EDUCATION",
     title:"Master Training",
     lede:"\u{1F91D} You've got this. Pick foundation, a sphere exam, or a combo path \u2014 and train.",
-    subF:"\u{1F9EE} Foundation \u00b7 Logic, Math + \u{1F1EC}\u{1F1E7} English \u00b7 Reading, Grammar",
+    subF:"\u{1F9EE} Logic, Math",
+    subEn:"\u{1F4D6} Reading, Grammar, Vocabulary, Listening",
     subS:"\u{1F52C} Biology, Chemistry, Physics, Bioinformatics",
     subE:"\u{1F4C8} Management, Marketing, Finance, Analytics",
     subT:"\u{1F6E0}\uFE0F Programming, AI, Algorithms, Databases",
@@ -64,7 +65,8 @@ const I18N={
     lede:"\u{1F91D} You've got this. Pick foundation, a sphere exam, or a combo path \u2014 and train.",
     frontDoor:"Front Door",
     uiLang:"Interface language",qLang:"Question language",
-    subF:"\u{1F9EE} Foundation \u00b7 Logic, Math + \u{1F1EC}\u{1F1E7} English \u00b7 Reading, Grammar",
+    subF:"\u{1F9EE} Logic, Math",
+    subEn:"\u{1F4D6} Reading, Grammar, Vocabulary, Listening",
     subS:"\u{1F52C} Biology, Chemistry, Physics, Bioinformatics",
     subE:"\u{1F4C8} Management, Marketing, Finance, Analytics",
     subT:"\u{1F6E0}\uFE0F Programming, AI, Algorithms, Databases",
@@ -213,8 +215,8 @@ async function saveToSheet(session){
     const row={
       session_id:sessionId,
       date:session.date,
-      subject:(session.subject||"").toLowerCase()==="foundation"?"all":session.subject,
-      sphere:session.sphere==="foundation"?"F":session.sphere,
+      subject:session.subject||"all",
+      sphere:session.sphere||"F",
       platform:"Master Trainer",
       mode:modeLabel,
       source_group:"internal",
@@ -257,7 +259,9 @@ document.querySelectorAll(".sphere-card").forEach(c=>{
   c.addEventListener("click",()=>{
     document.querySelectorAll(".sphere-card").forEach(x=>x.classList.remove("active"));
     c.classList.add("active");
-    state.sphere=c.dataset.sphere==="foundation"?"F":c.dataset.sphere;
+    const sp=c.dataset.sphere;
+    state.sphere=sp==="foundation"||sp==="english"?"F":sp;
+    state.subject=sp==="english"?"english":"all";
     document.getElementById("sphereSection").style.display="none";
     document.getElementById("msgBox").style.display="none";
     showStartScreen();
@@ -288,7 +292,9 @@ document.getElementById("nextBtn").addEventListener("click",()=>{if(state.curren
 
 function initSubjects(){
   const sel=document.getElementById("subjectFilter");
-  const subs=SPHERES[state.sphere][state.level];
+  // For English card: subjects from SPHERES.english; for F: from SPHERES.F
+  const sphereKey=state.subject==="english"?"english":state.sphere;
+  const subs=SPHERES[sphereKey]?SPHERES[sphereKey][state.level]:SPHERES[state.sphere][state.level];
   sel.innerHTML=`<option value="all">${t('allSubjects')}</option>`;
   subs.forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;sel.appendChild(o);});
 }
@@ -344,7 +350,7 @@ document.getElementById("backToStart").addEventListener("click",()=>{
 });
 
 let timerInterval=null;
-const EXAM_MINUTES={foundation:60,S:90,E:90,T:120,ST:120,ET:120,SE:90}; // real exam durations by sphere
+const EXAM_MINUTES={foundation:60,F:60,english:60,S:90,E:90,T:120,ST:120,ET:120,SE:90}; // real exam durations by sphere
 
 function startTimer(){
   if(timerInterval)clearInterval(timerInterval);
@@ -375,7 +381,7 @@ function startTimer(){
 function stopTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;}}
 
 function startSession(){
-  const subs=state.subject==="all"?SPHERES[state.sphere][state.level]:[state.subject];
+  const subs=state.subject==="all"?(SPHERES[state.sphere]||SPHERES.F)[state.level]:state.subject==="english"?(SPHERES.english||SPHERES.F)[state.level]:[state.subject];
   let pool=[];
   subs.forEach(sub=>{if(Q[sub])Q[sub].forEach((q,i)=>pool.push({...q,subject:sub,idx:i}));});
   for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
@@ -417,9 +423,9 @@ function endSession(){
   const el=Math.max(1,Math.round((Date.now()-state.sessionStart)/60000));
   const tot=state.sessionLog.length,cor=state.sessionLog.filter(l=>l.correct).length;
   const acc=tot?Math.round(cor/tot*100):0;
-  // Derive subject label: "all" for foundation, sphere key if "all", else specific subject
-  const subjLabel=state.subject==="all"?"all":state.subject;
-  const sphereKey=state.sphere==="foundation"?"F":state.sphere;
+  // Subject: "all" for foundation core, "english" for English, or specific SET subject
+  const subjLabel=state.subject;
+  const sphereKey=state.sphere;
   state.sessions.push({sphere:sphereKey,level:state.level,subject:subjLabel,mode:state.mode,date:new Date().toISOString(),minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
   localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
   saveToSheet(state.sessions[state.sessions.length-1]);
@@ -453,7 +459,7 @@ function getReadiness(){
 }
 
 function renderResources(){
-  const subs=state.subject==="all"?SPHERES[state.sphere][state.level]:[state.subject];
+  const subs=state.subject==="all"?SPHERES[state.sphere][state.level]:state.subject==="english"?SPHERES.english[state.level]:[state.subject];
   let h="";
   subs.forEach(s=>{if(RES[s]){h+=`<div style="font-size:12px;font-weight:600;margin:8px 0 4px">${s}</div>`;RES[s].forEach(r=>h+=`<a href="${r.u}" target="_blank" rel="noreferrer">${r.l}</a>`);}});
   document.getElementById("resourceLinks").innerHTML=h;
@@ -465,7 +471,7 @@ function renderAnalytics(){
   document.getElementById("chartTitle").textContent=titles[atype]||"";
   const c=document.getElementById("mainChart"),ctx=c.getContext("2d");
   c.width=c.offsetWidth*2;c.height=360;ctx.clearRect(0,0,c.width,c.height);
-  const subs=SPHERES[state.sphere][state.level],log=state.sessionLog,sess=state.sessions.filter(s=>s.sphere===state.sphere);
+  const subs=(SPHERES[state.sphere]||SPHERES.F)[state.level],log=state.sessionLog,sess=state.sessions.filter(s=>s.sphere===state.sphere);
   if(atype==="descriptive")drawAcc(ctx,c,subs,log);
   else if(atype==="diagnostic")drawWeak(ctx,c,subs,log);
   else if(atype==="prescriptive")drawPriority(ctx,c,subs,log);
@@ -514,7 +520,7 @@ function drawPredict(ctx,c,sess){
 function drawShared(){
   const c=document.getElementById("sharedChart"),ctx=c.getContext("2d");
   c.width=c.offsetWidth*2;c.height=360;ctx.clearRect(0,0,c.width,c.height);
-  const subs=SPHERES[state.sphere][state.level],all=state.sessions.filter(s=>s.sphere===state.sphere);
+  const subs=(SPHERES[state.sphere]||SPHERES.F)[state.level],all=state.sessions.filter(s=>s.sphere===state.sphere);
   const acc={};subs.forEach(s=>acc[s]={c:0,t:0});
   all.forEach(s=>(s.log||[]).forEach(l=>{if(acc[l.subject]){acc[l.subject].t++;if(l.correct)acc[l.subject].c++;}}));
   const vals=subs.map(s=>acc[s].t?Math.round(acc[s].c/acc[s].t*100):0);
