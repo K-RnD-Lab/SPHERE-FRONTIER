@@ -38,6 +38,42 @@ const SPHERE_LABELS={
 function accColor(a){return a>=80?"#22c55e":a>=60?"#eab308":"#ef4444";}
 function modeLabel(m){const c=(m||"").toLowerCase();return c.includes("sim")?"Simulation":"Practice";}
 
+// Subject display names
+const SUBJECT_NAMES={
+  all:"All Foundation",english:"English",it:"IT / Computer Science",
+  biology:"Biology",chemistry:"Chemistry",physics:"Physics",math:"Mathematics",logic:"Logic",
+  anatomy:"Anatomy",pharmacology:"Pharmacology",pathology:"Pathology",physiology:"Physiology",
+  management:"Management",economics:"Economics",marketing:"Marketing",finance:"Finance",
+  law:"Law",psychology:"Psychology",sociology:"Sociology",
+  ai_ml:"AI / ML",data_science:"Data Science",cybersec:"Cybersecurity",devops:"DevOps",
+  programming:"Programming",databases:"Databases",networks:"Networks",
+  biotech_eng:"Biotech Engineering",it_mgmt:"IT Management",pharma_mgmt:"Pharma Management",
+  health_econ:"Health Economics",biotech_biz:"Biotech Business",clinical_trials:"Clinical Trials"
+};
+
+// Populate subject dropdown based on sessions & sphere filter
+function updateSubjectFilter(sessions){
+  const sf=document.getElementById("sphereFilter")?.value||"all";
+  const subF=document.getElementById("subjectFilter");
+  if(!subF)return;
+  const filtered=sf==="all"?sessions:sessions.filter(s=>(s.sphere||subjectInfo(s.subject).sphere)===sf);
+  const subjects=[...new Set(filtered.map(s=>s.subject||"unknown"))].sort();
+  const prev=subF.value;
+  subF.innerHTML='<option value="all">All subjects</option>'+
+    subjects.map(s=>`<option value="${s}">${SUBJECT_NAMES[s]||s}</option>`).join("");
+  if(subjects.includes(prev))subF.value=prev;else subF.value="all";
+}
+
+// Apply both sphere + subject filters
+function filteredSessions(sessions){
+  const sf=document.getElementById("sphereFilter")?.value||"all";
+  const subF=document.getElementById("subjectFilter")?.value||"all";
+  let f=sessions;
+  if(sf!=="all")f=f.filter(s=>(s.sphere||subjectInfo(s.subject).sphere)===sf);
+  if(subF!=="all")f=f.filter(s=>(s.subject||"")==subF);
+  return f;
+}
+
 /* ── Tabs ── */
 document.querySelectorAll("#tabbar button").forEach(b=>{
   b.addEventListener("click",()=>{
@@ -112,8 +148,7 @@ async function loadSessions(){
 
 /* ── Stats ── */
 function renderStats(sessions){
-  const filterKey=document.getElementById("sphereFilter")?.value||"all";
-  const filtered=filterKey==="all"?sessions:sessions.filter(s=>subjectInfo(s.subject||"").sphere===filterKey);
+  const filtered=filteredSessions(sessions);
   const n=filtered.length;
   const avg=n?Math.round(filtered.reduce((s,x)=>s+(x.accuracy||0),0)/n):0;
   const totQ=filtered.reduce((s,x)=>s+(x.total||0),0);
@@ -129,18 +164,16 @@ function renderStats(sessions){
 
 /* ── Overview: Goals ── */
 function renderGoals(sessions){
-  const filterKey=document.getElementById("sphereFilter")?.value||"all";
-  // Group by sphere key (use session.sphere or derive from subject for legacy data)
+  // Group by sphere key
   const bySphere={};
-  sessions.forEach(s=>{
+  filteredSessions(sessions).forEach(s=>{
     const spKey=s.sphere||subjectInfo(s.subject||"unknown").sphere;
     const info=SPHERE_LABELS[spKey]||subjectInfo(s.subject||"unknown");
     if(!bySphere[spKey])bySphere[spKey]={c:0,t:0,mins:0,n:0,label:info.label,cls:info.cls};
     bySphere[spKey].c+=s.correct||0;bySphere[spKey].t+=s.total||0;
     bySphere[spKey].mins+=s.minutes||0;bySphere[spKey].n++;
   });
-  // Filter by selected sphere
-  const entries=filterKey==="all"?Object.entries(bySphere):Object.entries(bySphere).filter(([k])=>k===filterKey);
+  const entries=Object.entries(bySphere);
   const grid=document.getElementById("goalGrid");
   if(!entries.length){
     grid.innerHTML='<p style="color:var(--muted);font-size:14px">No sessions yet.</p>';return;
@@ -175,8 +208,7 @@ function renderInsights(sessions){
 
 /* ── Session Log ── */
 function renderLog(sessions){
-  const filterKey=document.getElementById("sphereFilter")?.value||"all";
-  const filtered=filterKey==="all"?sessions:sessions.filter(s=>subjectInfo(s.subject||"").sphere===filterKey);
+  const filtered=filteredSessions(sessions);
   const grid=document.getElementById("sessionGrid");
   const empty=document.getElementById("emptyMsg");
   if(!filtered.length){grid.innerHTML="";empty.style.display="block";return;}
@@ -283,16 +315,27 @@ function renderAllCharts(){
 /* ── Init ── */
 (async()=>{
   allSessions=await loadSessions();
+  updateSubjectFilter(allSessions);
   renderStats(allSessions);
   renderGoals(allSessions);
   renderInsights(allSessions);
   renderLog(allSessions);
   renderAllCharts();
-  // Sphere filter dropdown
+  // Sphere filter → update subject dropdown + re-render
   const sf=document.getElementById("sphereFilter");
   if(sf)sf.addEventListener("change",()=>{
-    renderGoals(allSessions);
+    updateSubjectFilter(allSessions);
     renderStats(allSessions);
+    renderGoals(allSessions);
+    renderInsights(allSessions);
+    renderLog(allSessions);
+    renderAllCharts();
+  });
+  // Subject filter → re-render
+  const subF=document.getElementById("subjectFilter");
+  if(subF)subF.addEventListener("change",()=>{
+    renderStats(allSessions);
+    renderGoals(allSessions);
     renderInsights(allSessions);
     renderLog(allSessions);
     renderAllCharts();
