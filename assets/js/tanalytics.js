@@ -94,6 +94,11 @@ async function loadSessions(){
 
   // 3. Merge localStorage
   try{
+    // Clear stale localStorage if version mismatch
+    if(localStorage.getItem("mt_ver")!=="mt_v2"){
+      localStorage.removeItem("mt_sessions");
+      localStorage.setItem("mt_ver","mt_v2");
+    }
     const local=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
     const existing=new Set(sessions.map(s=>s.id||s.date));
     local.forEach(s=>{

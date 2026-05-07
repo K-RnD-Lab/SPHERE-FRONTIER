@@ -117,7 +117,14 @@ function applyI18N(){
   if(ct&&at[state.analyticsType])ct.textContent=t(at[state.analyticsType]);
 }
 
-let state={sphere:null,level:"bachelor",subject:"all",mode:"practice",analyticsType:"descriptive",questions:[],currentIdx:0,answers:{},sessionStart:null,sessions:JSON.parse(localStorage.getItem("mt_sessions")||"[]"),sessionLog:[],sheetsData:[]};
+let state={sphere:null,level:"bachelor",subject:"all",mode:"practice",analyticsType:"descriptive",questions:[],currentIdx:0,answers:{},sessionStart:null,sessions:[],sessionLog:[],sheetsData:[]};
+
+// One-time: clear stale localStorage (old entries without sphere/id cause duplicates)
+const _LS_VER="mt_v2";
+if(localStorage.getItem("mt_ver")!==_LS_VER){
+  localStorage.removeItem("mt_sessions");
+  localStorage.setItem("mt_ver",_LS_VER);
+}
 
 // Derive sphere from subject key (for legacy data without sphere field)
 const _SUBJ_SPHERE={tznk:"F",english:"F",it:"F",all:"F",foundation:"F",S:"S",E:"E",T:"T",ST:"ST",ET:"ET",SE:"SE"};
