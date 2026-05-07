@@ -350,4 +350,33 @@ function renderAllCharts(){
     renderLog(allSessions);
     renderAllCharts();
   });
+  // Record Real Exam Score
+  const actualSubSel=document.getElementById("actualSubject");
+  if(actualSubSel){
+    // Populate with unique subjects from sessions
+    const subjects=[...new Set(allSessions.map(s=>s.subject||"unknown"))].sort();
+    actualSubSel.innerHTML='<option value="">Select subject</option>'+
+      subjects.map(s=>`<option value="${s}">${SUBJECT_NAMES[s]||s}</option>`).join("");
+  }
+  document.getElementById("saveActualBtn")?.addEventListener("click",async()=>{
+    const sub=document.getElementById("actualSubject")?.value;
+    const score=parseInt(document.getElementById("actualScore")?.value);
+    const msg=document.getElementById("actualMsg");
+    if(!sub||isNaN(score)){msg.textContent="Pick subject & score";msg.style.color="#ef4444";return;}
+    // Find latest simulation for this subject
+    const sim=allSessions.filter(s=>(s.subject||"")===sub&&/sim/i.test(s.mode||""));
+    const target=sim.length?sim[0]:allSessions.filter(s=>(s.subject||"")===sub).pop();
+    if(!target||!target.id){msg.textContent="No session found for "+sub;msg.style.color="#ef4444";return;}
+    // Update actual_score in Sheet via Apps Script
+    try{
+      await fetch(APPS_SCRIPT,{
+        method:"POST",mode:"no-cors",
+        headers:{"Content-Type":"text/plain"},
+        body:JSON.stringify({type:"update",session_id:target.id,field:"actual_score",value:score})
+      });
+      msg.textContent="Saved "+score+" for "+(SUBJECT_NAMES[sub]||sub)+" ✓";
+      msg.style.color="#22c55e";
+      target.actualScore=score;
+    }catch(e){msg.textContent="Save failed";msg.style.color="#ef4444";}
+  });
 })();
