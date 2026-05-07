@@ -128,18 +128,21 @@ async function loadSessions(){
     }catch(e){console.log("Apps Script:",e.message);}
   }
 
-  // 3. Merge localStorage
+  // 3. Merge localStorage (only entries NOT already in Sheet data)
   try{
-    // Clear stale localStorage if version mismatch
-    if(localStorage.getItem("mt_ver")!=="mt_v2"){
-      localStorage.removeItem("mt_sessions");
-      localStorage.setItem("mt_ver","mt_v2");
-    }
     const local=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
-    const existing=new Set(sessions.map(s=>s.id||s.date));
+    // Build dedup set from Sheet data using all possible keys
+    const sheetKeys=new Set();
+    sessions.forEach(s=>{
+      if(s.id)sheetKeys.add(s.id);
+      if(s.date)sheetKeys.add(s.date);
+      // Also add composite key for safety
+      sheetKeys.add((s.subject||"")+"|"+s.date+"|"+(s.total||0));
+    });
     local.forEach(s=>{
       const key=s.id||s.date;
-      if(!existing.has(key))sessions.push(s);
+      const compKey=(s.subject||"")+"|"+s.date+"|"+(s.total||0);
+      if(!sheetKeys.has(key)&&!sheetKeys.has(compKey))sessions.push(s);
     });
   }catch(e){}
 

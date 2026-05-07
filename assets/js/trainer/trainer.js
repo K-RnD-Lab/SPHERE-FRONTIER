@@ -120,7 +120,7 @@ function applyI18N(){
 let state={sphere:null,level:"bachelor",subject:"all",mode:"practice",analyticsType:"descriptive",questions:[],currentIdx:0,answers:{},sessionStart:null,sessions:[],sessionLog:[],sheetsData:[]};
 
 // One-time: clear stale localStorage (old entries without sphere/id cause duplicates)
-const _LS_VER="mt_v2";
+const _LS_VER="mt_v3";
 if(localStorage.getItem("mt_ver")!==_LS_VER){
   localStorage.removeItem("mt_sessions");
   localStorage.setItem("mt_ver",_LS_VER);
