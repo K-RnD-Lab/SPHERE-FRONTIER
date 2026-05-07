@@ -59,18 +59,18 @@ function updateSubjectFilter(sessions){
   const filtered=sf==="all"?sessions:sessions.filter(s=>(s.sphere||subjectInfo(s.subject).sphere)===sf);
   const subjects=[...new Set(filtered.map(s=>s.subject||"unknown"))].sort();
   const prev=subF.value;
-  subF.innerHTML='<option value="all">All subjects</option>'+
+  subF.innerHTML='<option value="">All subjects</option>'+
     subjects.map(s=>`<option value="${s}">${SUBJECT_NAMES[s]||s}</option>`).join("");
-  if(subjects.includes(prev))subF.value=prev;else subF.value="all";
+  if(subjects.includes(prev))subF.value=prev;else subF.value="";
 }
 
 // Apply both sphere + subject filters
 function filteredSessions(sessions){
   const sf=document.getElementById("sphereFilter")?.value||"all";
-  const subF=document.getElementById("subjectFilter")?.value||"all";
+  const subF=document.getElementById("subjectFilter")?.value||"";
   let f=sessions;
   if(sf!=="all")f=f.filter(s=>(s.sphere||subjectInfo(s.subject).sphere)===sf);
-  if(subF!=="all")f=f.filter(s=>(s.subject||"")==subF);
+  if(subF)f=f.filter(s=>(s.subject||"")==subF);  // empty = show all, "all" = Foundation only
   return f;
 }
 
@@ -174,21 +174,21 @@ function renderStats(sessions){
 
 /* ── Overview: Goals ── */
 function renderGoals(sessions){
-  // Group by subject key for per-subject cards
-  const bySubject={};
+  // Group by sphere key
+  const bySphere={};
   filteredSessions(sessions).forEach(s=>{
-    const subKey=s.subject||"unknown";
-    const info=subjectInfo(subKey);
-    if(!bySubject[subKey])bySubject[subKey]={c:0,t:0,mins:0,n:0,label:info.label,cls:info.cls};
-    bySubject[subKey].c+=s.correct||0;bySubject[subKey].t+=s.total||0;
-    bySubject[subKey].mins+=s.minutes||0;bySubject[subKey].n++;
+    const spKey=s.sphere||subjectInfo(s.subject||"unknown").sphere;
+    const info=SPHERE_LABELS[spKey]||subjectInfo(s.subject||"unknown");
+    if(!bySphere[spKey])bySphere[spKey]={c:0,t:0,mins:0,n:0,label:info.label,cls:info.cls};
+    bySphere[spKey].c+=s.correct||0;bySphere[spKey].t+=s.total||0;
+    bySphere[spKey].mins+=s.minutes||0;bySphere[spKey].n++;
   });
-  const entries=Object.entries(bySubject);
+  const entries=Object.entries(bySphere);
   const grid=document.getElementById("goalGrid");
   if(!entries.length){
     grid.innerHTML='<p style="color:var(--muted);font-size:14px">No sessions yet.</p>';return;
   }
-  grid.innerHTML=entries.map(([sub,d])=>{
+  grid.innerHTML=entries.map(([sp,d])=>{
     const acc=d.t?Math.round(d.c/d.t*100):0;
     return `<div class="goal-card" style="border-left:4px solid var(--${d.cls})">
       <div class="label">${d.label}</div>
