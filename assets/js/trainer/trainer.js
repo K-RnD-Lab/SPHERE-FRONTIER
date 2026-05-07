@@ -179,7 +179,8 @@ async function saveToSheet(session){
     const row={
       session_id:sessionId,
       date:session.date,
-      subject:session.sphere,  // sphere key: S, E, T, foundation, ST, ET, SE
+      subject:session.subject,  // specific subject or sphere key if "all"
+      sphere:session.sphere,    // sphere key: S, E, T, foundation, ST, ET, SE
       platform:"Master Trainer",
       mode:modeLabel,
       source_group:"internal",
@@ -191,7 +192,7 @@ async function saveToSheet(session){
       session_label:sessLabel,
       predicted_score:predScore,
       actual_score:session.accuracy,
-      notes:session.subject  // specific subject or sphere if "all"
+      notes:""
     };
     await fetch(APPS_SCRIPT_URL,{
       method:"POST",

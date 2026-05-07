@@ -24,6 +24,17 @@ const SUBJECT_MAP={
   all:{sphere:"F",label:"\u{1F4DA} Foundation",cls:"science"}
 };
 function subjectInfo(s){return SUBJECT_MAP[(s||"").toLowerCase()]||SUBJECT_MAP[s]||{sphere:"?",label:s||"Unknown",cls:"technology"};}
+
+// Sphere display labels (used for grouping)
+const SPHERE_LABELS={
+  F:{label:"\u{1F4DA} Foundation",cls:"science"},
+  S:{label:"\u{1FA7A} Science",cls:"science"},
+  E:{label:"\u{1F4BC} Entrepreneurship",cls:"entrepreneurship"},
+  T:{label:"\u{1F4BB} Technology",cls:"technology"},
+  ST:{label:"\u{1FA7A}\u{1F4BB} Science+Tech",cls:"science"},
+  ET:{label:"\u{1F4BC}\u{1F4BB} Ent+Tech",cls:"entrepreneurship"},
+  SE:{label:"\u{1FA7A}\u{1F4BC} Sci+Ent",cls:"science"}
+};
 function accColor(a){return a>=80?"#22c55e":a>=60?"#eab308":"#ef4444";}
 function modeLabel(m){const c=(m||"").toLowerCase();return c.includes("sim")?"Simulation":"Practice";}
 
@@ -51,12 +62,16 @@ async function loadSessions(){
       const rows=json.table.rows;
       const fromGviz=rows.map(r=>{
         const c=r.c;
+        // Columns: session_id(0), date(1), subject(2), sphere(3), platform(4), mode(5),
+        // source_group(6), is_internal(7), questions_total(8), correct(9),
+        // accuracy_pct(10), minutes(11), session_label(12), predicted_score(13), actual_score(14), notes(15)
+        const sphere=v(c[3])||subjectInfo(v(c[2])).sphere; // use sphere col or derive from subject
         return{
-          id:v(c[0]),date:v(c[1]),subject:v(c[2]),platform:v(c[3]),mode:v(c[4]),
-          sourceGroup:v(c[5]),isInternal:v(c[6]),
-          total:parseInt(v(c[7]))||0,correct:parseInt(v(c[8]))||0,
-          accuracy:parseInt(v(c[9]))||0,minutes:parseInt(v(c[10]))||0,
-          label:v(c[11]),predicted:parseInt(v(c[12]))||0,log:[]
+          id:v(c[0]),date:v(c[1]),subject:v(c[2]),sphere:sphere,platform:v(c[4]),mode:v(c[5]),
+          sourceGroup:v(c[6]),isInternal:v(c[7]),
+          total:parseInt(v(c[8]))||0,correct:parseInt(v(c[9]))||0,
+          accuracy:parseInt(v(c[10]))||0,minutes:parseInt(v(c[11]))||0,
+          label:v(c[12]),predicted:parseInt(v(c[13]))||0,log:[]
         };
       }).filter(s=>s.date&&s.total>0);
       sessions=fromGviz;
@@ -70,8 +85,8 @@ async function loadSessions(){
       const data=await r.json();
       const rows=data.sessions||data||[];
       const fromScript=rows.map(r=>{
-        if(Array.isArray(r))return{date:r[0],subject:r[3],mode:r[4],total:parseInt(r[6])||0,correct:parseInt(r[7])||0,accuracy:parseInt(r[8])||0,minutes:parseInt(r[5])||0,log:[]};
-        return{date:r.date||r.timestamp,subject:r.subject,mode:r.mode,total:parseInt(r.questions_total||r.total)||0,correct:parseInt(r.correct)||0,accuracy:parseInt(r.accuracy_pct||r.accuracy)||0,minutes:parseInt(r.minutes)||0,log:[]};
+        if(Array.isArray(r))return{date:r[0],subject:r[2],sphere:r[3]||subjectInfo(r[2]).sphere,mode:r[4]||r[5],total:parseInt(r[7]||r[8])||0,correct:parseInt(r[8]||r[9])||0,accuracy:parseInt(r[9]||r[10])||0,minutes:parseInt(r[5]||r[11])||0,log:[]};
+        return{date:r.date||r.timestamp,subject:r.subject,sphere:r.sphere||subjectInfo(r.subject).sphere,mode:r.mode,total:parseInt(r.questions_total||r.total)||0,correct:parseInt(r.correct)||0,accuracy:parseInt(r.accuracy_pct||r.accuracy)||0,minutes:parseInt(r.minutes)||0,log:[]};
       }).filter(s=>s.date&&s.total>0);
       sessions=fromScript;
     }catch(e){console.log("Apps Script:",e.message);}
@@ -110,11 +125,11 @@ function renderStats(sessions){
 /* ── Overview: Goals ── */
 function renderGoals(sessions){
   const filterKey=document.getElementById("sphereFilter")?.value||"all";
-  // Map each session's subject to a sphere key
+  // Group by sphere key (use session.sphere or derive from subject for legacy data)
   const bySphere={};
   sessions.forEach(s=>{
-    const info=subjectInfo(s.subject||"unknown");
-    const spKey=info.sphere; // F, S, E, T, ST, ET, SE
+    const spKey=s.sphere||subjectInfo(s.subject||"unknown").sphere;
+    const info=SPHERE_LABELS[spKey]||subjectInfo(s.subject||"unknown");
     if(!bySphere[spKey])bySphere[spKey]={c:0,t:0,mins:0,n:0,label:info.label,cls:info.cls};
     bySphere[spKey].c+=s.correct||0;bySphere[spKey].t+=s.total||0;
     bySphere[spKey].mins+=s.minutes||0;bySphere[spKey].n++;
