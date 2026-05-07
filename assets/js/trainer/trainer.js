@@ -119,6 +119,10 @@ function applyI18N(){
 
 let state={sphere:null,level:"bachelor",subject:"all",mode:"practice",analyticsType:"descriptive",questions:[],currentIdx:0,answers:{},sessionStart:null,sessions:JSON.parse(localStorage.getItem("mt_sessions")||"[]"),sessionLog:[],sheetsData:[]};
 
+// Derive sphere from subject key (for legacy data without sphere field)
+const _SUBJ_SPHERE={tznk:"S",english:"E",it:"T",all:"F",foundation:"F",S:"S",E:"E",T:"T",ST:"ST",ET:"ET",SE:"SE"};
+function subjectInfo(s){return{sphere:_SUBJ_SPHERE[(s||"").toLowerCase()]||_SUBJ_SPHERE[s]||s||"F"};}
+
 // Load from Google Sheets on init
 async function loadSheetsData(){
   try{
@@ -129,16 +133,16 @@ async function loadSheetsData(){
     const rows=json.table.rows;
     state.sheetsData=rows.map(r=>r.c.map(c=>c?v(c.v):""));
     // Merge sheets data into sessions if not already present
-    // Sheet columns: session_id(0), date(1), subject(2), platform(3), mode(4), source_group(5),
-    // is_internal(6), questions_total(7), correct(8), accuracy_pct(9), minutes(10),
-    // session_label(11), predicted_score(12), actual_score(13), notes(14)
+    // Columns after migration: session_id(0), date(1), subject(2), sphere(3), platform(4), mode(5),
+    // source_group(6), is_internal(7), questions_total(8), correct(9),
+    // accuracy_pct(10), minutes(11), session_label(12), predicted_score(13), actual_score(14), notes(15)
     if(state.sheetsData.length>0){
       const existing=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
       const existingIds=new Set(existing.map(s=>s.id||s.date));
       const fromSheet=state.sheetsData.filter(r=>r[1]&&!existingIds.has(r[0]||r[1])).map(r=>({
-        id:r[0],date:r[1],sphere:r[2],subject:r[2],mode:r[4],
-        minutes:parseInt(r[10])||1,total:parseInt(r[7])||0,correct:parseInt(r[8])||0,
-        accuracy:parseInt(r[9])||0,label:r[11],log:[]
+        id:r[0],date:r[1],subject:r[2],sphere:r[3]||subjectInfo(r[2]).sphere,mode:r[5],
+        minutes:parseInt(r[11])||1,total:parseInt(r[8])||0,correct:parseInt(r[9])||0,
+        accuracy:parseInt(r[10])||0,label:r[12],log:[]
       }));
       if(fromSheet.length){
         state.sessions=[...existing,...fromSheet];
@@ -155,7 +159,7 @@ async function loadSheetsData(){
       const existing=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
       const existingIds=new Set(existing.map(s=>s.id||s.date));
       const fromScript=rows.filter(r=>r.date&&!existingIds.has(r.session_id||r.date)).map(r=>({
-        id:r.session_id,date:r.date,sphere:r.subject,subject:r.subject,mode:r.mode,
+        id:r.session_id,date:r.date,subject:r.subject,sphere:r.sphere||subjectInfo(r.subject).sphere,mode:r.mode,
         minutes:parseInt(r.minutes)||1,total:parseInt(r.questions_total)||0,
         correct:parseInt(r.correct)||0,accuracy:parseInt(r.accuracy_pct)||0,
         label:r.session_label,log:[]
@@ -165,6 +169,29 @@ async function loadSheetsData(){
         localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
       }
     }catch(e2){console.log("Apps Script load skipped:",e2.message);}
+  }
+  // Clean up localStorage: add sphere to legacy entries, deduplicate
+  const sessions=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
+  const subjectToSphere={tznk:"S",english:"E",it:"T",all:"F",foundation:"F",S:"S",E:"E",T:"T",ST:"ST",ET:"ET",SE:"SE"};
+  let changed=false;
+  sessions.forEach(s=>{
+    if(!s.sphere&&s.subject){
+      s.sphere=subjectToSphere[(s.subject+"").toLowerCase()]||s.subject;
+      changed=true;
+    }
+  });
+  // Deduplicate by id/date
+  if(changed||sessions.length>0){
+    const seen=new Set();
+    const deduped=sessions.filter(s=>{
+      const key=s.id||s.date;
+      if(seen.has(key))return false;
+      seen.add(key);return true;
+    });
+    if(deduped.length!==sessions.length||changed){
+      state.sessions=deduped;
+      localStorage.setItem("mt_sessions",JSON.stringify(deduped));
+    }
   }
 }
 
