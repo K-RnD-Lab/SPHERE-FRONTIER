@@ -1,14 +1,14 @@
 // Universal exam structure — Foundation + SET spheres + Combos
-// Foundation: TZNK + English (base for all exams)
-// ЄФВВ: Specialized exam by sphere
+// Foundation: Logic, Math + English (base for all exams)
+// SET: Specialized exam by sphere
 // Combos: Cross-sphere specializations (like registry)
 const SPHERES={
   // Foundation — base literacy for all exams
   foundation:{name:"Foundation",icon:"\u{1F4DA}",color:"var(--ink)",
     bachelor:["Logic","Math","Reading","Grammar","Vocabulary","Listening"],
     master:["Logic","Statistics","Academic Reading","Advanced Grammar","Academic Writing","Listening"]},
-  // SET spheres — specialized ЄФВВ exams
-  S:{name:"Science",icon:"\u{1FA7A}",color:"var(--science)",exam:"TZNK",
+  // SET spheres — specialized exams
+  S:{name:"Science",icon:"\u{1FA7A}",color:"var(--science)",
     bachelor:["Biology","Chemistry","Physics","Bioinformatics","Scientific Computing"],
     master:["Molecular Biology","Biochemistry","Biophysics","Computational Biology","Bioinformatics Engineering"]},
   E:{name:"Entrepreneurship",icon:"\u{1F4BC}",color:"var(--entrepreneurship)",
