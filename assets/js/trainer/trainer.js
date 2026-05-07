@@ -426,7 +426,8 @@ function endSession(){
   // Subject: "all" for foundation core, "english" for English, or specific SET subject
   const subjLabel=state.subject;
   const sphereKey=state.sphere;
-  state.sessions.push({sphere:sphereKey,level:state.level,subject:subjLabel,mode:state.mode,date:new Date().toISOString(),minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
+  const dateStr=new Date().toISOString().slice(0,10); // YYYY-MM-DD
+  state.sessions.push({sphere:sphereKey,level:state.level,subject:subjLabel,mode:state.mode,date:dateStr,minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
   localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
   saveToSheet(state.sessions[state.sessions.length-1]);
   stopTimer();
