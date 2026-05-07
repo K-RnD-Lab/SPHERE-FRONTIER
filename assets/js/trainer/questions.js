@@ -7,6 +7,9 @@ const SPHERES={
   foundation:{name:"Foundation",icon:"\u{1F4DA}",color:"var(--ink)",
     bachelor:["Logic","Math","Reading","Grammar","Vocabulary","Listening"],
     master:["Logic","Statistics","Academic Reading","Advanced Grammar","Academic Writing","Listening"]},
+  F:{name:"Foundation",icon:"\u{1F4DA}",color:"var(--ink)",
+    bachelor:["Logic","Math","Reading","Grammar","Vocabulary","Listening"],
+    master:["Logic","Statistics","Academic Reading","Advanced Grammar","Academic Writing","Listening"]},
   // SET spheres — specialized exams
   S:{name:"Science",icon:"\u{1FA7A}",color:"var(--science)",
     bachelor:["Biology","Chemistry","Physics","Bioinformatics","Scientific Computing"],

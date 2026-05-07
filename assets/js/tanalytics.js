@@ -146,6 +146,13 @@ async function loadSessions(){
     });
   }catch(e){}
 
+  // Normalize: sphere keys → single-letter, subject "foundation"→"all"
+  const sphereNorm={foundation:"F",tznk:"F",english:"F",it:"T",all:"F",S:"S",E:"E",T:"T",ST:"ST",ET:"ET",SE:"SE"};
+  sessions.forEach(s=>{
+    s.sphere=sphereNorm[(s.sphere||"").toLowerCase()]||sphereNorm[s.sphere]||s.sphere;
+    if((s.subject||"").toLowerCase()==="foundation")s.subject="all";
+  });
+
   return sessions.sort((a,b)=>new Date(b.date)-new Date(a.date));
 }
 

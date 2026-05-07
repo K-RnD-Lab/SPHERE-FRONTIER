@@ -120,7 +120,7 @@ function applyI18N(){
 let state={sphere:null,level:"bachelor",subject:"all",mode:"practice",analyticsType:"descriptive",questions:[],currentIdx:0,answers:{},sessionStart:null,sessions:[],sessionLog:[],sheetsData:[]};
 
 // One-time: clear stale localStorage (old entries without sphere/id cause duplicates)
-const _LS_VER="mt_v3";
+const _LS_VER="mt_v4";
 if(localStorage.getItem("mt_ver")!==_LS_VER){
   localStorage.removeItem("mt_sessions");
   localStorage.setItem("mt_ver",_LS_VER);
@@ -213,8 +213,8 @@ async function saveToSheet(session){
     const row={
       session_id:sessionId,
       date:session.date,
-      subject:session.subject,  // specific subject or sphere key if "all"
-      sphere:session.sphere,    // sphere key: S, E, T, foundation, ST, ET, SE
+      subject:(session.subject||"").toLowerCase()==="foundation"?"all":session.subject,
+      sphere:session.sphere==="foundation"?"F":session.sphere,
       platform:"Master Trainer",
       mode:modeLabel,
       source_group:"internal",
@@ -257,7 +257,7 @@ document.querySelectorAll(".sphere-card").forEach(c=>{
   c.addEventListener("click",()=>{
     document.querySelectorAll(".sphere-card").forEach(x=>x.classList.remove("active"));
     c.classList.add("active");
-    state.sphere=c.dataset.sphere;
+    state.sphere=c.dataset.sphere==="foundation"?"F":c.dataset.sphere;
     document.getElementById("sphereSection").style.display="none";
     document.getElementById("msgBox").style.display="none";
     showStartScreen();
@@ -417,9 +417,10 @@ function endSession(){
   const el=Math.max(1,Math.round((Date.now()-state.sessionStart)/60000));
   const tot=state.sessionLog.length,cor=state.sessionLog.filter(l=>l.correct).length;
   const acc=tot?Math.round(cor/tot*100):0;
-  // Derive subject label: sphere key if "all", else specific subject
-  const subjLabel=state.subject==="all"?state.sphere:state.subject;
-  state.sessions.push({sphere:state.sphere,level:state.level,subject:subjLabel,mode:state.mode,date:new Date().toISOString(),minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
+  // Derive subject label: "all" for foundation, sphere key if "all", else specific subject
+  const subjLabel=state.subject==="all"?"all":state.subject;
+  const sphereKey=state.sphere==="foundation"?"F":state.sphere;
+  state.sessions.push({sphere:sphereKey,level:state.level,subject:subjLabel,mode:state.mode,date:new Date().toISOString(),minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
   localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
   saveToSheet(state.sessions[state.sessions.length-1]);
   stopTimer();
