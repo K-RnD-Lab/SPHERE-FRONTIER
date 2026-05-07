@@ -92,11 +92,13 @@ async function loadSessions(){
 
 /* ── Stats ── */
 function renderStats(sessions){
-  const n=sessions.length;
-  const avg=n?Math.round(sessions.reduce((s,x)=>s+(x.accuracy||0),0)/n):0;
-  const totQ=sessions.reduce((s,x)=>s+(x.total||0),0);
-  const totMin=sessions.reduce((s,x)=>s+(x.minutes||0),0);
-  const best=n?Math.max(...sessions.map(s=>s.accuracy||0)):0;
+  const filterKey=document.getElementById("sphereFilter")?.value||"all";
+  const filtered=filterKey==="all"?sessions:sessions.filter(s=>subjectInfo(s.subject||"").sphere===filterKey);
+  const n=filtered.length;
+  const avg=n?Math.round(filtered.reduce((s,x)=>s+(x.accuracy||0),0)/n):0;
+  const totQ=filtered.reduce((s,x)=>s+(x.total||0),0);
+  const totMin=filtered.reduce((s,x)=>s+(x.minutes||0),0);
+  const best=n?Math.max(...filtered.map(s=>s.accuracy||0)):0;
   document.getElementById("aggStats").innerHTML=`
     <div class="stat-card"><div class="stat-value">${n}</div><div class="stat-label">Sessions</div></div>
     <div class="stat-card science"><div class="stat-value">${avg}%</div><div class="stat-label">Avg Accuracy</div></div>
@@ -107,22 +109,26 @@ function renderStats(sessions){
 
 /* ── Overview: Goals ── */
 function renderGoals(sessions){
-  const bySub={};
+  const filterKey=document.getElementById("sphereFilter")?.value||"all";
+  // Map each session's subject to a sphere key
+  const bySphere={};
   sessions.forEach(s=>{
-    const sp=s.subject||"unknown";
-    if(!bySub[sp])bySub[sp]={c:0,t:0,mins:0,n:0};
-    bySub[sp].c+=s.correct||0;bySub[sp].t+=s.total||0;
-    bySub[sp].mins+=s.minutes||0;bySub[sp].n++;
+    const info=subjectInfo(s.subject||"unknown");
+    const spKey=info.sphere; // F, S, E, T, ST, ET, SE
+    if(!bySphere[spKey])bySphere[spKey]={c:0,t:0,mins:0,n:0,label:info.label,cls:info.cls};
+    bySphere[spKey].c+=s.correct||0;bySphere[spKey].t+=s.total||0;
+    bySphere[spKey].mins+=s.minutes||0;bySphere[spKey].n++;
   });
+  // Filter by selected sphere
+  const entries=filterKey==="all"?Object.entries(bySphere):Object.entries(bySphere).filter(([k])=>k===filterKey);
   const grid=document.getElementById("goalGrid");
-  if(!Object.keys(bySub).length){
+  if(!entries.length){
     grid.innerHTML='<p style="color:var(--muted);font-size:14px">No sessions yet.</p>';return;
   }
-  grid.innerHTML=Object.entries(bySub).map(([sp,d])=>{
-    const info=subjectInfo(sp);
+  grid.innerHTML=entries.map(([sp,d])=>{
     const acc=d.t?Math.round(d.c/d.t*100):0;
-    return `<div class="goal-card" style="border-left:4px solid var(--${info.cls})">
-      <div class="label">${info.label}</div>
+    return `<div class="goal-card" style="border-left:4px solid var(--${d.cls})">
+      <div class="label">${d.label}</div>
       <div class="value" style="color:${accColor(acc)}">${acc}%</div>
       <div class="sub">${d.c}/${d.t} correct · ${d.n} sessions · ${d.mins} min</div>
     </div>`;
@@ -149,11 +155,13 @@ function renderInsights(sessions){
 
 /* ── Session Log ── */
 function renderLog(sessions){
+  const filterKey=document.getElementById("sphereFilter")?.value||"all";
+  const filtered=filterKey==="all"?sessions:sessions.filter(s=>subjectInfo(s.subject||"").sphere===filterKey);
   const grid=document.getElementById("sessionGrid");
   const empty=document.getElementById("emptyMsg");
-  if(!sessions.length){grid.innerHTML="";empty.style.display="block";return;}
+  if(!filtered.length){grid.innerHTML="";empty.style.display="block";return;}
   empty.style.display="none";
-  grid.innerHTML=sessions.map(s=>{
+  grid.innerHTML=filtered.map(s=>{
     const d=new Date(s.date);
     const hasTime=d.getHours()!==0||d.getMinutes()!==0;
     const ds=hasTime?d.toLocaleDateString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
@@ -260,4 +268,13 @@ function renderAllCharts(){
   renderInsights(allSessions);
   renderLog(allSessions);
   renderAllCharts();
+  // Sphere filter dropdown
+  const sf=document.getElementById("sphereFilter");
+  if(sf)sf.addEventListener("change",()=>{
+    renderGoals(allSessions);
+    renderStats(allSessions);
+    renderInsights(allSessions);
+    renderLog(allSessions);
+    renderAllCharts();
+  });
 })();

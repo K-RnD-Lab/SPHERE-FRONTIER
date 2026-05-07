@@ -195,7 +195,8 @@ async function saveToSheet(session){
     };
     await fetch(APPS_SCRIPT_URL,{
       method:"POST",
-      headers:{"Content-Type":"application/json"},
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain"},
       body:JSON.stringify({type:"session",row:row})
     });
   }catch(e){console.log("Sheets save skipped:",e.message);}

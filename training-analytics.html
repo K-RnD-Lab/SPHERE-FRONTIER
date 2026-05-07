@@ -100,6 +100,20 @@
 
     <!-- Overview -->
     <section class="tab-panel active" data-panel="overview">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+        <label style="font-size:13px;color:var(--muted)"><strong>Filter by sphere:</strong>
+          <select id="sphereFilter" style="margin-left:6px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card-bg);color:var(--ink);font-size:13px">
+            <option value="all">All spheres</option>
+            <option value="F">📚 Foundation</option>
+            <option value="S">🩺 Science</option>
+            <option value="E">💼 Entrepreneurship</option>
+            <option value="T">💻 Technology</option>
+            <option value="ST">🩺💻 Sci+Tech</option>
+            <option value="ET">💼💻 Ent+Tech</option>
+            <option value="SE">🩺💼 Sci+Ent</option>
+          </select>
+        </label>
+      </div>
       <div class="two-col">
         <section class="panel-section">
           <h2>Goal vs Reality</h2>
