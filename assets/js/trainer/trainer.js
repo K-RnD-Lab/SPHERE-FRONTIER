@@ -120,7 +120,7 @@ function applyI18N(){
 let state={sphere:null,level:"bachelor",subject:"all",mode:"practice",analyticsType:"descriptive",questions:[],currentIdx:0,answers:{},sessionStart:null,sessions:JSON.parse(localStorage.getItem("mt_sessions")||"[]"),sessionLog:[],sheetsData:[]};
 
 // Derive sphere from subject key (for legacy data without sphere field)
-const _SUBJ_SPHERE={tznk:"S",english:"E",it:"T",all:"F",foundation:"F",S:"S",E:"E",T:"T",ST:"ST",ET:"ET",SE:"SE"};
+const _SUBJ_SPHERE={tznk:"F",english:"F",it:"F",all:"F",foundation:"F",S:"S",E:"E",T:"T",ST:"ST",ET:"ET",SE:"SE"};
 function subjectInfo(s){return{sphere:_SUBJ_SPHERE[(s||"").toLowerCase()]||_SUBJ_SPHERE[s]||s||"F"};}
 
 // Load from Google Sheets on init
@@ -172,7 +172,7 @@ async function loadSheetsData(){
   }
   // Clean up localStorage: add sphere to legacy entries, deduplicate
   const sessions=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
-  const subjectToSphere={tznk:"S",english:"E",it:"T",all:"F",foundation:"F",S:"S",E:"E",T:"T",ST:"ST",ET:"ET",SE:"SE"};
+  const subjectToSphere={tznk:"F",english:"F",it:"F",all:"F",foundation:"F",S:"S",E:"E",T:"T",ST:"ST",ET:"ET",SE:"SE"};
   let changed=false;
   sessions.forEach(s=>{
     if(!s.sphere&&s.subject){

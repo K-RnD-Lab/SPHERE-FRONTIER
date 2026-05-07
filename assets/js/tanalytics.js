@@ -17,10 +17,10 @@ const SUBJECT_MAP={
   ST:{sphere:"ST",label:"\u{1FA7A}\u{1F4BB} Science+Tech",cls:"science"},
   ET:{sphere:"ET",label:"\u{1F4BC}\u{1F4BB} Ent+Tech",cls:"entrepreneurship"},
   SE:{sphere:"SE",label:"\u{1FA7A}\u{1F4BC} Sci+Ent",cls:"science"},
-  // Legacy keys from earlier sessions
-  tznk:{sphere:"S",label:"\u{1FA7A} Science (TZNK)",cls:"science"},
-  english:{sphere:"E",label:"\u{1F1EC}\u{1F1E7} English",cls:"entrepreneurship"},
-  it:{sphere:"T",label:"\u{1F4BB} Technology (IT)",cls:"technology"},
+  // Legacy keys from earlier sessions → Foundation
+  tznk:{sphere:"F",label:"\u{1F4DA} Foundation (TZNK)",cls:"science"},
+  english:{sphere:"F",label:"\u{1F4DA} Foundation (English)",cls:"science"},
+  it:{sphere:"F",label:"\u{1F4DA} Foundation (IT)",cls:"science"},
   all:{sphere:"F",label:"\u{1F4DA} Foundation",cls:"science"}
 };
 function subjectInfo(s){return SUBJECT_MAP[(s||"").toLowerCase()]||SUBJECT_MAP[s]||{sphere:"?",label:s||"Unknown",cls:"technology"};}
