@@ -20,7 +20,7 @@ const SUBJECT_MAP={
   // Legacy keys from earlier sessions → Foundation
   tznk:{sphere:"F",label:"\u{1F4DA} Foundation",cls:"science"},
   english:{sphere:"F",label:"\u{1F4DA} Foundation (English)",cls:"science"},
-  it:{sphere:"F",label:"\u{1F4DA} Foundation (IT)",cls:"science"},
+  it:{sphere:"T",label:"\u{1F4BB} IT / Computer Science",cls:"technology"},
   all:{sphere:"F",label:"\u{1F4DA} Foundation",cls:"science"}
 };
 function subjectInfo(s){return SUBJECT_MAP[(s||"").toLowerCase()]||SUBJECT_MAP[s]||{sphere:"?",label:s||"Unknown",cls:"technology"};}
@@ -174,21 +174,21 @@ function renderStats(sessions){
 
 /* ── Overview: Goals ── */
 function renderGoals(sessions){
-  // Group by sphere key
-  const bySphere={};
+  // Group by subject key for per-subject cards
+  const bySubject={};
   filteredSessions(sessions).forEach(s=>{
-    const spKey=s.sphere||subjectInfo(s.subject||"unknown").sphere;
-    const info=SPHERE_LABELS[spKey]||subjectInfo(s.subject||"unknown");
-    if(!bySphere[spKey])bySphere[spKey]={c:0,t:0,mins:0,n:0,label:info.label,cls:info.cls};
-    bySphere[spKey].c+=s.correct||0;bySphere[spKey].t+=s.total||0;
-    bySphere[spKey].mins+=s.minutes||0;bySphere[spKey].n++;
+    const subKey=s.subject||"unknown";
+    const info=subjectInfo(subKey);
+    if(!bySubject[subKey])bySubject[subKey]={c:0,t:0,mins:0,n:0,label:info.label,cls:info.cls};
+    bySubject[subKey].c+=s.correct||0;bySubject[subKey].t+=s.total||0;
+    bySubject[subKey].mins+=s.minutes||0;bySubject[subKey].n++;
   });
-  const entries=Object.entries(bySphere);
+  const entries=Object.entries(bySubject);
   const grid=document.getElementById("goalGrid");
   if(!entries.length){
     grid.innerHTML='<p style="color:var(--muted);font-size:14px">No sessions yet.</p>';return;
   }
-  grid.innerHTML=entries.map(([sp,d])=>{
+  grid.innerHTML=entries.map(([sub,d])=>{
     const acc=d.t?Math.round(d.c/d.t*100):0;
     return `<div class="goal-card" style="border-left:4px solid var(--${d.cls})">
       <div class="label">${d.label}</div>
