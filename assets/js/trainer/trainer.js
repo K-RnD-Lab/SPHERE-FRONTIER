@@ -227,7 +227,7 @@ async function saveToSheet(session){
       minutes:session.minutes,
       session_label:sessLabel,
       predicted_score:predScore,
-      actual_score:session.accuracy,
+      actual_score:"",
       notes:""
     };
     await fetch(APPS_SCRIPT_URL,{
