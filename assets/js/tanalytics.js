@@ -131,19 +131,27 @@ async function loadSessions(){
   // 3. Merge localStorage (only entries NOT already in Sheet data)
   try{
     const local=JSON.parse(localStorage.getItem("mt_sessions")||"[]");
-    // Build dedup set from Sheet data using all possible keys
-    const sheetKeys=new Set();
+    // Build dedup set from Sheet data using session_id
+    const sheetIds=new Set();
+    const sheetComps=new Set();
     sessions.forEach(s=>{
-      if(s.id)sheetKeys.add(s.id);
-      if(s.date)sheetKeys.add(s.date);
-      // Also add composite key for safety
-      sheetKeys.add((s.subject||"")+"|"+s.date+"|"+(s.total||0));
+      if(s.id)sheetIds.add(String(s.id));
+      sheetComps.add((s.subject||"")+"|"+s.date+"|"+(s.total||0));
     });
+    let added=0;
     local.forEach(s=>{
-      const key=s.id||s.date;
+      const sId=s.id||s.session_id||"";
       const compKey=(s.subject||"")+"|"+s.date+"|"+(s.total||0);
-      if(!sheetKeys.has(key)&&!sheetKeys.has(compKey))sessions.push(s);
+      // Skip if session_id or composite key already in Sheet data
+      if(sId&&sheetIds.has(String(sId)))return;
+      if(sheetComps.has(compKey))return;
+      sessions.push(s);
+      added++;
     });
+    // If Sheet loaded successfully, localStorage is redundant — clear it
+    if(sessions.length>0&&added===0){
+      localStorage.removeItem("mt_sessions");
+    }
   }catch(e){}
 
   // Normalize: sphere keys → single-letter, subject "foundation"→"all"

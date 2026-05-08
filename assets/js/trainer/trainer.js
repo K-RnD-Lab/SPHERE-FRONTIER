@@ -122,7 +122,7 @@ function applyI18N(){
 let state={sphere:null,level:"bachelor",subject:"all",mode:"practice",analyticsType:"descriptive",questions:[],currentIdx:0,answers:{},sessionStart:null,sessions:[],sessionLog:[],sheetsData:[]};
 
 // One-time: clear stale localStorage (old entries without sphere/id cause duplicates)
-const _LS_VER="mt_v4";
+const _LS_VER="mt_v5";
 if(localStorage.getItem("mt_ver")!==_LS_VER){
   localStorage.removeItem("mt_sessions");
   localStorage.setItem("mt_ver",_LS_VER);
@@ -427,7 +427,8 @@ function endSession(){
   const subjLabel=state.subject;
   const sphereKey=state.sphere;
   const dateStr=new Date().toISOString().slice(0,10); // YYYY-MM-DD
-  state.sessions.push({sphere:sphereKey,level:state.level,subject:subjLabel,mode:state.mode,date:dateStr,minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
+  const sessionId=`${state.mode==="simulation"?"simulation":"training"}-${Date.now()}`;
+  state.sessions.push({id:sessionId,sphere:sphereKey,level:state.level,subject:subjLabel,mode:state.mode,date:dateStr,minutes:el,total:tot,correct:cor,accuracy:acc,log:state.sessionLog});
   localStorage.setItem("mt_sessions",JSON.stringify(state.sessions));
   saveToSheet(state.sessions[state.sessions.length-1]);
   stopTimer();
