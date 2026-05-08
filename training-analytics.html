@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="./assets/css/rnd-lab.css">
   <style>
     .tabbar{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0;padding:0;list-style:none}
-    .tabbar button{border-radius:999px;padding:8px 18px;font-size:14px;cursor:pointer;background:var(--card-bg);color:var(--ink);transition:all .15s;font-weight:600;border: none}
-    .tabbar button:hover{border:1px solid var(--accent)}
-    .tabbar button.active{background:var(--ink);color:#fff;border:1px solid var(--accent)}
-    [data-theme="dark"] .tabbar button:hover{border:1px solid #6ea8f0}
+    .tabbar button{border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-size:14px;cursor:pointer;background:var(--input-bg);color:var(--ink);transition:all .15s;font-weight:600}
+    .tabbar button:hover{background:var(--ink);color:#fff}
+    .tabbar button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    [data-theme="dark"] .tabbar button:hover{background:#001428;color:#fff;border:1px solid #6ea8f0}
     [data-theme="dark"] .tabbar button.active{background:#001428;color:#fff;border:1px solid #6ea8f0}
     .tab-panel{display:none;margin-top:18px}
     .tab-panel.active{display:block}
