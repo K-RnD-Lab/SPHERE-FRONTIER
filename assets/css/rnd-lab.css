@@ -208,7 +208,7 @@ body{
 /* Animated gradient border */
 @keyframes borderSpin{to{--angle:360deg}}
 @property --angle{syntax:"<angle>";initial-value:0deg;inherits:false}
-.glow-wrap{position:relative;border-radius:23px;padding:1px;background:conic-gradient(from var(--angle),rgba(30,122,94,.15),rgba(30,122,94,.5),rgba(30,122,94,.15));animation:borderSpin 4s linear infinite}
+.glow-wrap{position:relative;border-radius:23px;padding:1px;background:conic-gradient(from var(--angle),rgba(30,122,94,.15),rgba(30,122,94,.5),rgba(30,122,94,.15));animation:borderSpin 10s linear infinite}
 .glow-wrap .sphere-card{border:none;border-radius:22px;background:var(--card-bg)}
 [data-theme="dark"] .glow-wrap{background:conic-gradient(from var(--angle),rgba(62,207,148,.05),rgba(62,207,148,.35),rgba(62,207,148,.05))}
 .card-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
