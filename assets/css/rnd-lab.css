@@ -200,7 +200,7 @@ body{
 .sphere-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
 .sphere-card{background:var(--card-bg);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:8px}
 .sphere-card h3{margin:0 0 4px;font-size:18px}
-.sphere-card p{margin:0 0 12px;color:var(--muted);font-size:14px;line-height:1.6}
+.sphere-card p{margin:0 0 12px;color:var(--muted);font-size:14px;line-height:1.6;flex:1}
 .sphere-s{border-left:4px solid var(--science)}
 .sphere-e{border-left:4px solid var(--entrepreneurship)}
 .sphere-t{border-left:4px solid var(--technology)}
