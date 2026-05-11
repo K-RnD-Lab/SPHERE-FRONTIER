@@ -197,10 +197,10 @@ body{
 .theme-toggle:hover{background:var(--ink);color:var(--bg)}
 
 /* Sphere grid (K-RnD-Lab specific) */
-.sphere-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.sphere-card{background:var(--card-bg);border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:6px}
-.sphere-card h3{margin:0 0 2px;font-size:18px}
-.sphere-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+.sphere-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;align-items:start}
+.sphere-card{background:var(--card-bg);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:8px}
+.sphere-card h3{margin:0 0 4px;font-size:18px}
+.sphere-card p{margin:0 0 12px;color:var(--muted);font-size:14px;line-height:1.6}
 .sphere-s{border-left:4px solid var(--science)}
 .sphere-e{border-left:4px solid var(--entrepreneurship)}
 .sphere-t{border-left:4px solid var(--technology)}
@@ -211,7 +211,7 @@ body{
 .glow-wrap{position:relative;border-radius:23px;padding:1px;background:conic-gradient(from var(--angle),rgba(36,79,143,.15),rgba(110,168,240,.5),rgba(36,79,143,.15));animation:borderSpin 25s linear infinite}
 .glow-wrap .sphere-card{border:none;border-radius:22px;background:var(--card-bg)}
 [data-theme="dark"] .glow-wrap{background:conic-gradient(from var(--angle),rgba(110,168,240,.1),rgba(110,168,240,.5),rgba(62,207,148,.15),rgba(110,168,240,.1))}
-.card-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.card-links{display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
 
 /* Study Registry */
 .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
