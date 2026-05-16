@@ -15,27 +15,42 @@ const quests = [
   {id:"T3",sphere:"T",dir:"T3 - Dashboards, Interfaces & Open Infrastructure",label:"🖥️ T3 Dashboards & Infra"}
 ];
 
+// Research quests from RESEARCH-QUESTS folder
+const researchQuests = [
+  {id:"R1",sphere:"R",dir:"research-quest-01-ai-data-pipeline",label:"🔬 R1 AI & Data Pipeline Investigation"},
+  {id:"R2",sphere:"R",dir:"research-quest-02-reproducibility-check",label:"🔬 R2 Reproducibility Check"},
+  {id:"R3",sphere:"R",dir:"research-quest-03-method-validation",label:"🔬 R3 Method Validation"}
+];
+
 const REPO_MAP = {
   S:"K-RnD-Lab/SPHERE-I-SCIENCE",
   E:"K-RnD-Lab/SPHERE-II-ENTREPRENEURSHIP",
-  T:"K-RnD-Lab/SPHERE-III-TECHNOLOGY"
+  T:"K-RnD-Lab/SPHERE-III-TECHNOLOGY",
+  R:"K-RnD-Lab/SPHERE-FRONTIER"
 };
+
 const nav = document.getElementById("questNav");
 const content = document.getElementById("mdContent");
 
 function buildNav(){
-  const groups = {S:[],E:[],T:[]};
+  const groups = {S:[],E:[],T:[],R:[]};
   quests.forEach(q => groups[q.sphere].push(q));
-  const labels = {S:"Science",E:"Entrepreneurship",T:"Technology"};
+  researchQuests.forEach(q => groups[q.sphere].push(q));
+  
+  const labels = {S:"Science",E:"Entrepreneurship",T:"Technology",R:"Research Quests"};
   let html = `<a href="./index.html" class="back-link">← K R&D Lab</a><h2>Quests</h2>`;
+  
   Object.entries(groups).forEach(([sphere,items]) => {
+    if(items.length === 0) return;
     html += `<div class="nav-${sphere}"><h3>${labels[sphere]}</h3>`;
     items.forEach(q => {
       html += `<a href="#${q.id}" data-dir="${encodeURIComponent(q.dir)}" data-sphere="${q.sphere}">${q.label}</a>`;
     });
     html += `</div>`;
   });
+  
   nav.innerHTML = html;
+  
   nav.querySelectorAll("a[data-dir]").forEach(a => {
     a.addEventListener("click", e => {
       e.preventDefault();
@@ -47,16 +62,30 @@ function buildNav(){
 }
 
 async function loadQuest(dir, sphere){
-  const repo = REPO_MAP[sphere];
-  const url = `https://raw.githubusercontent.com/${repo}/main/${dir}/README.md`;
+  let url;
+  if(sphere === "R"){
+    // Research quests are in the same repo (SPHERE-FRONTIER)
+    url = `https://raw.githubusercontent.com/K-RnD-Lab/SPHERE-FRONTIER/TEZv-research/RESEARCH-QUESTS/${dir}.md`;
+  } else {
+    const repo = REPO_MAP[sphere];
+    url = `https://raw.githubusercontent.com/${repo}/main/${dir}/README.md`;
+  }
+  
   content.innerHTML = "<p style='color:var(--muted)'>Loading quest...</p>";
+  
   try {
     const res = await fetch(url);
     if(!res.ok) throw new Error(res.status);
     const md = await res.text();
     content.innerHTML = marked.parse(md);
   } catch(err) {
-    const ghUrl = `https://github.com/${repo}/tree/main/${dir}`;
+    let ghUrl;
+    if(sphere === "R"){
+      ghUrl = `https://github.com/K-RnD-Lab/SPHERE-FRONTIER/tree/TEZv-research/RESEARCH-QUESTS`;
+    } else {
+      const repo = REPO_MAP[sphere];
+      ghUrl = `https://github.com/${repo}/tree/main/${dir}`;
+    }
     content.innerHTML = `<p style='color:var(--muted)'>Could not load quest. <a href="${ghUrl}" target="_blank" rel="noreferrer">Open on GitHub →</a></p>`;
   }
 }
@@ -65,7 +94,8 @@ buildNav();
 
 const hash = location.hash.slice(1);
 if(hash){
-  const q = quests.find(q => q.id === hash);
+  const allQuests = [...quests, ...researchQuests];
+  const q = allQuests.find(q => q.id === hash);
   if(q){
     const a = nav.querySelector(`a[href="#${q.id}"]`);
     if(a){ a.classList.add("active"); loadQuest(q.dir, q.sphere); }
