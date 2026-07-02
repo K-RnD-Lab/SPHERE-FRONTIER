@@ -17,16 +17,50 @@ function ilShowStubs() {
   return localStorage.getItem(IL_SHOW_STUBS_KEY) === '1';
 }
 
+function ilCountry(id) {
+  return ilIndex?.countries?.find((c) => c.id === id) || null;
+}
+
+function ilIsCountryId(id) {
+  return Boolean(ilCountry(id));
+}
+
+function ilFindTopicCountry(topicId) {
+  for (const c of ilIndex?.countries || []) {
+    for (const tr of c.tracks || []) {
+      if (tr.topics.some((t) => t.id === topicId)) return c.id;
+    }
+  }
+  return 'ua';
+}
+
 function ilRoute() {
   const parts = (location.hash || '#/').replace(/^#\/?/, '').split('/').filter(Boolean);
   if (!parts.length) return { view: 'countries' };
-  if (parts.length === 1) return { view: 'map', countryId: parts[0] };
-  if (parts.length === 2) return { view: 'topic', countryId: parts[0], topicId: parts[1], levelId: 'L1' };
-  return { view: 'topic', countryId: parts[0], topicId: parts[1], levelId: parts[2] || 'L1' };
-}
-
-function ilCountry(id) {
-  return ilIndex?.countries?.find((c) => c.id === id) || null;
+  if (parts.length === 1) {
+    if (ilIsCountryId(parts[0])) return { view: 'map', countryId: parts[0] };
+    return { view: 'topic', countryId: ilFindTopicCountry(parts[0]), topicId: parts[0], levelId: 'L1' };
+  }
+  if (parts.length === 2) {
+    if (ilIsCountryId(parts[0])) {
+      return { view: 'topic', countryId: parts[0], topicId: parts[1], levelId: 'L1' };
+    }
+    return {
+      view: 'topic',
+      countryId: ilFindTopicCountry(parts[0]),
+      topicId: parts[0],
+      levelId: parts[1] || 'L1',
+    };
+  }
+  if (ilIsCountryId(parts[0])) {
+    return { view: 'topic', countryId: parts[0], topicId: parts[1], levelId: parts[2] || 'L1' };
+  }
+  return {
+    view: 'topic',
+    countryId: ilFindTopicCountry(parts[0]),
+    topicId: parts[0],
+    levelId: parts[2] || 'L1',
+  };
 }
 
 async function ilFetch(path) {
