@@ -1,0 +1,114 @@
+{
+  "id": "security-trio",
+  "title": {
+    "ua": "Hash / encrypt / signature",
+    "en": "Hash / encrypt / signature"
+  },
+  "subtitle": {
+    "ua": "IT · блок 07",
+    "en": "IT · block 07"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "hash → відбиток\nencrypt → ключ\nsignature → автор+цілісність",
+        "en": "hash → fingerprint\nencrypt → key\nsignature → auth+integrity"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Пароль порівнюють через ____. Повідомлення в сейфі — ____.",
+        "en": "Passwords compared via ____. Message in safe — ____."
+      },
+      "answers": [
+        "hash",
+        "encryption"
+      ],
+      "wordBank": [
+        "hash",
+        "encryption",
+        "DNS",
+        "Base64"
+      ],
+      "hints": [
+        {
+          "ua": "Hash не decrypt.",
+          "en": "No decrypt."
+        },
+        {
+          "ua": "Encrypt має ключ.",
+          "en": "Needs key."
+        }
+      ],
+      "_l2_en": {
+        "template": "Passwords compared via ____. Message in safe — ____.",
+        "answers": [
+          "hash",
+          "encryption"
+        ],
+        "wordBank": [
+          "hash",
+          "encryption",
+          "DNS",
+          "Base64"
+        ],
+        "hints": [
+          "No decrypt.",
+          "Needs key."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "authentication",
+            "en": "authentication"
+          },
+          "right": {
+            "ua": "хто ти",
+            "en": "who you are"
+          }
+        },
+        {
+          "left": {
+            "ua": "authorization",
+            "en": "authorization"
+          },
+          "right": {
+            "ua": "що можна",
+            "en": "what allowed"
+          }
+        },
+        {
+          "left": {
+            "ua": "HTTPS",
+            "en": "HTTPS"
+          },
+          "right": {
+            "ua": "HTTP+TLS",
+            "en": "HTTP+TLS"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

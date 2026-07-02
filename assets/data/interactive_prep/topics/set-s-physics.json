@@ -1,0 +1,131 @@
+{
+  "id": "set-s-physics",
+  "title": {
+    "ua": "Фізика",
+    "en": "Physics"
+  },
+  "subtitle": {
+    "ua": "SET Science",
+    "en": "SET Science"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "F=ma\nV=IR\nkinetic energy motion",
+        "en": "F=ma\nV=IR\nkinetic energy motion"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Закон Ньютона: F = ____. Ом: V = ____.",
+        "en": "Newton: F = ____. Ohm: V = ____."
+      },
+      "answers": [
+        "ma",
+        "IR"
+      ],
+      "wordBank": [
+        "ma",
+        "IR",
+        "mc²",
+        "PV"
+      ],
+      "hints": [
+        {
+          "ua": "F=ma.",
+          "en": "F=ma."
+        },
+        {
+          "ua": "V=IR.",
+          "en": "V=IR."
+        }
+      ],
+      "_en": {
+        "template": "Newton: F = ____. Ohm: V = ____.",
+        "answers": [
+          "ma",
+          "IR"
+        ],
+        "wordBank": [
+          "ma",
+          "IR",
+          "mc²",
+          "PV"
+        ],
+        "hints": [
+          "F=ma.",
+          "V=IR."
+        ]
+      },
+      "_l2_en": {
+        "template": "Newton: F = ____. Ohm: V = ____.",
+        "answers": [
+          "ma",
+          "IR"
+        ],
+        "wordBank": [
+          "ma",
+          "IR",
+          "mc²",
+          "PV"
+        ],
+        "hints": [
+          "F=ma.",
+          "V=IR."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "кінетична",
+            "en": "kinetic"
+          },
+          "right": {
+            "ua": "рух",
+            "en": "motion"
+          }
+        },
+        {
+          "left": {
+            "ua": "потенційна",
+            "en": "potential"
+          },
+          "right": {
+            "ua": "положення",
+            "en": "position"
+          }
+        },
+        {
+          "left": {
+            "ua": "Ом",
+            "en": "Ohm"
+          },
+          "right": {
+            "ua": "V=IR",
+            "en": "V=IR"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "id": "it-block-06",
+  "title": {
+    "ua": "OLTP / OLAP / Warehouse",
+    "en": "OLTP / OLAP / Warehouse"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 06",
+    "en": "EVE IT · block 06"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "OLTP → транзакції зараз\nOLAP → аналітика\nwarehouse → історія",
+        "en": "OLTP → live transactions\nOLAP → analytics\nwarehouse → history"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Каса магазину — ____. Звіт за роки — ____.",
+        "en": "Store checkout — ____. Multi-year report — ____."
+      },
+      "answers": [
+        "OLTP",
+        "OLAP"
+      ],
+      "wordBank": [
+        "OLTP",
+        "OLAP",
+        "DNS",
+        "HTTP"
+      ],
+      "hints": [
+        {
+          "ua": "Операційні транзакції.",
+          "en": "Operational."
+        },
+        {
+          "ua": "Аналітичні зрізи.",
+          "en": "Analytical."
+        }
+      ],
+      "_en": {
+        "template": "Store checkout — ____. Multi-year report — ____.",
+        "answers": [
+          "OLTP",
+          "OLAP"
+        ],
+        "wordBank": [
+          "OLTP",
+          "OLAP",
+          "DNS",
+          "HTTP"
+        ],
+        "hints": [
+          "Operational.",
+          "Analytical."
+        ]
+      },
+      "_l2_en": {
+        "template": "Store checkout — ____. Multi-year report — ____.",
+        "answers": [
+          "OLTP",
+          "OLAP"
+        ],
+        "wordBank": [
+          "OLTP",
+          "OLAP",
+          "DNS",
+          "HTTP"
+        ],
+        "hints": [
+          "Operational.",
+          "Analytical."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "dimension",
+            "en": "dimension"
+          },
+          "right": {
+            "ua": "за чим дивимось",
+            "en": "what we slice by"
+          }
+        },
+        {
+          "left": {
+            "ua": "measure",
+            "en": "measure"
+          },
+          "right": {
+            "ua": "що рахуємо",
+            "en": "what we count"
+          }
+        },
+        {
+          "left": {
+            "ua": "data mart",
+            "en": "data mart"
+          },
+          "right": {
+            "ua": "підмножина",
+            "en": "subset"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

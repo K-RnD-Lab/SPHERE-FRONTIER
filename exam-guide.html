@@ -125,6 +125,7 @@ HTTPS       → HTTP поверх TLS</pre>
     </p>
   </main>
   <script src="./assets/js/site-i18n.js"></script>
+  <script src="./assets/js/site-boot.js"></script>
   <script>
     document.getElementById("themeToggle").addEventListener("click", () => {
       const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
@@ -132,8 +133,6 @@ HTTPS       → HTTP поверх TLS</pre>
       localStorage.setItem("theme", next);
       document.getElementById("themeToggle").textContent = next === "dark" ? "☀️" : "🌙";
     });
-    SiteI18n.mountLangSelect(document.querySelector('.hero'), { onChange: () => SiteI18n.apply(document) });
-    SiteI18n.apply(document);
   </script>
 </body>
 </html>

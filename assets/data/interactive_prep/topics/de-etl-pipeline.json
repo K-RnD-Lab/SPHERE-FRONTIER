@@ -1,0 +1,114 @@
+{
+  "id": "de-etl-pipeline",
+  "title": {
+    "ua": "ETL / якість даних",
+    "en": "ETL / data quality"
+  },
+  "subtitle": {
+    "ua": "Data Engineering",
+    "en": "Data Engineering"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "freshness\ncompleteness\nschema drift",
+        "en": "freshness\ncompleteness\nschema drift"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Відсутні ключі — проблема ____. Застарілі дані — ____.",
+        "en": "Missing keys — ____ issue. Stale data — ____."
+      },
+      "answers": [
+        "повноти",
+        "актуальності"
+      ],
+      "wordBank": [
+        "повноти",
+        "актуальності",
+        "швидкості",
+        "кольору"
+      ],
+      "hints": [
+        {
+          "ua": "Completeness.",
+          "en": "Completeness."
+        },
+        {
+          "ua": "Freshness.",
+          "en": "Freshness."
+        }
+      ],
+      "_l2_en": {
+        "template": "Missing keys — ____ issue. Stale data — ____.",
+        "answers": [
+          "completeness",
+          "freshness"
+        ],
+        "wordBank": [
+          "completeness",
+          "freshness",
+          "speed",
+          "color"
+        ],
+        "hints": [
+          "Completeness.",
+          "Freshness."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "ETL",
+            "en": "ETL"
+          },
+          "right": {
+            "ua": "batch pipeline",
+            "en": "batch pipeline"
+          }
+        },
+        {
+          "left": {
+            "ua": "ELT",
+            "en": "ELT"
+          },
+          "right": {
+            "ua": "load then transform",
+            "en": "load then transform"
+          }
+        },
+        {
+          "left": {
+            "ua": "data quality",
+            "en": "data quality"
+          },
+          "right": {
+            "ua": "trust in metrics",
+            "en": "trust in metrics"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

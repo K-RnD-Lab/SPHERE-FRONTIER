@@ -1,0 +1,114 @@
+{
+  "id": "english-reading",
+  "title": {
+    "ua": "Reading · доказ у тексті",
+    "en": "Reading · evidence in text"
+  },
+  "subtitle": {
+    "ua": "English · блок 11",
+    "en": "English · block 11"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "question → keyword → sentence evidence → eliminate traps",
+        "en": "question → keyword → sentence evidence → eliminate traps"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Правильна відповідь у reading має ____ у тексті, не лише звучати ____.",
+        "en": "A correct reading answer needs ____ in the passage, not just sounding ____."
+      },
+      "answers": [
+        "доказ",
+        "логічно"
+      ],
+      "wordBank": [
+        "доказ",
+        "логічно",
+        "довго",
+        "переклад"
+      ],
+      "hints": [
+        {
+          "ua": "Шукай речення-доказ.",
+          "en": "Find proof sentence."
+        },
+        {
+          "ua": "Логіка без тексту — ризик.",
+          "en": "Logic alone is risky."
+        }
+      ],
+      "_l2_en": {
+        "template": "A correct reading answer needs ____ in the passage, not just sounding ____.",
+        "answers": [
+          "evidence",
+          "logical"
+        ],
+        "wordBank": [
+          "evidence",
+          "logical",
+          "long",
+          "translation"
+        ],
+        "hints": [
+          "Find proof sentence.",
+          "Logic alone is risky."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "main idea",
+            "en": "main idea"
+          },
+          "right": {
+            "ua": "не дрібниця",
+            "en": "not a tiny detail"
+          }
+        },
+        {
+          "left": {
+            "ua": "inference",
+            "en": "inference"
+          },
+          "right": {
+            "ua": "висновок з тексту",
+            "en": "conclusion from text"
+          }
+        },
+        {
+          "left": {
+            "ua": "too broad",
+            "en": "too broad"
+          },
+          "right": {
+            "ua": "пастка",
+            "en": "trap"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

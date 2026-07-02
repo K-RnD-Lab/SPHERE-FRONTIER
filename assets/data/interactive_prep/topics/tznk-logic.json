@@ -1,0 +1,114 @@
+{
+  "id": "tznk-logic",
+  "title": {
+    "ua": "Логіка та імплікація",
+    "en": "Logic and implication"
+  },
+  "subtitle": {
+    "ua": "ТЗНК · блок 10",
+    "en": "TZNK · block 10"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "P → Q хибне лише коли P істинне, Q хибне\nmust be true → доведено\ncould be true → не заборонено",
+        "en": "P → Q false only when P true, Q false\nmust be true → proven\ncould be true → not forbidden"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Якщо P → Q, то єдиний суперечливий випадок: P ____ і Q ____.",
+        "en": "If P → Q, the only contradiction is: P ____ and Q ____."
+      },
+      "answers": [
+        "істинне",
+        "хибне"
+      ],
+      "wordBank": [
+        "істинне",
+        "хибне",
+        "невизначене",
+        "завжди"
+      ],
+      "hints": [
+        {
+          "ua": "Імплікація ламається лише в одному рядку таблиці.",
+          "en": "Implication breaks in one row only."
+        },
+        {
+          "ua": "Q має бути false.",
+          "en": "Q must be false."
+        }
+      ],
+      "_l2_en": {
+        "template": "If P → Q, the only contradiction is: P ____ and Q ____.",
+        "answers": [
+          "true",
+          "false"
+        ],
+        "wordBank": [
+          "true",
+          "false",
+          "undefined",
+          "always"
+        ],
+        "hints": [
+          "Implication breaks in one row only.",
+          "Q must be false."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "must be true",
+            "en": "must be true"
+          },
+          "right": {
+            "ua": "доведено умовою",
+            "en": "proven by condition"
+          }
+        },
+        {
+          "left": {
+            "ua": "could be true",
+            "en": "could be true"
+          },
+          "right": {
+            "ua": "не суперечить",
+            "en": "not forbidden"
+          }
+        },
+        {
+          "left": {
+            "ua": "cannot be true",
+            "en": "cannot be true"
+          },
+          "right": {
+            "ua": "суперечить умові",
+            "en": "contradicts"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

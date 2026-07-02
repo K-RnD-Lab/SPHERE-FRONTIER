@@ -1,0 +1,107 @@
+{
+  "id": "it-block-05",
+  "title": {
+    "ua": "Бази даних і SQL",
+    "en": "Databases & SQL"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 05",
+    "en": "EVE IT · block 05"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "SELECT → WHERE → GROUP BY → HAVING → ORDER BY\nPK / FK / GRANT",
+        "en": "SELECT → WHERE → GROUP BY → HAVING → ORDER BY\nPK / FK / GRANT"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Фільтр рядків — ____. Фільтр груп після COUNT — ____.",
+        "en": "Row filter — ____. Group filter after COUNT — ____."
+      },
+      "answers": [
+        "WHERE",
+        "HAVING"
+      ],
+      "wordBank": [
+        "WHERE",
+        "HAVING",
+        "GRANT",
+        "ALLOW"
+      ],
+      "hints": [
+        {
+          "ua": "WHERE до GROUP BY.",
+          "en": "WHERE before GROUP BY."
+        },
+        {
+          "ua": "HAVING після агрегації.",
+          "en": "HAVING after aggregate."
+        }
+      ],
+      "_en": {
+        "template": "Row filter — ____. Group filter after COUNT — ____.",
+        "answers": [
+          "WHERE",
+          "HAVING"
+        ],
+        "wordBank": [
+          "WHERE",
+          "HAVING",
+          "GRANT",
+          "ALLOW"
+        ],
+        "hints": [
+          "WHERE before GROUP BY.",
+          "HAVING after aggregate."
+        ]
+      },
+      "_l2_en": {
+        "template": "Row filter — ____. Group filter after COUNT — ____.",
+        "answers": [
+          "WHERE",
+          "HAVING"
+        ],
+        "wordBank": [
+          "WHERE",
+          "HAVING",
+          "GRANT",
+          "ALLOW"
+        ],
+        "hints": [
+          "WHERE before GROUP BY.",
+          "HAVING after aggregate."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "drag_order",
+      "items": [
+        "FROM",
+        "WHERE",
+        "GROUP BY",
+        "HAVING",
+        "SELECT",
+        "ORDER BY"
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

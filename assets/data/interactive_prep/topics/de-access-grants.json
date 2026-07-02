@@ -1,0 +1,114 @@
+{
+  "id": "de-access-grants",
+  "title": {
+    "ua": "Права доступу (DE)",
+    "en": "Access control (DE)"
+  },
+  "subtitle": {
+    "ua": "Data Engineering",
+    "en": "Data Engineering"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "role-based\nrow-level security\naudit log",
+        "en": "role-based\nrow-level security\naudit log"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Аналітик лише SELECT — ____. PII маскується — ____.",
+        "en": "Analyst SELECT only — ____. PII masked — ____."
+      },
+      "answers": [
+        "GRANT",
+        "RLS"
+      ],
+      "wordBank": [
+        "GRANT",
+        "RLS",
+        "DROP",
+        "HTTP"
+      ],
+      "hints": [
+        {
+          "ua": "GRANT SELECT.",
+          "en": "GRANT SELECT."
+        },
+        {
+          "ua": "Row-level security.",
+          "en": "Row-level security."
+        }
+      ],
+      "_l2_en": {
+        "template": "Analyst SELECT only — ____. PII masked — ____.",
+        "answers": [
+          "GRANT",
+          "RLS"
+        ],
+        "wordBank": [
+          "GRANT",
+          "RLS",
+          "DROP",
+          "HTTP"
+        ],
+        "hints": [
+          "GRANT SELECT.",
+          "Row-level security."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "least privilege",
+            "en": "least privilege"
+          },
+          "right": {
+            "ua": "мінімум прав",
+            "en": "minimum rights"
+          }
+        },
+        {
+          "left": {
+            "ua": "audit",
+            "en": "audit"
+          },
+          "right": {
+            "ua": "журнал",
+            "en": "log"
+          }
+        },
+        {
+          "left": {
+            "ua": "PII",
+            "en": "PII"
+          },
+          "right": {
+            "ua": "персональні дані",
+            "en": "personal data"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

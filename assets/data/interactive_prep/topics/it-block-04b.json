@@ -1,0 +1,131 @@
+{
+  "id": "it-block-04b",
+  "title": {
+    "ua": "Архітектура CPU/RAM",
+    "en": "Computer architecture"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 04b",
+    "en": "EVE IT · block 04b"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "CPU → fetch-decode-execute\nRAM → volatile\n cache → швидкий шар",
+        "en": "CPU → fetch-decode-execute\nRAM → volatile\ncache → fast layer"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Ядро ОС постійно в ____. Кеш — між CPU і ____.",
+        "en": "OS kernel stays in ____. Cache sits between CPU and ____."
+      },
+      "answers": [
+        "RAM",
+        "RAM"
+      ],
+      "wordBank": [
+        "RAM",
+        "диск",
+        "ROM",
+        "GPU"
+      ],
+      "hints": [
+        {
+          "ua": "Kernel in RAM.",
+          "en": "Kernel in RAM."
+        },
+        {
+          "ua": "Cache near CPU/RAM.",
+          "en": "Cache hierarchy."
+        }
+      ],
+      "_en": {
+        "template": "OS kernel stays in ____. Cache sits between CPU and ____.",
+        "answers": [
+          "RAM",
+          "RAM"
+        ],
+        "wordBank": [
+          "RAM",
+          "disk",
+          "ROM",
+          "GPU"
+        ],
+        "hints": [
+          "Kernel in RAM.",
+          "Cache hierarchy."
+        ]
+      },
+      "_l2_en": {
+        "template": "OS kernel stays in ____. Cache sits between CPU and ____.",
+        "answers": [
+          "RAM",
+          "RAM"
+        ],
+        "wordBank": [
+          "RAM",
+          "disk",
+          "ROM",
+          "GPU"
+        ],
+        "hints": [
+          "Kernel in RAM.",
+          "Cache hierarchy."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "RAM",
+            "en": "RAM"
+          },
+          "right": {
+            "ua": "оперативна",
+            "en": "volatile"
+          }
+        },
+        {
+          "left": {
+            "ua": "SSD",
+            "en": "SSD"
+          },
+          "right": {
+            "ua": "постійна",
+            "en": "persistent"
+          }
+        },
+        {
+          "left": {
+            "ua": "I/O",
+            "en": "I/O"
+          },
+          "right": {
+            "ua": "пристрої",
+            "en": "devices"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

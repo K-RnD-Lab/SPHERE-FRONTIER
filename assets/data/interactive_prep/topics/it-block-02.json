@@ -1,0 +1,106 @@
+{
+  "id": "it-block-02",
+  "title": {
+    "ua": "Процедурне програмування",
+    "en": "Procedural programming"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 02",
+    "en": "EVE IT · block 02"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "змінна → присвоєння → умова → цикл\nstack frame → локальні змінні",
+        "en": "variable → assignment → branch → loop\nstack frame → locals"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Цикл for перевіряє умову ____ кожної ітерації. break — ____ цикл.",
+        "en": "for checks condition ____ each iteration. break ____ the loop."
+      },
+      "answers": [
+        "перед",
+        "перериває"
+      ],
+      "wordBank": [
+        "перед",
+        "після",
+        "перериває",
+        "дублює"
+      ],
+      "hints": [
+        {
+          "ua": "for — check before body.",
+          "en": "for checks first."
+        },
+        {
+          "ua": "break exits loop.",
+          "en": "break exits."
+        }
+      ],
+      "_en": {
+        "template": "for checks condition ____ each iteration. break ____ the loop.",
+        "answers": [
+          "before",
+          "exits"
+        ],
+        "wordBank": [
+          "before",
+          "after",
+          "exits",
+          "duplicates"
+        ],
+        "hints": [
+          "for checks first.",
+          "break exits."
+        ]
+      },
+      "_l2_en": {
+        "template": "for checks condition ____ each iteration. break ____ the loop.",
+        "answers": [
+          "before",
+          "exits"
+        ],
+        "wordBank": [
+          "before",
+          "after",
+          "exits",
+          "duplicates"
+        ],
+        "hints": [
+          "for checks first.",
+          "break exits."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "drag_order",
+      "items": [
+        "declare",
+        "assign",
+        "condition",
+        "body",
+        "increment"
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

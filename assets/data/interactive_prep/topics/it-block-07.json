@@ -1,0 +1,131 @@
+{
+  "id": "it-block-07",
+  "title": {
+    "ua": "Кібербезпека",
+    "en": "Cybersecurity"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 07",
+    "en": "EVE IT · block 07"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "CIA\nSIEM → auth джерел\nTLS → encrypt+auth+integrity\nRisk = P × loss",
+        "en": "CIA\nSIEM → source auth\nTLS → encrypt+auth+integrity\nRisk = P × loss"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "SIEM ключово: ____ джерел. Risk exposure = ____ × втрати.",
+        "en": "SIEM key: ____ of sources. Risk exposure = ____ × loss."
+      },
+      "answers": [
+        "автентифікація",
+        "ймовірність"
+      ],
+      "wordBank": [
+        "автентифікація",
+        "ймовірність",
+        "шифрування",
+        "DNS"
+      ],
+      "hints": [
+        {
+          "ua": "SIEM → authentication.",
+          "en": "SIEM → auth."
+        },
+        {
+          "ua": "P × loss.",
+          "en": "P × loss."
+        }
+      ],
+      "_en": {
+        "template": "SIEM key: ____ of sources. Risk exposure = ____ × loss.",
+        "answers": [
+          "authentication",
+          "probability"
+        ],
+        "wordBank": [
+          "authentication",
+          "probability",
+          "encryption",
+          "DNS"
+        ],
+        "hints": [
+          "SIEM → auth.",
+          "P × loss."
+        ]
+      },
+      "_l2_en": {
+        "template": "SIEM key: ____ of sources. Risk exposure = ____ × loss.",
+        "answers": [
+          "authentication",
+          "probability"
+        ],
+        "wordBank": [
+          "authentication",
+          "probability",
+          "encryption",
+          "DNS"
+        ],
+        "hints": [
+          "SIEM → auth.",
+          "P × loss."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "Купина",
+            "en": "Kupyna"
+          },
+          "right": {
+            "ua": "hash",
+            "en": "hash"
+          }
+        },
+        {
+          "left": {
+            "ua": "AES",
+            "en": "AES"
+          },
+          "right": {
+            "ua": "шифр",
+            "en": "cipher"
+          }
+        },
+        {
+          "left": {
+            "ua": "страхування",
+            "en": "insurance"
+          },
+          "right": {
+            "ua": "передача ризику",
+            "en": "risk transfer"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

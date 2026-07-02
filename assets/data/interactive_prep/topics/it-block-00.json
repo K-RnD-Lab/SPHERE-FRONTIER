@@ -1,0 +1,131 @@
+{
+  "id": "it-block-00",
+  "title": {
+    "ua": "Як вчитися (IT)",
+    "en": "How to study (IT)"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 00",
+    "en": "EVE IT · block 00"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "категорія → не перше знайоме слово\nhash ≠ encrypt\nWHERE ≠ HAVING",
+        "en": "category → not first familiar word\nhash ≠ encrypt\nWHERE ≠ HAVING"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "На іспиті шукай ____ поняття, а не ____ слово.",
+        "en": "On the exam seek the ____ concept, not the ____ word."
+      },
+      "answers": [
+        "точне",
+        "знайоме"
+      ],
+      "wordBank": [
+        "точне",
+        "знайоме",
+        "довге",
+        "рідке"
+      ],
+      "hints": [
+        {
+          "ua": "«Найточніше» відсікає ширше.",
+          "en": "Most accurate rejects broader."
+        },
+        {
+          "ua": "Знайоме ≠ правильне.",
+          "en": "Familiar ≠ correct."
+        }
+      ],
+      "_en": {
+        "template": "On the exam seek the ____ concept, not the ____ word.",
+        "answers": [
+          "precise",
+          "familiar"
+        ],
+        "wordBank": [
+          "precise",
+          "familiar",
+          "long",
+          "rare"
+        ],
+        "hints": [
+          "Most accurate rejects broader.",
+          "Familiar ≠ correct."
+        ]
+      },
+      "_l2_en": {
+        "template": "On the exam seek the ____ concept, not the ____ word.",
+        "answers": [
+          "precise",
+          "familiar"
+        ],
+        "wordBank": [
+          "precise",
+          "familiar",
+          "long",
+          "rare"
+        ],
+        "hints": [
+          "Most accurate rejects broader.",
+          "Familiar ≠ correct."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "hash",
+            "en": "hash"
+          },
+          "right": {
+            "ua": "integrity",
+            "en": "integrity"
+          }
+        },
+        {
+          "left": {
+            "ua": "encryption",
+            "en": "encryption"
+          },
+          "right": {
+            "ua": "confidentiality",
+            "en": "confidentiality"
+          }
+        },
+        {
+          "left": {
+            "ua": "GRANT",
+            "en": "GRANT"
+          },
+          "right": {
+            "ua": "authorization",
+            "en": "authorization"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

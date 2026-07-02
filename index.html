@@ -11,13 +11,15 @@
   <script>const t=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",t);document.getElementById("themeToggle").textContent=t==="dark"?"☀️":"🌙";</script>
   <main class="page">
     <section class="hero">
-      <p class="eyebrow">K R&D Lab / research front door</p>
-      <h1>SPHERE FRONTIER</h1>
-      <p class="lede">Computational science research across oncology, plant science, metabolomics, neuroscience, ecology, and life systems.</p>
+      <p class="eyebrow" data-i18n="rndEyebrow">K R&D Lab / research front door</p>
+      <h1 data-i18n="rndTitle">SPHERE FRONTIER</h1>
+      <p class="lede" data-i18n="rndLede">Computational science research across oncology, plant science, metabolomics, neuroscience, ecology, and life systems.</p>
       <div class="hero-links">
-        <a href="./registry.html">Study Registry</a>
-        <a href="./quest.html">Quest Viewer</a>
-        <a href="./training-analytics.html">🎓 Training Analytics</a>
+        <a href="./registry.html" data-i18n="rndRegistry">Study Registry</a>
+        <a href="./quest.html" data-i18n="rndQuests">Quest Viewer</a>
+        <a href="./training-analytics.html" data-i18n="rndTraining">🎓 Training Analytics</a>
+        <a href="./interactive-prep.html" data-i18n="rndInteractive">🧩 Interactive prep</a>
+        <a href="./trainer.html" data-i18n="rndTrainer">Master Training</a>
         <a href="https://github.com/K-RnD-Lab" target="_blank" rel="noreferrer">GitHub</a>
         <a href="https://huggingface.co/K-RnD-Lab" target="_blank" rel="noreferrer">HuggingFace</a>
         <a href="https://k-mentorship-hub.vercel.app" target="_blank" rel="noreferrer">Mentorship Hub</a>
@@ -27,15 +29,15 @@
     <section class="stats-row">
       <div class="stat-card science">
         <div class="stat-value">3</div>
-        <div class="stat-label">Research Spheres</div>
+        <div class="stat-label" data-i18n="statSpheres">Research Spheres</div>
       </div>
       <div class="stat-card">
         <div class="stat-value">6+</div>
-        <div class="stat-label">Research Domains</div>
+        <div class="stat-label" data-i18n="statDomains">Research Domains</div>
       </div>
       <div class="stat-card">
         <div class="stat-value">12</div>
-        <div class="stat-label">Quests</div>
+        <div class="stat-label" data-i18n="statQuests">Quests</div>
       </div>
       <div class="stat-card">
         <div class="stat-value">OSS</div>
@@ -94,6 +96,8 @@
       </div>
     </section>
   </main>
+  <script src="./assets/js/site-i18n.js"></script>
+  <script src="./assets/js/site-boot.js"></script>
   <script>document.getElementById("themeToggle").addEventListener("click",function(){const c=this.textContent==="🌙"?"dark":"light";document.documentElement.setAttribute("data-theme",c);localStorage.setItem("theme",c);this.textContent=c==="dark"?"☀️":"🌙";});</script>
 </body>
 </html>

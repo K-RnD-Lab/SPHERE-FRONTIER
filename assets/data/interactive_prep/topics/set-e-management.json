@@ -1,0 +1,107 @@
+{
+  "id": "set-e-management",
+  "title": {
+    "ua": "Менеджмент",
+    "en": "Management"
+  },
+  "subtitle": {
+    "ua": "SET Entrepreneurship",
+    "en": "SET Entrepreneurship"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "plan → organize → lead → control",
+        "en": "plan → organize → lead → control"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "4P: Product, Price, Place, ____.",
+        "en": "4P: Product, Price, Place, ____."
+      },
+      "answers": [
+        "Promotion"
+      ],
+      "wordBank": [
+        "Promotion",
+        "Profit",
+        "Process",
+        "People"
+      ],
+      "hints": [
+        {
+          "ua": "Classic 4P.",
+          "en": "Classic 4P."
+        }
+      ],
+      "_l2_en": {
+        "template": "4P: Product, Price, Place, ____.",
+        "answers": [
+          "Promotion"
+        ],
+        "wordBank": [
+          "Promotion",
+          "Profit",
+          "Process",
+          "People"
+        ],
+        "hints": [
+          "Classic 4P."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "стратегія",
+            "en": "strategy"
+          },
+          "right": {
+            "ua": "довгострокова",
+            "en": "long-term"
+          }
+        },
+        {
+          "left": {
+            "ua": "тактика",
+            "en": "tactics"
+          },
+          "right": {
+            "ua": "короткострокова",
+            "en": "short-term"
+          }
+        },
+        {
+          "left": {
+            "ua": "KPI",
+            "en": "KPI"
+          },
+          "right": {
+            "ua": "метрика",
+            "en": "metric"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

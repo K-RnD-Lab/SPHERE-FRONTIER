@@ -1,0 +1,114 @@
+{
+  "id": "set-t-cybersecurity",
+  "title": {
+    "ua": "Кібербезпека",
+    "en": "Cybersecurity"
+  },
+  "subtitle": {
+    "ua": "SET Technology",
+    "en": "SET Technology"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "CIA TLS firewall IDS",
+        "en": "CIA TLS firewall IDS"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "API контракт — ____. Вразливість — ____.",
+        "en": "API contract — ____. Vulnerability — ____."
+      },
+      "answers": [
+        "інтерфейс",
+        "слабкість"
+      ],
+      "wordBank": [
+        "інтерфейс",
+        "слабкість",
+        "диск",
+        "колір"
+      ],
+      "hints": [
+        {
+          "ua": "Contract between services.",
+          "en": "Service contract."
+        },
+        {
+          "ua": "Weakness exploited.",
+          "en": "Exploitable flaw."
+        }
+      ],
+      "_l2_en": {
+        "template": "API contract — ____. Vulnerability — ____.",
+        "answers": [
+          "interface",
+          "weakness"
+        ],
+        "wordBank": [
+          "interface",
+          "weakness",
+          "disk",
+          "color"
+        ],
+        "hints": [
+          "Service contract.",
+          "Exploitable flaw."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "O(n)",
+            "en": "O(n)"
+          },
+          "right": {
+            "ua": "лінійна",
+            "en": "linear"
+          }
+        },
+        {
+          "left": {
+            "ua": "O(log n)",
+            "en": "O(log n)"
+          },
+          "right": {
+            "ua": "логарифмічна",
+            "en": "logarithmic"
+          }
+        },
+        {
+          "left": {
+            "ua": "ACID",
+            "en": "ACID"
+          },
+          "right": {
+            "ua": "транзакції",
+            "en": "transactions"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

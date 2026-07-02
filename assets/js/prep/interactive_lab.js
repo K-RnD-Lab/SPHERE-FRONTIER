@@ -1,11 +1,15 @@
 const IL_STORAGE = 'master-prep-interactive-prep-v1';
 const IL_BASE = 'assets/data/interactive_prep';
-const IL_SHOW_STUBS_KEY = 'master-prep-show-stubs';
 
 let ilIndex = null;
+let ilTitles = {};
 let ilRenderGen = 0;
-let ilTopicCache = null;
-let ilTopicCacheId = '';
+let ilTopicRaw = null;
+let ilTopicRawId = '';
+
+function ilLoc(v) {
+  return PrepLocale?.prepLoc(v) ?? (typeof v === 'string' ? v : v?.ua || '');
+}
 
 function ilT(key, ...args) {
   return SiteI18n?.t(key, ...args) ?? key;
@@ -16,9 +20,6 @@ function ilProgress() {
 }
 function ilSave(p) {
   try { localStorage.setItem(IL_STORAGE, JSON.stringify(p)); } catch { /* */ }
-}
-function ilShowStubs() {
-  return localStorage.getItem(IL_SHOW_STUBS_KEY) === '1';
 }
 
 function ilCountry(id) {
@@ -49,22 +50,12 @@ function ilRoute() {
     if (ilIsCountryId(parts[0])) {
       return { view: 'topic', countryId: parts[0], topicId: parts[1], levelId: 'L1' };
     }
-    return {
-      view: 'topic',
-      countryId: ilFindTopicCountry(parts[0]),
-      topicId: parts[0],
-      levelId: parts[1] || 'L1',
-    };
+    return { view: 'topic', countryId: ilFindTopicCountry(parts[0]), topicId: parts[0], levelId: parts[1] || 'L1' };
   }
   if (ilIsCountryId(parts[0])) {
     return { view: 'topic', countryId: parts[0], topicId: parts[1], levelId: parts[2] || 'L1' };
   }
-  return {
-    view: 'topic',
-    countryId: ilFindTopicCountry(parts[0]),
-    topicId: parts[0],
-    levelId: parts[2] || 'L1',
-  };
+  return { view: 'topic', countryId: ilFindTopicCountry(parts[0]), topicId: parts[0], levelId: parts[2] || 'L1' };
 }
 
 async function ilFetch(path) {
@@ -73,26 +64,25 @@ async function ilFetch(path) {
   return res.json();
 }
 
+function ilTopicTitle(id) {
+  return ilLoc(ilTitles[id] || id);
+}
+
 async function ilLoadTopic(topicId) {
-  if (ilTopicCacheId === topicId && ilTopicCache) return ilTopicCache;
-  ilTopicCache = await ilFetch(`${IL_BASE}/topics/${topicId}.json`);
-  ilTopicCacheId = topicId;
-  return ilTopicCache;
+  if (ilTopicRawId !== topicId || !ilTopicRaw) {
+    ilTopicRaw = await ilFetch(`${IL_BASE}/topics/${topicId}.json`);
+    ilTopicRawId = topicId;
+  }
+  return PrepLocale.localizeTopic(ilTopicRaw);
 }
 
 function topicCardHtml(t) {
   const prog = ilProgress()[t.id] || {};
   const done = ['L1', 'L2', 'L3'].filter((l) => prog[l]).length;
-  if (t.stub) {
-    return `
-      <button type="button" class="pl-topic-btn stub" disabled>
-        <strong>${t.emoji} ${PrepLevelsEngine.escapeHtml(t.title)}</strong><br>
-        <span class="pl-topic-meta">${ilT('inDev')}</span>
-      </button>`;
-  }
+  const title = ilTopicTitle(t.id);
   return `
     <button type="button" class="pl-topic-btn" data-topic="${t.id}">
-      <strong>${t.emoji} ${PrepLevelsEngine.escapeHtml(t.title)}</strong><br>
+      <strong>${t.emoji} ${PrepLevelsEngine.escapeHtml(title)}</strong><br>
       <span class="pl-topic-meta">${ilT('levelsProgress', done)}</span>
     </button>`;
 }
@@ -101,9 +91,8 @@ function renderCountries(root) {
   const cards = (ilIndex.countries || []).map((c) => `
     <button type="button" class="pl-country-btn ${c.ready ? '' : 'stub'}" data-country="${c.id}" ${c.ready ? '' : 'disabled'}>
       <span class="pl-country-emoji">${c.emoji}</span>
-      <strong>${PrepLevelsEngine.escapeHtml(c.label)}</strong>
-      <span class="pl-country-sub">${PrepLevelsEngine.escapeHtml(c.subtitle || '')}</span>
-      ${c.ready ? '' : `<span class="pl-topic-meta">${ilT('soon')}</span>`}
+      <strong>${PrepLevelsEngine.escapeHtml(ilLoc(c.label))}</strong>
+      <span class="pl-country-sub">${PrepLevelsEngine.escapeHtml(ilLoc(c.subtitle || ''))}</span>
     </button>`).join('');
 
   root.innerHTML = `
@@ -121,60 +110,39 @@ function renderCountries(root) {
 function renderMap(root, countryId) {
   const country = ilCountry(countryId);
   if (!country) {
-    root.innerHTML = `<p class="pl-card">${ilT('backCountries')} <button type="button" class="ghost" id="il-home">${ilT('backCountries')}</button></p>`;
+    root.innerHTML = `<p class="pl-card"><button type="button" class="ghost" id="il-home">${ilT('backCountries')}</button></p>`;
     root.querySelector('#il-home')?.addEventListener('click', () => { location.hash = '#/'; });
     return;
   }
 
-  const showStubs = ilShowStubs();
   const external = (country.external || []).map(
-    (l) => `<a href="${l.url}" target="_blank" rel="noopener">${PrepLevelsEngine.escapeHtml(l.label)}</a>`
+    (l) => `<a href="${l.url}" target="_blank" rel="noopener">${PrepLevelsEngine.escapeHtml(ilLoc(l.label))}</a>`
   ).join('');
 
   const body = (country.tracks || []).map((tr) => {
-    const ready = tr.topics.filter((t) => !t.stub);
-    const stubs = tr.topics.filter((t) => t.stub);
-    const grid = ready.map(topicCardHtml).join('');
-    const stubGrid = showStubs && stubs.length
-      ? `<div class="pl-topic-grid pl-stub-grid">${stubs.map(topicCardHtml).join('')}</div>`
-      : '';
-    const stubNote = !showStubs && stubs.length
-      ? `<p class="pl-stub-hint">+${stubs.length} ${ilT('inDev')}</p>`
-      : '';
+    const grid = (tr.topics || []).map(topicCardHtml).join('');
+    const trackSub = tr.subtitle ? `<p class="pl-stub-hint">${PrepLevelsEngine.escapeHtml(ilLoc(tr.subtitle))}</p>` : '';
     return `
       <section class="pl-track">
-        <h3>${PrepLevelsEngine.escapeHtml(tr.label)}</h3>
-        <div class="pl-topic-grid">${grid || `<p class="pl-stub-hint">${ilT('soon')}</p>`}</div>
-        ${stubNote}
-        ${stubGrid}
+        <h3>${PrepLevelsEngine.escapeHtml(ilLoc(tr.label))}</h3>
+        ${trackSub}
+        <div class="pl-topic-grid">${grid}</div>
       </section>`;
   }).join('');
 
   root.innerHTML = `
     <nav class="pl-breadcrumb">
       <button type="button" class="ghost" id="il-back-country">${ilT('backCountries')}</button>
-      <span>${country.emoji} ${PrepLevelsEngine.escapeHtml(country.label)}</span>
+      <span>${country.emoji} ${PrepLevelsEngine.escapeHtml(ilLoc(country.label))}</span>
     </nav>
     ${external ? `<p class="pl-external"><span class="pl-ext-label">${ilT('officialDemo')}</span>${external}</p>` : ''}
     <section class="pl-card">
-      <div class="pl-map-head">
-        <div>
-          <h2 data-i18n="topicsTitle">${ilT('topicsTitle')}</h2>
-          <p class="pl-map-sub">${PrepLevelsEngine.escapeHtml(country.subtitle || '')}</p>
-        </div>
-        <label class="pl-stub-toggle">
-          <input type="checkbox" id="il-stub-toggle" ${showStubs ? 'checked' : ''}>
-          <span data-i18n="showFuture">${ilT('showFuture')}</span>
-        </label>
-      </div>
+      <h2 data-i18n="topicsTitle">${ilT('topicsTitle')}</h2>
+      <p class="pl-map-sub">${PrepLevelsEngine.escapeHtml(ilLoc(country.subtitle || ''))}</p>
       ${body}
     </section>`;
 
   root.querySelector('#il-back-country').addEventListener('click', () => { location.hash = '#/'; });
-  root.querySelector('#il-stub-toggle')?.addEventListener('change', (e) => {
-    localStorage.setItem(IL_SHOW_STUBS_KEY, e.target.checked ? '1' : '0');
-    renderMap(root, countryId);
-  });
   root.querySelectorAll('[data-topic]').forEach((btn) => {
     btn.addEventListener('click', () => {
       location.hash = `#/${countryId}/${btn.dataset.topic}/L1`;
@@ -193,11 +161,8 @@ function updateLevelTabs(tabsEl, levels, levelId, prog) {
 
 function ilGoLevel(countryId, topicId, levelId) {
   const nextHash = `#/${countryId}/${topicId}/${levelId}`;
-  if (location.hash === nextHash) {
-    render();
-  } else {
-    location.hash = nextHash;
-  }
+  if (location.hash === nextHash) render();
+  else location.hash = nextHash;
 }
 
 function mountLevelBody(bodyEl, topic, topicId, levelId, countryId, gen) {
@@ -243,6 +208,8 @@ async function renderTopic(root, countryId, topicId, levelId) {
 
   const existing = root.querySelector('[data-il-topic-shell]');
   if (existing && existing.dataset.topicId === topicId) {
+    root.querySelector('h2').textContent = topic.title;
+    root.querySelector('.pl-map-sub').textContent = topic.subtitle || '';
     updateLevelTabs(root.querySelector('#il-tabs'), topic.levels, resolvedLevel, prog);
     mountLevelBody(root.querySelector('#il-body'), topic, topicId, resolvedLevel, countryId, gen);
     return;
@@ -250,7 +217,7 @@ async function renderTopic(root, countryId, topicId, levelId) {
 
   root.innerHTML = `
     <nav class="pl-breadcrumb">
-      <button type="button" class="ghost" id="il-back-map">← ${country ? PrepLevelsEngine.escapeHtml(country.label) : ilT('backTopics')}</button>
+      <button type="button" class="ghost" id="il-back-map">← ${country ? PrepLevelsEngine.escapeHtml(ilLoc(country.label)) : ilT('backTopics')}</button>
     </nav>
     <section class="pl-card" data-il-topic-shell data-topic-id="${PrepLevelsEngine.escapeHtml(topicId)}">
       <h2>${PrepLevelsEngine.escapeHtml(topic.title)}</h2>
@@ -268,10 +235,8 @@ async function renderTopic(root, countryId, topicId, levelId) {
     tab.className = `pl-level-tab ${level.id === resolvedLevel ? 'active' : ''} ${prog[level.id] ? 'done' : ''} ${level.id !== 'L1' && !prog.L1 ? 'needs-l1' : ''}`;
     tab.textContent = ilT('levelN', i + 1);
     tab.title = level.id === 'L1' ? ilT('levelTheory') : '';
-    tab.dataset.levelId = level.id;
     tab.addEventListener('click', () => {
-      if (level.id === resolvedLevel) return;
-      ilGoLevel(countryId, topicId, level.id);
+      if (level.id !== resolvedLevel) ilGoLevel(countryId, topicId, level.id);
     });
     tabs.appendChild(tab);
   });
@@ -285,15 +250,17 @@ async function render() {
   const route = ilRoute();
 
   if (route.view === 'countries') {
-    ilTopicCache = null;
-    ilTopicCacheId = '';
+    ilTopicRaw = null;
+    ilTopicRawId = '';
     renderCountries(root);
+    SiteI18n?.apply(root);
     return;
   }
   if (route.view === 'map') {
-    ilTopicCache = null;
-    ilTopicCacheId = '';
+    ilTopicRaw = null;
+    ilTopicRawId = '';
     renderMap(root, route.countryId);
+    SiteI18n?.apply(root);
     return;
   }
   await renderTopic(root, route.countryId, route.topicId, route.levelId);
@@ -301,15 +268,19 @@ async function render() {
 
 async function boot() {
   try {
-    ilIndex = await ilFetch(`${IL_BASE}/index.json`);
+    [ilIndex, ilTitles] = await Promise.all([
+      ilFetch(`${IL_BASE}/index.json`),
+      ilFetch(`${IL_BASE}/_titles.json`),
+    ]);
   } catch (e) {
-    document.getElementById('il-app').innerHTML = `<p class="pl-card">Помилка: ${PrepLevelsEngine?.escapeHtml?.(e.message) || e.message}</p>`;
+    document.getElementById('il-app').innerHTML = `<p class="pl-card">Error: ${PrepLevelsEngine?.escapeHtml?.(e.message) || e.message}</p>`;
     return;
   }
-  const hero = document.querySelector('.hero');
-  if (hero) SiteI18n.mountLangSelect(hero, { onChange: () => render() });
-  SiteI18n.apply(document);
   window.addEventListener('hashchange', render);
+  window.addEventListener('site:langchange', () => {
+    if (ilTopicRawId) ilTopicRaw = ilTopicRaw;
+    render();
+  });
   if (!location.hash || location.hash === '#') location.hash = '#/';
   await render();
 }

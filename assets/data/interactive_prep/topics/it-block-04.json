@@ -1,0 +1,131 @@
+{
+  "id": "it-block-04",
+  "title": {
+    "ua": "Алгоритми і структури",
+    "en": "Algorithms & structures"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 04",
+    "en": "EVE IT · block 04"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "stack → LIFO\nqueue → FIFO\nO(n) vs O(log n)",
+        "en": "stack → LIFO\nqueue → FIFO\nO(n) vs O(log n)"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Undo в редакторі — структура ____. Черга друку — ____.",
+        "en": "Editor undo — ____. Print queue — ____."
+      },
+      "answers": [
+        "стек",
+        "черга"
+      ],
+      "wordBank": [
+        "стек",
+        "черга",
+        "граф",
+        "дерево"
+      ],
+      "hints": [
+        {
+          "ua": "Останній вийшов — стек.",
+          "en": "LIFO = stack."
+        },
+        {
+          "ua": "Перший прийшов — черга.",
+          "en": "FIFO = queue."
+        }
+      ],
+      "_en": {
+        "template": "Editor undo — ____. Print queue — ____.",
+        "answers": [
+          "stack",
+          "queue"
+        ],
+        "wordBank": [
+          "stack",
+          "queue",
+          "graph",
+          "tree"
+        ],
+        "hints": [
+          "LIFO = stack.",
+          "FIFO = queue."
+        ]
+      },
+      "_l2_en": {
+        "template": "Editor undo — ____. Print queue — ____.",
+        "answers": [
+          "stack",
+          "queue"
+        ],
+        "wordBank": [
+          "stack",
+          "queue",
+          "graph",
+          "tree"
+        ],
+        "hints": [
+          "LIFO = stack.",
+          "FIFO = queue."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "LIFO",
+            "en": "LIFO"
+          },
+          "right": {
+            "ua": "стек",
+            "en": "stack"
+          }
+        },
+        {
+          "left": {
+            "ua": "FIFO",
+            "en": "FIFO"
+          },
+          "right": {
+            "ua": "черга",
+            "en": "queue"
+          }
+        },
+        {
+          "left": {
+            "ua": "binary search",
+            "en": "binary search"
+          },
+          "right": {
+            "ua": "O(log n)",
+            "en": "O(log n)"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

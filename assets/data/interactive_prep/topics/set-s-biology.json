@@ -1,0 +1,131 @@
+{
+  "id": "set-s-biology",
+  "title": {
+    "ua": "Біологія",
+    "en": "Biology"
+  },
+  "subtitle": {
+    "ua": "SET Science",
+    "en": "SET Science"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "клітина → органела → DNA\ngene → protein",
+        "en": "cell → organelle → DNA\ngene → protein"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Енергія в клітині — ____. Спадковість — ____.",
+        "en": "Cell energy — ____. Heredity — ____."
+      },
+      "answers": [
+        "мітохондрія",
+        "DNA"
+      ],
+      "wordBank": [
+        "мітохондрія",
+        "DNA",
+        "рибосома",
+        "вода"
+      ],
+      "hints": [
+        {
+          "ua": "ATP factory.",
+          "en": "ATP."
+        },
+        {
+          "ua": "Genetic code.",
+          "en": "Genes."
+        }
+      ],
+      "_en": {
+        "template": "Cell energy — ____. Heredity — ____.",
+        "answers": [
+          "mitochondria",
+          "DNA"
+        ],
+        "wordBank": [
+          "mitochondria",
+          "DNA",
+          "ribosome",
+          "water"
+        ],
+        "hints": [
+          "ATP.",
+          "Genes."
+        ]
+      },
+      "_l2_en": {
+        "template": "Cell energy — ____. Heredity — ____.",
+        "answers": [
+          "mitochondria",
+          "DNA"
+        ],
+        "wordBank": [
+          "mitochondria",
+          "DNA",
+          "ribosome",
+          "water"
+        ],
+        "hints": [
+          "ATP.",
+          "Genes."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "мітохондрія",
+            "en": "mitochondria"
+          },
+          "right": {
+            "ua": "ATP",
+            "en": "ATP"
+          }
+        },
+        {
+          "left": {
+            "ua": "рибосома",
+            "en": "ribosome"
+          },
+          "right": {
+            "ua": "білок",
+            "en": "protein"
+          }
+        },
+        {
+          "left": {
+            "ua": "DNA",
+            "en": "DNA"
+          },
+          "right": {
+            "ua": "генетика",
+            "en": "genetics"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

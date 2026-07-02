@@ -1,38 +1,133 @@
 {
   "id": "tznk-traps",
-  "title": "ТЗНК: як не плутатись",
-  "subtitle": "ЄВІ · навчальна компетентність",
+  "title": {
+    "ua": "Як вчитися, щоб не плутатись",
+    "en": "How to study without mixing things up"
+  },
+  "subtitle": {
+    "ua": "ЄВІ · ТЗНК",
+    "en": "EVI · general competence"
+  },
   "levels": [
     {
       "id": "L1",
       "type": "theory",
-      "title": "Рівень 1 · Карта",
-      "instruction": "Більшість питань перевіряють категоризацію, не лише визначення.",
-      "diagram": "Науковий сенс → вчи межі поняття (що НЕ є)\nАналогія     → інструмент під задачу (не «знайоме слово»)\nПастка        → «is not» / «найточніше» → шукай зайве\nДріл          → 1) ключове слово 2) чому так 3) чому спокусило",
+      "title": {
+        "ua": "Рівень 1 · Карта",
+        "en": "Level 1 · Map"
+      },
+      "instruction": {
+        "ua": "Категоризація, не зубріння.",
+        "en": "Categorize, don't memorize blindly."
+      },
+      "diagram": {
+        "ua": "Науковий сенс → межі поняття\nПастка → «не є» / «найточніше»\nДріл → ключове слово + чому так",
+        "en": "Meaning → concept boundaries\nTrap → 'is not' / 'most accurate'\nDrill → keyword + why"
+      },
       "bullets": [
-        "27 нумерованих завдань, до 33 тестових балів (підзавдання в текстах 1–4)",
-        "За неправильну відповідь бали не знімають — не лишай порожніх"
+        {
+          "ua": "27 завдань, до 33 балів",
+          "en": "27 tasks, up to 33 points"
+        }
       ]
     },
     {
       "id": "L2",
       "type": "fill_blanks",
-      "title": "Рівень 2 · Пастки",
-      "instruction": "Обери слово для кожної пропуску.",
-      "template": "У «is not» шукай варіант, який звучить ____ але не підходить за ____.",
-      "answers": ["знайомо", "категорією"],
-      "wordBank": ["знайомо", "категорією", "довго", "формулою", "рідко"],
-      "hints": ["Перше знайоме слово — часта пастка.", "Потрібна межа поняття."]
+      "title": {
+        "ua": "Рівень 2 · Пастки",
+        "en": "Level 2 · Traps"
+      },
+      "instruction": {
+        "ua": "Обери слово.",
+        "en": "Pick a word."
+      },
+      "template": {
+        "ua": "У «is not» шукай варіант, який звучить ____ але не підходить за ____.",
+        "en": "In «is not» find the option that sounds ____ but fails by ____."
+      },
+      "answers": [
+        "знайомо",
+        "категорією"
+      ],
+      "wordBank": [
+        "знайомо",
+        "категорією",
+        "довго",
+        "формулою",
+        "рідко"
+      ],
+      "hints": [
+        {
+          "ua": "Перше знайоме слово — пастка.",
+          "en": "First familiar word is a trap."
+        },
+        {
+          "ua": "Потрібна межа поняття.",
+          "en": "Need concept boundary."
+        }
+      ],
+      "_l2_en": {
+        "template": "In «is not» find the option that sounds ____ but fails by ____.",
+        "answers": [
+          "familiar",
+          "category"
+        ],
+        "wordBank": [
+          "familiar",
+          "category",
+          "long",
+          "formula",
+          "rarely"
+        ],
+        "hints": [
+          "First familiar word is a trap.",
+          "Need concept boundary."
+        ]
+      }
     },
     {
       "id": "L3",
       "type": "match_pairs",
-      "title": "Рівень 3 · Стратегія",
+      "title": {
+        "ua": "Рівень 3",
+        "en": "Level 3"
+      },
+      "instruction": {
+        "ua": "Пари.",
+        "en": "Pairs."
+      },
       "pairs": [
-        { "left": "«Найточніше»", "right": "відсікай занадто широкі варіанти" },
-        { "left": "«НЕ є»", "right": "шукай зайвий / найменш типовий" },
-        { "left": "Після помилки", "right": "ключове слово + чому так + чому спокусило" },
-        { "left": "Час на іспиті", "right": "спочатку легкі, складне — пізніше" }
+        {
+          "left": {
+            "ua": "«Найточніше»",
+            "en": "«Most accurate»"
+          },
+          "right": {
+            "ua": "відсікай широкі",
+            "en": "reject too broad"
+          }
+        },
+        {
+          "left": {
+            "ua": "«НЕ є»",
+            "en": "«Is NOT»"
+          },
+          "right": {
+            "ua": "шукай зайве",
+            "en": "find the odd one"
+          }
+        },
+        {
+          "left": {
+            "ua": "Після помилки",
+            "en": "After mistake"
+          },
+          "right": {
+            "ua": "ключове слово + чому",
+            "en": "keyword + why"
+          }
+        }
       ]
     }
   ]

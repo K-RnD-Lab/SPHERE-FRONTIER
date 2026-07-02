@@ -1,0 +1,89 @@
+{
+  "id": "de-sql-warehouse",
+  "title": {
+    "ua": "SQL + warehouse (DE)",
+    "en": "SQL + warehouse (DE)"
+  },
+  "subtitle": {
+    "ua": "Data Engineering",
+    "en": "Data Engineering"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "OLTP source → ETL → warehouse\nGRANT least privilege",
+        "en": "OLTP source → ETL → warehouse\nGRANT least privilege"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Права в SQL — ____. Least privilege у prod — ____.",
+        "en": "SQL rights — ____. Least privilege in prod — ____."
+      },
+      "answers": [
+        "GRANT",
+        "мінімум"
+      ],
+      "wordBank": [
+        "GRANT",
+        "мінімум",
+        "ALLOW",
+        "максимум"
+      ],
+      "hints": [
+        {
+          "ua": "GRANT not ALLOW.",
+          "en": "GRANT not ALLOW."
+        },
+        {
+          "ua": "Minimum rights.",
+          "en": "Minimum rights."
+        }
+      ],
+      "_l2_en": {
+        "template": "SQL rights — ____. Least privilege in prod — ____.",
+        "answers": [
+          "GRANT",
+          "minimum"
+        ],
+        "wordBank": [
+          "GRANT",
+          "minimum",
+          "ALLOW",
+          "maximum"
+        ],
+        "hints": [
+          "GRANT not ALLOW.",
+          "Minimum rights."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "drag_order",
+      "items": [
+        "extract",
+        "transform",
+        "load",
+        "validate",
+        "serve"
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

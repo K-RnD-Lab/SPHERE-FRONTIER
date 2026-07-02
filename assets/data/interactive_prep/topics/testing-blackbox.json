@@ -1,38 +1,114 @@
 {
   "id": "testing-blackbox",
-  "title": "Тестування ПЗ",
-  "subtitle": "ЄФВВ IT · black / white / grey box",
+  "title": {
+    "ua": "Тестування ПЗ",
+    "en": "Software testing"
+  },
+  "subtitle": {
+    "ua": "IT · блок 03B",
+    "en": "IT · block 03B"
+  },
   "levels": [
     {
       "id": "L1",
       "type": "theory",
-      "title": "Рівень 1 · Схема",
-      "diagram": "Black box  → лише UI, код прихований\nWhite box  → бачиш код, гілки, цикли\nGrey box   → UI + логи / БД частково\n\nПіраміда:\nUnit → Integration → System → Acceptance",
-      "pairs": [
-        ["Unit", "малі функції / модулі"],
-        ["Integration", "взаємодія модулів"],
-        ["System", "вся система в зборі"]
-      ]
+      "diagram": {
+        "ua": "black → UI only\nwhite → code paths\ngrey → partial",
+        "en": "black → UI only\nwhite → code paths\ngrey → partial"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
     },
     {
       "id": "L2",
       "type": "fill_blanks",
-      "title": "Рівень 2 · Хто що бачить",
-      "template": "Тест без знання коду — ____ box. Розробник перевіряє гілки в коді — ____ box.",
-      "answers": ["black", "white"],
-      "wordBank": ["black", "white", "grey", "green"],
-      "hints": ["Інтерфейс без коду = чорна скринька.", "Відкритий код = біла."]
+      "template": {
+        "ua": "Без коду — ____ box. Перевірка гілок — ____ box.",
+        "en": "No code — ____ box. Branch testing — ____ box."
+      },
+      "answers": [
+        "black",
+        "white"
+      ],
+      "wordBank": [
+        "black",
+        "white",
+        "grey",
+        "green"
+      ],
+      "hints": [
+        {
+          "ua": "UI only.",
+          "en": "UI only."
+        },
+        {
+          "ua": "Code visible.",
+          "en": "Code visible."
+        }
+      ],
+      "_l2_en": {
+        "template": "No code — ____ box. Branch testing — ____ box.",
+        "answers": [
+          "black",
+          "white"
+        ],
+        "wordBank": [
+          "black",
+          "white",
+          "grey",
+          "green"
+        ],
+        "hints": [
+          "UI only.",
+          "Code visible."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
     },
     {
       "id": "L3",
       "type": "match_pairs",
-      "title": "Рівень 3 · Рівні",
       "pairs": [
-        { "left": "Unit testing", "right": "окремі функції / юніти" },
-        { "left": "Integration", "right": "зв'язок між модулями" },
-        { "left": "Black box", "right": "користувацький інтерфейс" },
-        { "left": "Acceptance", "right": "відповідність бізнес-вимогам" }
-      ]
+        {
+          "left": {
+            "ua": "Unit",
+            "en": "Unit"
+          },
+          "right": {
+            "ua": "функції",
+            "en": "functions"
+          }
+        },
+        {
+          "left": {
+            "ua": "Integration",
+            "en": "Integration"
+          },
+          "right": {
+            "ua": "модулі",
+            "en": "modules"
+          }
+        },
+        {
+          "left": {
+            "ua": "Acceptance",
+            "en": "Acceptance"
+          },
+          "right": {
+            "ua": "бізнес-вимоги",
+            "en": "business rules"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
     }
   ]
 }

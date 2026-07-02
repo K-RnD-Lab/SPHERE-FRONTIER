@@ -10,7 +10,7 @@
       levelN: (n) => `Рівень ${n}`,
       levelTheory: 'Теорія',
       backToTheory: '← Повернутись до теорії (рівень 1)',
-      l1Incomplete: 'Рівень 1 ще не позначено як прочитаний — спочатку натисни «Прочитала».',
+      l1Incomplete: 'Рівень 1 ще не позначено — спочатку натисни «Прочитала».',
       theoryDone: 'Прочитала — далі ✓',
       theoryRead: '✓ Теорію пройдено',
       theoryReread: 'Перечитати',
@@ -28,23 +28,32 @@
       topicsTitle: 'Теми',
       backCountries: '← Країни',
       backTopics: '← Теми',
-      showFuture: 'Показати майбутні',
       levelsProgress: (d) => `${d}/3 рівнів`,
-      inDev: 'у розробці',
-      soon: 'незабаром',
-      introNote: 'Спочатку обери <strong>країну / контекст іспиту</strong>. Потім — тему з трьома рівнями. Тести з варіантами — у <a href="trainer.html">Trainer</a>.',
+      introNote: 'Спочатку обери <strong>країну / контекст іспиту</strong>. Потім — тему з трьома рівнями. MCQ — у <a href="trainer.html">Trainer</a>.',
       officialDemo: 'Офіційні демо:',
       jsonMissing: 'JSON для цієї теми ще не додано.',
       unknownLevel: 'Невідомий тип рівня.',
       prepTitle: 'Інтерактивна підготовка',
-      prepLede: 'Спочатку країна й іспит — потім теми з трьома рівнями. MCQ — у Trainer.',
+      prepLede: '3 секції як у Trainer: Foundation · предмет · комбіновані. Рівні 1→2→3.',
       guideTitle: 'Посібник MASTER PREP v25',
       guideLede: 'Веб-доповнення до PDF. Повний текст — у PDF; тут — оновлення та лінки на інтерактив.',
       trainerLink: '← Trainer (MCQ)',
       guideLink: '📘 Посібник v25',
       interactiveLink: '🧩 Інтерактив',
       analyticsLink: 'Analytics',
-      labLink: 'R&D Lab'
+      labLink: 'R&D Lab',
+      rndEyebrow: 'K R&D Lab / research front door',
+      rndTitle: 'SPHERE FRONTIER',
+      rndLede: 'Обчислювальна наука: онкологія, рослини, метаболоміка, нейронаука, екологія.',
+      rndRegistry: 'Реєстр досліджень',
+      rndQuests: 'Quest Viewer',
+      rndTraining: '🎓 Training Analytics',
+      rndInteractive: '🧩 Інтерактив',
+      rndTrainer: 'Master Training',
+      statSpheres: 'Сфери досліджень',
+      statDomains: 'Домени',
+      statQuests: 'Квести',
+      statOss: 'Open Source',
     },
     en: {
       langLabel: 'Interface language',
@@ -55,7 +64,7 @@
       levelN: (n) => `Level ${n}`,
       levelTheory: 'Theory',
       backToTheory: '← Back to theory (level 1)',
-      l1Incomplete: 'Level 1 not marked as read — tap “Done reading” first.',
+      l1Incomplete: 'Level 1 not marked as read — tap Done reading first.',
       theoryDone: 'Done reading — next ✓',
       theoryRead: '✓ Theory completed',
       theoryReread: 'Read again',
@@ -73,24 +82,33 @@
       topicsTitle: 'Topics',
       backCountries: '← Countries',
       backTopics: '← Topics',
-      showFuture: 'Show upcoming',
       levelsProgress: (d) => `${d}/3 levels`,
-      inDev: 'in development',
-      soon: 'coming soon',
-      introNote: 'Pick <strong>country / exam context</strong> first, then a topic with three levels. Multiple-choice tests are in <a href="trainer.html">Trainer</a>.',
+      introNote: 'Pick <strong>country / exam context</strong> first, then a topic with three levels. MCQ in <a href="trainer.html">Trainer</a>.',
       officialDemo: 'Official demos:',
       jsonMissing: 'JSON for this topic is not added yet.',
       unknownLevel: 'Unknown level type.',
       prepTitle: 'Interactive prep',
-      prepLede: 'Country and exam first — then topics with three levels. MCQ in Trainer.',
+      prepLede: '3 sections like Trainer: Foundation · subject · combos. Levels 1→2→3.',
       guideTitle: 'MASTER PREP Exam Guide v25',
       guideLede: 'Web supplement to the PDF. Full text in PDF; updates and interactive links here.',
       trainerLink: '← Trainer (MCQ)',
       guideLink: '📘 Guide v25',
       interactiveLink: '🧩 Interactive',
       analyticsLink: 'Analytics',
-      labLink: 'R&D Lab'
-    }
+      labLink: 'R&D Lab',
+      rndEyebrow: 'K R&D Lab / research front door',
+      rndTitle: 'SPHERE FRONTIER',
+      rndLede: 'Computational science across oncology, plant science, metabolomics, neuroscience, ecology.',
+      rndRegistry: 'Study Registry',
+      rndQuests: 'Quest Viewer',
+      rndTraining: '🎓 Training Analytics',
+      rndInteractive: '🧩 Interactive prep',
+      rndTrainer: 'Master Training',
+      statSpheres: 'Research Spheres',
+      statDomains: 'Research Domains',
+      statQuests: 'Quests',
+      statOss: 'All Open',
+    },
   };
 
   function norm(lang) {
@@ -124,10 +142,6 @@
         else el.textContent = v;
       }
     });
-    root.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
-      const v = t(el.dataset.i18nPlaceholder);
-      if (v) el.placeholder = v;
-    });
   }
 
   function mountLangSelect(container, { onChange } = {}) {
@@ -144,7 +158,7 @@
     sel.addEventListener('change', () => {
       setLang(sel.value);
       span.textContent = t('langLabel');
-      apply(container.closest('main') || document);
+      apply(document);
       if (onChange) onChange(getLang());
     });
     wrap.append(span, sel);

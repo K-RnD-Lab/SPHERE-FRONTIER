@@ -1,0 +1,114 @@
+{
+  "id": "combo-se-health",
+  "title": {
+    "ua": "Science + Entrepreneurship",
+    "en": "Science + Entrepreneurship"
+  },
+  "subtitle": {
+    "ua": "Health / pharma",
+    "en": "Health / pharma"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "clinical trial phases\nregulatory approval\nhealth economics",
+        "en": "clinical trial phases\nregulatory approval\nhealth economics"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Фаза III — ____. Регуляторна безпека — ____.",
+        "en": "Phase III — ____. Regulatory safety — ____."
+      },
+      "answers": [
+        "ефективність",
+        "комплаєнс"
+      ],
+      "wordBank": [
+        "ефективність",
+        "комплаєнс",
+        "реклама",
+        "дизайн"
+      ],
+      "hints": [
+        {
+          "ua": "Large efficacy trial.",
+          "en": "Efficacy trial."
+        },
+        {
+          "ua": "Compliance.",
+          "en": "Compliance."
+        }
+      ],
+      "_l2_en": {
+        "template": "Phase III — ____. Regulatory safety — ____.",
+        "answers": [
+          "efficacy",
+          "compliance"
+        ],
+        "wordBank": [
+          "efficacy",
+          "compliance",
+          "ads",
+          "design"
+        ],
+        "hints": [
+          "Efficacy trial.",
+          "Compliance."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "фарма",
+            "en": "pharma"
+          },
+          "right": {
+            "ua": "ліки",
+            "en": "drugs"
+          }
+        },
+        {
+          "left": {
+            "ua": "health economics",
+            "en": "health economics"
+          },
+          "right": {
+            "ua": "вартість/користь",
+            "en": "cost/benefit"
+          }
+        },
+        {
+          "left": {
+            "ua": "GMP",
+            "en": "GMP"
+          },
+          "right": {
+            "ua": "якість виробництва",
+            "en": "manufacturing quality"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

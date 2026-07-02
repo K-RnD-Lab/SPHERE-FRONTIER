@@ -1,0 +1,131 @@
+{
+  "id": "set-s-chemistry",
+  "title": {
+    "ua": "Хімія",
+    "en": "Chemistry"
+  },
+  "subtitle": {
+    "ua": "SET Science",
+    "en": "SET Science"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "pH 7 neutral\ncovalent share electrons",
+        "en": "pH 7 neutral\ncovalent share electrons"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Нейтральний pH = ____. Спільна пара електронів — ____ зв'язок.",
+        "en": "Neutral pH = ____. Shared electron pair — ____ bond."
+      },
+      "answers": [
+        "7",
+        "ковалентний"
+      ],
+      "wordBank": [
+        "7",
+        "ковалентний",
+        "14",
+        "іонний"
+      ],
+      "hints": [
+        {
+          "ua": "Water ~7.",
+          "en": "Water ~7."
+        },
+        {
+          "ua": "Shared electrons.",
+          "en": "Shared pair."
+        }
+      ],
+      "_en": {
+        "template": "Neutral pH = ____. Shared electron pair — ____ bond.",
+        "answers": [
+          "7",
+          "covalent"
+        ],
+        "wordBank": [
+          "7",
+          "covalent",
+          "14",
+          "ionic"
+        ],
+        "hints": [
+          "Water ~7.",
+          "Shared pair."
+        ]
+      },
+      "_l2_en": {
+        "template": "Neutral pH = ____. Shared electron pair — ____ bond.",
+        "answers": [
+          "7",
+          "covalent"
+        ],
+        "wordBank": [
+          "7",
+          "covalent",
+          "14",
+          "ionic"
+        ],
+        "hints": [
+          "Water ~7.",
+          "Shared pair."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "кислота",
+            "en": "acid"
+          },
+          "right": {
+            "ua": "pH<7",
+            "en": "pH<7"
+          }
+        },
+        {
+          "left": {
+            "ua": "база",
+            "en": "base"
+          },
+          "right": {
+            "ua": "pH>7",
+            "en": "pH>7"
+          }
+        },
+        {
+          "left": {
+            "ua": "каталізатор",
+            "en": "catalyst"
+          },
+          "right": {
+            "ua": "прискорює",
+            "en": "speeds up"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

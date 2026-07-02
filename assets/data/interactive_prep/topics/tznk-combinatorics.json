@@ -1,0 +1,114 @@
+{
+  "id": "tznk-combinatorics",
+  "title": {
+    "ua": "Комбінаторика",
+    "en": "Combinatorics"
+  },
+  "subtitle": {
+    "ua": "ТЗНК · перестановки",
+    "en": "TZNK · counting"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "АБО → додавання\nІ → множення\nролі / обмеження → дерево",
+        "en": "OR → add\nAND → multiply\nroles / constraints → tree"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Незалежні кроки «і» → рахуй через ____. Варіанти «або» → через ____.",
+        "en": "Independent AND steps → ____. OR alternatives → ____."
+      },
+      "answers": [
+        "множення",
+        "додавання"
+      ],
+      "wordBank": [
+        "множення",
+        "додавання",
+        "віднімання",
+        "ділення"
+      ],
+      "hints": [
+        {
+          "ua": "І = перемножити.",
+          "en": "AND = multiply."
+        },
+        {
+          "ua": "АБО = додати.",
+          "en": "OR = add."
+        }
+      ],
+      "_l2_en": {
+        "template": "Independent AND steps → ____. OR alternatives → ____.",
+        "answers": [
+          "multiply",
+          "add"
+        ],
+        "wordBank": [
+          "multiply",
+          "add",
+          "subtract",
+          "divide"
+        ],
+        "hints": [
+          "AND = multiply.",
+          "OR = add."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "рівно один",
+            "en": "exactly one"
+          },
+          "right": {
+            "ua": "exactly one",
+            "en": "only one slot filled"
+          }
+        },
+        {
+          "left": {
+            "ua": "принаймні один",
+            "en": "at least one"
+          },
+          "right": {
+            "ua": "at least one",
+            "en": "one or more"
+          }
+        },
+        {
+          "left": {
+            "ua": "не разом",
+            "en": "not together"
+          },
+          "right": {
+            "ua": "mutual exclusion",
+            "en": "forbidden pair"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

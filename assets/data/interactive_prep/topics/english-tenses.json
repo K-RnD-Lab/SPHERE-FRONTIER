@@ -1,0 +1,107 @@
+{
+  "id": "english-tenses",
+  "title": {
+    "ua": "Tenses & conditionals",
+    "en": "Tenses & conditionals"
+  },
+  "subtitle": {
+    "ua": "English · часи",
+    "en": "English · tenses"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "1st conditional → real future\n2nd → unreal now\n3rd → unreal past",
+        "en": "1st conditional → real future\n2nd → unreal now\n3rd → unreal past"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "If it rains tomorrow, I ____ stay home. (real)",
+        "en": "If it rains tomorrow, I ____ stay home. (real)"
+      },
+      "answers": [
+        "will"
+      ],
+      "wordBank": [
+        "will",
+        "would",
+        "stayed",
+        "have"
+      ],
+      "hints": [
+        {
+          "ua": "Real future → will.",
+          "en": "Real future → will."
+        }
+      ],
+      "_l2_en": {
+        "template": "If it rains tomorrow, I ____ stay home. (real)",
+        "answers": [
+          "will"
+        ],
+        "wordBank": [
+          "will",
+          "would",
+          "stayed",
+          "have"
+        ],
+        "hints": [
+          "Real future → will."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "Past Simple",
+            "en": "Past Simple"
+          },
+          "right": {
+            "ua": "finished past",
+            "en": "finished past"
+          }
+        },
+        {
+          "left": {
+            "ua": "Past Perfect",
+            "en": "Past Perfect"
+          },
+          "right": {
+            "ua": "earlier past",
+            "en": "earlier past"
+          }
+        },
+        {
+          "left": {
+            "ua": "2nd conditional",
+            "en": "2nd conditional"
+          },
+          "right": {
+            "ua": "unreal",
+            "en": "unreal"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

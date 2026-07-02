@@ -1,0 +1,131 @@
+{
+  "id": "it-block-01",
+  "title": {
+    "ua": "Бінарний рахунок",
+    "en": "Binary representation"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 01",
+    "en": "EVE IT · block 01"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "8 bit → 2^8 = 256\nunsigned 0..255\nsigned -128..127",
+        "en": "8 bit → 2^8 = 256\nunsigned 0..255\nsigned -128..127"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "2^8 = ____. Unsigned max = ____.",
+        "en": "2^8 = ____. Unsigned max = ____."
+      },
+      "answers": [
+        "256",
+        "255"
+      ],
+      "wordBank": [
+        "256",
+        "255",
+        "127",
+        "-128"
+      ],
+      "hints": [
+        {
+          "ua": "256 комбінацій.",
+          "en": "256 combinations."
+        },
+        {
+          "ua": "255 — верх unsigned.",
+          "en": "255 top unsigned."
+        }
+      ],
+      "_en": {
+        "template": "2^8 = ____. Unsigned max = ____.",
+        "answers": [
+          "256",
+          "255"
+        ],
+        "wordBank": [
+          "256",
+          "255",
+          "127",
+          "-128"
+        ],
+        "hints": [
+          "256 combinations.",
+          "255 top unsigned."
+        ]
+      },
+      "_l2_en": {
+        "template": "2^8 = ____. Unsigned max = ____.",
+        "answers": [
+          "256",
+          "255"
+        ],
+        "wordBank": [
+          "256",
+          "255",
+          "127",
+          "-128"
+        ],
+        "hints": [
+          "256 combinations.",
+          "255 top unsigned."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "unsigned",
+            "en": "unsigned"
+          },
+          "right": {
+            "ua": "0..255",
+            "en": "0..255"
+          }
+        },
+        {
+          "left": {
+            "ua": "signed 8-bit",
+            "en": "signed 8-bit"
+          },
+          "right": {
+            "ua": "-128..127",
+            "en": "-128..127"
+          }
+        },
+        {
+          "left": {
+            "ua": "11111111",
+            "en": "11111111"
+          },
+          "right": {
+            "ua": "залежить від типу",
+            "en": "depends on type"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

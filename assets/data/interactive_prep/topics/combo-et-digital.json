@@ -1,0 +1,114 @@
+{
+  "id": "combo-et-digital",
+  "title": {
+    "ua": "Entrepreneurship + Tech",
+    "en": "Entrepreneurship + Technology"
+  },
+  "subtitle": {
+    "ua": "Digital / ERP",
+    "en": "Digital / ERP"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "CRM → customers\nERP → resources\nanalytics → decisions",
+        "en": "CRM → customers\nERP → resources\nanalytics → decisions"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "ERP об'єднує ____. Digital marketing — канал ____.",
+        "en": "ERP unifies ____. Digital marketing — ____ channel."
+      },
+      "answers": [
+        "ресурси",
+        "онлайн"
+      ],
+      "wordBank": [
+        "ресурси",
+        "онлайн",
+        "папір",
+        "шум"
+      ],
+      "hints": [
+        {
+          "ua": "Enterprise resources.",
+          "en": "Enterprise resources."
+        },
+        {
+          "ua": "Online channel.",
+          "en": "Online."
+        }
+      ],
+      "_l2_en": {
+        "template": "ERP unifies ____. Digital marketing — ____ channel.",
+        "answers": [
+          "resources",
+          "online"
+        ],
+        "wordBank": [
+          "resources",
+          "online",
+          "paper",
+          "noise"
+        ],
+        "hints": [
+          "Enterprise resources.",
+          "Online."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "CRM",
+            "en": "CRM"
+          },
+          "right": {
+            "ua": "клієнти",
+            "en": "customers"
+          }
+        },
+        {
+          "left": {
+            "ua": "ERP",
+            "en": "ERP"
+          },
+          "right": {
+            "ua": "операції",
+            "en": "operations"
+          }
+        },
+        {
+          "left": {
+            "ua": "BI",
+            "en": "BI"
+          },
+          "right": {
+            "ua": "звіти",
+            "en": "reports"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

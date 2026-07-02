@@ -1,0 +1,131 @@
+{
+  "id": "it-block-08b",
+  "title": {
+    "ua": "Мережі поглиблено",
+    "en": "Networks deep dive"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 08b",
+    "en": "EVE IT · block 08b"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "frame/MAC/switch\npacket/IP/router\nport/TCP",
+        "en": "frame/MAC/switch\npacket/IP/router\nport/TCP"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "MAC → ____ / frame. IP → ____ / packet.",
+        "en": "MAC → ____ / frame. IP → ____ / packet."
+      },
+      "answers": [
+        "switch",
+        "router"
+      ],
+      "wordBank": [
+        "switch",
+        "router",
+        "hub",
+        "DNS"
+      ],
+      "hints": [
+        {
+          "ua": "L2 switch.",
+          "en": "L2 switch."
+        },
+        {
+          "ua": "L3 router.",
+          "en": "L3 router."
+        }
+      ],
+      "_en": {
+        "template": "MAC → ____ / frame. IP → ____ / packet.",
+        "answers": [
+          "switch",
+          "router"
+        ],
+        "wordBank": [
+          "switch",
+          "router",
+          "hub",
+          "DNS"
+        ],
+        "hints": [
+          "L2 switch.",
+          "L3 router."
+        ]
+      },
+      "_l2_en": {
+        "template": "MAC → ____ / frame. IP → ____ / packet.",
+        "answers": [
+          "switch",
+          "router"
+        ],
+        "wordBank": [
+          "switch",
+          "router",
+          "hub",
+          "DNS"
+        ],
+        "hints": [
+          "L2 switch.",
+          "L3 router."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "port",
+            "en": "port"
+          },
+          "right": {
+            "ua": "сервіс на хості",
+            "en": "service on host"
+          }
+        },
+        {
+          "left": {
+            "ua": "HTTP",
+            "en": "HTTP"
+          },
+          "right": {
+            "ua": "application",
+            "en": "application"
+          }
+        },
+        {
+          "left": {
+            "ua": "SSH",
+            "en": "SSH"
+          },
+          "right": {
+            "ua": "remote shell",
+            "en": "remote shell"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

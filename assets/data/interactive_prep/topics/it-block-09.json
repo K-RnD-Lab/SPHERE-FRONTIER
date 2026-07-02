@@ -1,0 +1,131 @@
+{
+  "id": "it-block-09",
+  "title": {
+    "ua": "Data Science / ML",
+    "en": "Data Science / ML"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 09",
+    "en": "EVE IT · block 09"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "classification → class\nregression → number\noverfitting → train high, test low",
+        "en": "classification → class\nregression → number\noverfitting → train high, test low"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "spam / not spam — ____. Ціна квартири — ____.",
+        "en": "spam / not spam — ____. Apartment price — ____."
+      },
+      "answers": [
+        "classification",
+        "regression"
+      ],
+      "wordBank": [
+        "classification",
+        "regression",
+        "clustering",
+        "PCA"
+      ],
+      "hints": [
+        {
+          "ua": "Класи.",
+          "en": "Classes."
+        },
+        {
+          "ua": "Число.",
+          "en": "Number."
+        }
+      ],
+      "_en": {
+        "template": "spam / not spam — ____. Apartment price — ____.",
+        "answers": [
+          "classification",
+          "regression"
+        ],
+        "wordBank": [
+          "classification",
+          "regression",
+          "clustering",
+          "PCA"
+        ],
+        "hints": [
+          "Classes.",
+          "Number."
+        ]
+      },
+      "_l2_en": {
+        "template": "spam / not spam — ____. Apartment price — ____.",
+        "answers": [
+          "classification",
+          "regression"
+        ],
+        "wordBank": [
+          "classification",
+          "regression",
+          "clustering",
+          "PCA"
+        ],
+        "hints": [
+          "Classes.",
+          "Number."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "PCA",
+            "en": "PCA"
+          },
+          "right": {
+            "ua": "менше вимірів",
+            "en": "fewer dimensions"
+          }
+        },
+        {
+          "left": {
+            "ua": "SVM",
+            "en": "SVM"
+          },
+          "right": {
+            "ua": "margin",
+            "en": "margin"
+          }
+        },
+        {
+          "left": {
+            "ua": "train high + test low",
+            "en": "train high + test low"
+          },
+          "right": {
+            "ua": "overfitting",
+            "en": "overfitting"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

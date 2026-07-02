@@ -1,0 +1,128 @@
+{
+  "id": "it-block-03",
+  "title": {
+    "ua": "ООП базово",
+    "en": "OOP basics"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 03",
+    "en": "EVE IT · block 03"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "class → object\nencapsulation → private\ninheritance → is-a",
+        "en": "class → object\nencapsulation → private\ninheritance → is-a"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Public, protected, ____ — модифікатори доступу в ООП.",
+        "en": "Public, protected, ____ — access modifiers in OOP."
+      },
+      "answers": [
+        "private"
+      ],
+      "wordBank": [
+        "private",
+        "public",
+        "projected",
+        "primate"
+      ],
+      "hints": [
+        {
+          "ua": "Три класичні модифікатори.",
+          "en": "Three classic modifiers."
+        },
+        {
+          "ua": "Читай без пасток (Bublic).",
+          "en": "Watch typos."
+        }
+      ],
+      "_en": {
+        "template": "Public, protected, ____ — access modifiers in OOP.",
+        "answers": [
+          "private"
+        ],
+        "wordBank": [
+          "private",
+          "public",
+          "projected",
+          "primate"
+        ],
+        "hints": [
+          "Three classic modifiers.",
+          "Watch typos."
+        ]
+      },
+      "_l2_en": {
+        "template": "Public, protected, ____ — access modifiers in OOP.",
+        "answers": [
+          "private"
+        ],
+        "wordBank": [
+          "private",
+          "public",
+          "projected",
+          "primate"
+        ],
+        "hints": [
+          "Three classic modifiers.",
+          "Watch typos."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "клас",
+            "en": "class"
+          },
+          "right": {
+            "ua": "шаблон",
+            "en": "blueprint"
+          }
+        },
+        {
+          "left": {
+            "ua": "об'єкт",
+            "en": "object"
+          },
+          "right": {
+            "ua": "екземпляр",
+            "en": "instance"
+          }
+        },
+        {
+          "left": {
+            "ua": "поліморфізм",
+            "en": "polymorphism"
+          },
+          "right": {
+            "ua": "різна реалізація",
+            "en": "many forms"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

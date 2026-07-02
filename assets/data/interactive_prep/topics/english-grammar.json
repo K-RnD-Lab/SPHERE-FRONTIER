@@ -1,0 +1,114 @@
+{
+  "id": "english-grammar",
+  "title": {
+    "ua": "Grammar patterns",
+    "en": "Grammar patterns"
+  },
+  "subtitle": {
+    "ua": "English · блок 11B",
+    "en": "English · block 11B"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "tense ← markers (yesterday, since, already)\ncollocation ← fixed pairs\nlinkers ← however, therefore",
+        "en": "tense ← markers (yesterday, since, already)\ncollocation ← fixed pairs\nlinkers ← however, therefore"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "depend ____ | evidence is uncountable | unless без зайвого ____.",
+        "en": "depend ____ | evidence uncountable | unless needs no extra ____."
+      },
+      "answers": [
+        "on",
+        "not"
+      ],
+      "wordBank": [
+        "on",
+        "from",
+        "not",
+        "no"
+      ],
+      "hints": [
+        {
+          "ua": "depend on — колокація.",
+          "en": "depend on — collocation."
+        },
+        {
+          "ua": "unless вже містить заперечення.",
+          "en": "unless already negative."
+        }
+      ],
+      "_l2_en": {
+        "template": "depend ____ | evidence uncountable | unless needs no extra ____.",
+        "answers": [
+          "on",
+          "not"
+        ],
+        "wordBank": [
+          "on",
+          "from",
+          "not",
+          "no"
+        ],
+        "hints": [
+          "depend on — collocation.",
+          "unless already negative."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "yesterday",
+            "en": "yesterday"
+          },
+          "right": {
+            "ua": "Past Simple",
+            "en": "Past Simple"
+          }
+        },
+        {
+          "left": {
+            "ua": "since 2020",
+            "en": "since 2020"
+          },
+          "right": {
+            "ua": "Present Perfect",
+            "en": "Present Perfect"
+          }
+        },
+        {
+          "left": {
+            "ua": "would have + V3",
+            "en": "would have + V3"
+          },
+          "right": {
+            "ua": "unreal past",
+            "en": "unreal past"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

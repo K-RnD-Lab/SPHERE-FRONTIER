@@ -1,0 +1,150 @@
+{
+  "tznk-traps": {
+    "ua": "Як вчитися, щоб не плутатись",
+    "en": "How to study without mixing things up"
+  },
+  "tznk-logic": {
+    "ua": "Логіка та імплікація",
+    "en": "Logic and implication"
+  },
+  "tznk-combinatorics": {
+    "ua": "Комбінаторика",
+    "en": "Combinatorics"
+  },
+  "english-reading": {
+    "ua": "Reading · доказ у тексті",
+    "en": "Reading · evidence in text"
+  },
+  "english-grammar": {
+    "ua": "Grammar patterns",
+    "en": "Grammar patterns"
+  },
+  "english-tenses": {
+    "ua": "Tenses & conditionals",
+    "en": "Tenses & conditionals"
+  },
+  "it-block-00": {
+    "ua": "Як вчитися (IT)",
+    "en": "How to study (IT)"
+  },
+  "it-block-01": {
+    "ua": "Бінарний рахунок",
+    "en": "Binary representation"
+  },
+  "it-block-02": {
+    "ua": "Процедурне програмування",
+    "en": "Procedural programming"
+  },
+  "it-block-03": {
+    "ua": "ООП базово",
+    "en": "OOP basics"
+  },
+  "it-block-04": {
+    "ua": "Алгоритми і структури",
+    "en": "Algorithms & structures"
+  },
+  "it-block-04b": {
+    "ua": "Архітектура CPU/RAM",
+    "en": "Computer architecture"
+  },
+  "it-block-05": {
+    "ua": "Бази даних і SQL",
+    "en": "Databases & SQL"
+  },
+  "it-block-06": {
+    "ua": "OLTP / OLAP / Warehouse",
+    "en": "OLTP / OLAP / Warehouse"
+  },
+  "it-block-06b": {
+    "ua": "Математика в IT",
+    "en": "Math for IT"
+  },
+  "it-block-07": {
+    "ua": "Кібербезпека",
+    "en": "Cybersecurity"
+  },
+  "it-block-08": {
+    "ua": "Мережі й ОС",
+    "en": "Networks & OS"
+  },
+  "it-block-08b": {
+    "ua": "Мережі поглиблено",
+    "en": "Networks deep dive"
+  },
+  "it-block-09": {
+    "ua": "Data Science / ML",
+    "en": "Data Science / ML"
+  },
+  "testing-blackbox": {
+    "ua": "Тестування ПЗ",
+    "en": "Software testing"
+  },
+  "security-trio": {
+    "ua": "Hash / encrypt / signature",
+    "en": "Hash / encrypt / signature"
+  },
+  "de-sql-warehouse": {
+    "ua": "SQL + warehouse (DE)",
+    "en": "SQL + warehouse (DE)"
+  },
+  "de-etl-pipeline": {
+    "ua": "ETL / якість даних",
+    "en": "ETL / data quality"
+  },
+  "de-access-grants": {
+    "ua": "Права доступу (DE)",
+    "en": "Access control (DE)"
+  },
+  "set-s-biology": {
+    "ua": "Біологія",
+    "en": "Biology"
+  },
+  "set-s-chemistry": {
+    "ua": "Хімія",
+    "en": "Chemistry"
+  },
+  "set-s-physics": {
+    "ua": "Фізика",
+    "en": "Physics"
+  },
+  "set-e-management": {
+    "ua": "Менеджмент",
+    "en": "Management"
+  },
+  "set-e-marketing": {
+    "ua": "Маркетинг 4P",
+    "en": "Marketing 4P"
+  },
+  "set-e-finance": {
+    "ua": "Фінанси",
+    "en": "Finance"
+  },
+  "set-t-programming": {
+    "ua": "Програмування",
+    "en": "Programming"
+  },
+  "set-t-algorithms": {
+    "ua": "Алгоритми",
+    "en": "Algorithms"
+  },
+  "set-t-databases": {
+    "ua": "Бази даних",
+    "en": "Databases"
+  },
+  "set-t-cybersecurity": {
+    "ua": "Кібербезпека",
+    "en": "Cybersecurity"
+  },
+  "combo-st-bioinfo": {
+    "ua": "Science + Tech",
+    "en": "Science + Technology"
+  },
+  "combo-et-digital": {
+    "ua": "Entrepreneurship + Tech",
+    "en": "Entrepreneurship + Technology"
+  },
+  "combo-se-health": {
+    "ua": "Science + Entrepreneurship",
+    "en": "Science + Entrepreneurship"
+  }
+}

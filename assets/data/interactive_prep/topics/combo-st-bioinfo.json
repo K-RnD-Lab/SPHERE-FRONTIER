@@ -1,0 +1,114 @@
+{
+  "id": "combo-st-bioinfo",
+  "title": {
+    "ua": "Science + Tech",
+    "en": "Science + Technology"
+  },
+  "subtitle": {
+    "ua": "Біоінформатика",
+    "en": "Bioinformatics"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "diagram": {
+        "ua": "sequencing → alignment → variant calling",
+        "en": "sequencing → alignment → variant calling"
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "FASTQ — сирі ____. BAM — вирівняні ____.",
+        "en": "FASTQ — raw ____. BAM — aligned ____."
+      },
+      "answers": [
+        "reads",
+        "reads"
+      ],
+      "wordBank": [
+        "reads",
+        "reads",
+        "images",
+        "tables"
+      ],
+      "hints": [
+        {
+          "ua": "Raw reads.",
+          "en": "Raw."
+        },
+        {
+          "ua": "Aligned reads.",
+          "en": "Aligned."
+        }
+      ],
+      "_l2_en": {
+        "template": "FASTQ — raw ____. BAM — aligned ____.",
+        "answers": [
+          "reads",
+          "reads"
+        ],
+        "wordBank": [
+          "reads",
+          "reads",
+          "images",
+          "tables"
+        ],
+        "hints": [
+          "Raw.",
+          "Aligned."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "genome",
+            "en": "genome"
+          },
+          "right": {
+            "ua": "повний ДНК",
+            "en": "full DNA"
+          }
+        },
+        {
+          "left": {
+            "ua": "transcriptome",
+            "en": "transcriptome"
+          },
+          "right": {
+            "ua": "РНК",
+            "en": "RNA"
+          }
+        },
+        {
+          "left": {
+            "ua": "proteome",
+            "en": "proteome"
+          },
+          "right": {
+            "ua": "білки",
+            "en": "proteins"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

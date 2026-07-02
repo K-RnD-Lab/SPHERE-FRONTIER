@@ -1,0 +1,131 @@
+{
+  "id": "it-block-08",
+  "title": {
+    "ua": "Мережі й ОС",
+    "en": "Networks & OS"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 08",
+    "en": "EVE IT · block 08"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "DNS → ім'я→IP\nTCP надійний / UDP швидкий\nprocess ≠ thread",
+        "en": "DNS → name→IP\nTCP reliable / UDP fast\nprocess ≠ thread"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "Ім'я сайту → IP: ____. process ≠ ____.",
+        "en": "Site name → IP: ____. process ≠ ____."
+      },
+      "answers": [
+        "DNS",
+        "thread"
+      ],
+      "wordBank": [
+        "DNS",
+        "DHCP",
+        "thread",
+        "driver"
+      ],
+      "hints": [
+        {
+          "ua": "DNS resolves names.",
+          "en": "DNS resolves."
+        },
+        {
+          "ua": "Process vs thread.",
+          "en": "Process vs thread."
+        }
+      ],
+      "_en": {
+        "template": "Site name → IP: ____. process ≠ ____.",
+        "answers": [
+          "DNS",
+          "thread"
+        ],
+        "wordBank": [
+          "DNS",
+          "DHCP",
+          "thread",
+          "driver"
+        ],
+        "hints": [
+          "DNS resolves.",
+          "Process vs thread."
+        ]
+      },
+      "_l2_en": {
+        "template": "Site name → IP: ____. process ≠ ____.",
+        "answers": [
+          "DNS",
+          "thread"
+        ],
+        "wordBank": [
+          "DNS",
+          "DHCP",
+          "thread",
+          "driver"
+        ],
+        "hints": [
+          "DNS resolves.",
+          "Process vs thread."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "TCP",
+            "en": "TCP"
+          },
+          "right": {
+            "ua": "надійність",
+            "en": "reliability"
+          }
+        },
+        {
+          "left": {
+            "ua": "UDP",
+            "en": "UDP"
+          },
+          "right": {
+            "ua": "низька затримка",
+            "en": "low latency"
+          }
+        },
+        {
+          "left": {
+            "ua": "driver",
+            "en": "driver"
+          },
+          "right": {
+            "ua": "ОС↔пристрій",
+            "en": "OS↔device"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}

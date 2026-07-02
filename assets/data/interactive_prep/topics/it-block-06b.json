@@ -1,0 +1,131 @@
+{
+  "id": "it-block-06b",
+  "title": {
+    "ua": "Математика в IT",
+    "en": "Math for IT"
+  },
+  "subtitle": {
+    "ua": "ЄФВВ IT · блок 06b",
+    "en": "EVE IT · block 06b"
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": {
+        "ua": "Рівень 1",
+        "en": "Level 1"
+      },
+      "diagram": {
+        "ua": "linear → line\n2^x → exponential\nlog → повільний ріст",
+        "en": "linear → line\n2^x → exponential\nlog → slow growth"
+      }
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "template": {
+        "ua": "log₂(1024) = ____. Binary search ~ ____ кроків на 1024 елементах.",
+        "en": "log₂(1024) = ____. Binary search ~ ____ steps on 1024 items."
+      },
+      "answers": [
+        "10",
+        "10"
+      ],
+      "wordBank": [
+        "10",
+        "1024",
+        "2",
+        "8"
+      ],
+      "hints": [
+        {
+          "ua": "2^10=1024.",
+          "en": "2^10=1024."
+        },
+        {
+          "ua": "~log₂ n steps.",
+          "en": "~log₂ n."
+        }
+      ],
+      "_en": {
+        "template": "log₂(1024) = ____. Binary search ~ ____ steps on 1024 items.",
+        "answers": [
+          "10",
+          "10"
+        ],
+        "wordBank": [
+          "10",
+          "1024",
+          "2",
+          "8"
+        ],
+        "hints": [
+          "2^10=1024.",
+          "~log₂ n."
+        ]
+      },
+      "_l2_en": {
+        "template": "log₂(1024) = ____. Binary search ~ ____ steps on 1024 items.",
+        "answers": [
+          "10",
+          "10"
+        ],
+        "wordBank": [
+          "10",
+          "1024",
+          "2",
+          "8"
+        ],
+        "hints": [
+          "2^10=1024.",
+          "~log₂ n."
+        ]
+      },
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "pairs": [
+        {
+          "left": {
+            "ua": "парабола",
+            "en": "parabola"
+          },
+          "right": {
+            "ua": "квадратична",
+            "en": "quadratic"
+          }
+        },
+        {
+          "left": {
+            "ua": "експонента",
+            "en": "exponential"
+          },
+          "right": {
+            "ua": "швидкий ріст",
+            "en": "fast growth"
+          }
+        },
+        {
+          "left": {
+            "ua": "1/x",
+            "en": "1/x"
+          },
+          "right": {
+            "ua": "гіпербола",
+            "en": "hyperbola"
+          }
+        }
+      ],
+      "title": {
+        "ua": "Рівень",
+        "en": "Level"
+      }
+    }
+  ]
+}
