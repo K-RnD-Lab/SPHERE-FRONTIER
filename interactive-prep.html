@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Інтерактивна підготовка — K R&D Lab</title>
+  <link rel="stylesheet" href="./assets/css/rnd-lab.css">
+  <link rel="stylesheet" href="./assets/css/interactive-prep.css">
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+  <script>const th=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",th);document.getElementById("themeToggle").textContent=th==="dark"?"☀️":"🌙";</script>
+  <main class="page pl-layout">
+    <section class="hero" style="margin-bottom:20px">
+      <p class="eyebrow">K R&D Lab / Master Prep</p>
+      <h1>Інтерактивна підготовка</h1>
+      <p class="lede">ТЗНК · English · SET (Science / Entrepreneurship / Technology). Три рівні на тему — окремо від MCQ у Trainer.</p>
+      <div class="hero-links">
+        <a href="./trainer.html" class="link-pill">← Trainer (MCQ)</a>
+        <a href="./training-analytics.html" class="link-pill">Analytics</a>
+        <a href="./index.html" class="link-pill">R&D Lab</a>
+      </div>
+    </section>
+    <div id="il-app"><p class="pl-card">Завантаження…</p></div>
+  </main>
+  <script src="./assets/js/prep/prep_levels_engine.js"></script>
+  <script src="./assets/js/prep/interactive_lab.js"></script>
+  <script>
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      document.getElementById("themeToggle").textContent = next === "dark" ? "☀️" : "🌙";
+    });
+  </script>
+</body>
+</html>

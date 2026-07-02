@@ -1,0 +1,38 @@
+{
+  "id": "testing-blackbox",
+  "title": "Тестування ПЗ",
+  "subtitle": "ЄФВВ IT · black / white / grey box",
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": "Рівень 1 · Схема",
+      "diagram": "Black box  → лише UI, код прихований\nWhite box  → бачиш код, гілки, цикли\nGrey box   → UI + логи / БД частково\n\nПіраміда:\nUnit → Integration → System → Acceptance",
+      "pairs": [
+        ["Unit", "малі функції / модулі"],
+        ["Integration", "взаємодія модулів"],
+        ["System", "вся система в зборі"]
+      ]
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "title": "Рівень 2 · Хто що бачить",
+      "template": "Тест без знання коду — ____ box. Розробник перевіряє гілки в коді — ____ box.",
+      "answers": ["black", "white"],
+      "wordBank": ["black", "white", "grey", "green"],
+      "hints": ["Інтерфейс без коду = чорна скринька.", "Відкритий код = біла."]
+    },
+    {
+      "id": "L3",
+      "type": "match_pairs",
+      "title": "Рівень 3 · Рівні",
+      "pairs": [
+        { "left": "Unit testing", "right": "окремі функції / юніти" },
+        { "left": "Integration", "right": "зв'язок між модулями" },
+        { "left": "Black box", "right": "користувацький інтерфейс" },
+        { "left": "Acceptance", "right": "відповідність бізнес-вимогам" }
+      ]
+    }
+  ]
+}

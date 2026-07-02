@@ -1,0 +1,33 @@
+{
+  "id": "stack-queue",
+  "title": "Стек vs черга",
+  "subtitle": "Структури даних · LIFO / FIFO",
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": "Рівень 1 · Аналогії",
+      "diagram": "Stack (LIFO) → стопка тарілок: остання зверху — перша знята\nQueue (FIFO) → черга в магазині: хто перший — той перший\n\nСтек: виклики функцій, undo\nЧерга: друк, обробка задач",
+      "bullets": [
+        "push/pop — стек; enqueue/dequeue — черга",
+        "На іспиті не плутай LIFO з FIFO"
+      ]
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "title": "Рівень 2 · Команди",
+      "template": "push(a), push(b), pop → у стеку залишиться ____. У черзі перший вийде той, хто ____.",
+      "answers": ["a", "прийшов першим"],
+      "wordBank": ["a", "b", "прийшов першим", "прийшов останнім", "порожньо"],
+      "hints": ["pop знімає b, лишається a.", "FIFO = перший прийшов — перший пішов."]
+    },
+    {
+      "id": "L3",
+      "type": "drag_order",
+      "title": "Рівень 3 · push/pop",
+      "instruction": "Після push(a), push(b), pop, push(c), push(d), pop — що лишилось знизу вгору?",
+      "items": ["a", "c"]
+    }
+  ]
+}

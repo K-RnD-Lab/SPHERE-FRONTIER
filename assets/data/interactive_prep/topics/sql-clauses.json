@@ -1,0 +1,35 @@
+{
+  "id": "sql-clauses",
+  "title": "SQL: порядок клауз",
+  "subtitle": "IT prep · не плутати WHERE і HAVING",
+  "levels": [
+    {
+      "id": "L1",
+      "type": "theory",
+      "title": "Рівень 1 · Карта",
+      "instruction": "Спочатку схема — потім заглушки в Рівні 2.",
+      "diagram": "SELECT  → що показати\nFROM    → звідки таблиці\nWHERE   → фільтр РЯДКІВ (до груп)\nGROUP BY→ групування\nHAVING  → фільтр ГРУП (після COUNT/SUM)\nORDER BY→ сортування результату",
+      "pairs": [
+        ["WHERE", "до GROUP BY"],
+        ["HAVING", "після агрегації"]
+      ]
+    },
+    {
+      "id": "L2",
+      "type": "fill_blanks",
+      "title": "Рівень 2 · Збери запит",
+      "instruction": "Клікай слова по порядку для кожної ____.",
+      "template": "SELECT user_id, COUNT(*) FROM orders WHERE status = ____ GROUP BY user_id HAVING COUNT(*) ____",
+      "answers": ["'paid'", "> 3"],
+      "wordBank": ["'paid'", "> 3", "WHERE", "HAVING", "< 0", "'shipped'"],
+      "hints": ["WHERE фільтрує рядки до групування.", "HAVING — умова на агрегат після GROUP BY."]
+    },
+    {
+      "id": "L3",
+      "type": "drag_order",
+      "title": "Рівень 3 · Порядок виконання",
+      "instruction": "Перетягни клаузи в логічному порядку (зверху вниз).",
+      "items": ["FROM", "WHERE", "GROUP BY", "HAVING", "SELECT", "ORDER BY"]
+    }
+  ]
+}
