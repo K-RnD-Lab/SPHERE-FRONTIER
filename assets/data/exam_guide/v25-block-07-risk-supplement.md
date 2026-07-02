@@ -1,7 +1,7 @@
 # MASTER PREP v25 · Доповнення 07 + ризики (2026-07-02)
 
 Канон: `master_prep_exam_guide_v25_detailed_examples.pdf`, **Блок 07** (стор. 56–58).
-Інтерактив: `it-block-05-cyber` → https://k-rnd-lab.vercel.app/interactive-prep.html#/ua/it-block-05-cyber/L1
+Інтерактив: `it-block-07` → https://k-rnd-lab.vercel.app/interactive-prep.html#/ua/it-block-07/L1
 
 ## SIEM
 
