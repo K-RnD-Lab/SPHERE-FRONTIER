@@ -224,10 +224,21 @@
     container.append(head, body);
 
     switch (level.type) {
-      case 'theory':
+      case 'theory': {
         mountTheory(body, level);
-        if (onComplete) setTimeout(() => onComplete(level.id), 800);
+        if (onComplete) {
+          const doneBtn = document.createElement('button');
+          doneBtn.type = 'button';
+          doneBtn.className = 'pl-theory-done';
+          doneBtn.textContent = 'Прочитала — далі ✓';
+          doneBtn.addEventListener('click', () => {
+            doneBtn.disabled = true;
+            onComplete(level.id);
+          });
+          body.appendChild(doneBtn);
+        }
         break;
+      }
       case 'fill_blanks':
         mountFillBlanks(body, level, onComplete);
         break;

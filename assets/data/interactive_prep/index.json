@@ -1,59 +1,76 @@
 {
   "title": "Інтерактивна підготовка",
-  "subtitle": "Рівні 1→2→3 на блок: схема · заглушки · drag/match. MCQ — у Trainer.",
-  "note": "JSON-теми оновлюються незалежно від зовнішніх банків (osvita.ua тощо).",
-  "external": [
-    { "label": "Демотести ЄФВВ IT", "url": "https://zno.osvita.ua/master/it/" },
-    { "label": "Тести ТЗНК / ЄВІ", "url": "https://zno.osvita.ua/master/" },
-    { "label": "SET University · prep", "url": "https://www.setuniversity.edu.ua/" }
-  ],
-  "tracks": [
+  "subtitle": "Спочатку країна й тип іспиту — потім теми. MCQ лишаються в Trainer.",
+  "countries": [
     {
-      "id": "foundation",
-      "label": "📚 Foundation · ТЗНК",
-      "topics": [
-        { "id": "tznk-traps", "emoji": "🧭", "title": "Як вчитися, щоб не плутатись" },
-        { "id": "tznk-logic", "emoji": "🧩", "title": "Логіка та категорії", "stub": true }
+      "id": "ua",
+      "emoji": "🇺🇦",
+      "label": "Україна",
+      "subtitle": "ЄВІ + ЄФВВ · магістратура (ТЗНК, English, IT)",
+      "ready": true,
+      "external": [
+        { "label": "Демотести ЄФВВ IT", "url": "https://zno.osvita.ua/master/it/" },
+        { "label": "Тести ТЗНК / ЄВІ", "url": "https://zno.osvita.ua/master/" },
+        { "label": "SET University", "url": "https://www.setuniversity.edu.ua/" }
+      ],
+      "tracks": [
+        {
+          "id": "foundation",
+          "label": "📚 Foundation · ТЗНК",
+          "topics": [
+            { "id": "tznk-traps", "emoji": "🧭", "title": "Як вчитися, щоб не плутатись" },
+            { "id": "tznk-logic", "emoji": "🧩", "title": "Логіка та категорії", "stub": true }
+          ]
+        },
+        {
+          "id": "english",
+          "label": "🇬🇧 English · ЄВІ",
+          "topics": [
+            { "id": "english-gaps", "emoji": "📖", "title": "Пропуски в тексті", "stub": true },
+            { "id": "english-grammar", "emoji": "✏️", "title": "Граматика / collocations", "stub": true }
+          ]
+        },
+        {
+          "id": "technology",
+          "label": "💻 Technology · ЄФВВ IT",
+          "topics": [
+            { "id": "it-block-00", "emoji": "00", "title": "Блок 00 · як вчитися", "stub": true },
+            { "id": "it-block-01", "emoji": "01", "title": "Блок 01 · алгоритми", "stub": true },
+            { "id": "sql-clauses", "emoji": "🗄", "title": "SQL: порядок клауз" },
+            { "id": "network-osi", "emoji": "🌐", "title": "Мережі: switch vs router" },
+            { "id": "testing-blackbox", "emoji": "🧪", "title": "Тестування ПЗ" },
+            { "id": "stack-queue", "emoji": "📚", "title": "Стек vs черга" },
+            { "id": "binary-basics", "emoji": "🔢", "title": "Binary / signed" },
+            { "id": "it-block-05", "emoji": "05", "title": "Блок 05 · кібербезпека", "stub": true },
+            { "id": "security-trio", "emoji": "🔐", "title": "Hash / encrypt / signature", "stub": true },
+            { "id": "ml-types", "emoji": "🤖", "title": "Classification vs regression", "stub": true }
+          ]
+        }
       ]
     },
     {
-      "id": "english",
-      "label": "🇬🇧 English · ЄВІ",
-      "topics": [
-        { "id": "english-gaps", "emoji": "📖", "title": "Пропуски в тексті", "stub": true },
-        { "id": "english-grammar", "emoji": "✏️", "title": "Граматика / collocations", "stub": true }
-      ]
-    },
-    {
-      "id": "technology",
-      "label": "💻 Technology · ЄФВВ IT",
-      "topics": [
-        { "id": "it-block-00", "emoji": "00", "title": "Блок 00 · як вчитися", "stub": true },
-        { "id": "it-block-01", "emoji": "01", "title": "Блок 01 · алгоритми", "stub": true },
-        { "id": "sql-clauses", "emoji": "🗄", "title": "SQL: порядок клауз" },
-        { "id": "network-osi", "emoji": "🌐", "title": "Мережі: switch vs router" },
-        { "id": "testing-blackbox", "emoji": "🧪", "title": "Тестування ПЗ" },
-        { "id": "stack-queue", "emoji": "📚", "title": "Стек vs черга" },
-        { "id": "binary-basics", "emoji": "🔢", "title": "Binary / signed" },
-        { "id": "it-block-05", "emoji": "05", "title": "Блок 05 · кібербезпека", "stub": true },
-        { "id": "security-trio", "emoji": "🔐", "title": "Hash / encrypt / signature", "stub": true },
-        { "id": "ml-types", "emoji": "🤖", "title": "Classification vs regression", "stub": true }
-      ]
-    },
-    {
-      "id": "science",
-      "label": "🩺 Science · SET",
-      "topics": [
-        { "id": "sci-bio", "emoji": "🧬", "title": "Біологія · базові поняття", "stub": true },
-        { "id": "sci-chem", "emoji": "⚗️", "title": "Хімія · реакції", "stub": true }
-      ]
-    },
-    {
-      "id": "entrepreneurship",
-      "label": "💼 Entrepreneurship · SET",
-      "topics": [
-        { "id": "ent-marketing", "emoji": "📈", "title": "Маркетинг · 4P", "stub": true },
-        { "id": "ent-finance", "emoji": "💰", "title": "Фінанси · базові метрики", "stub": true }
+      "id": "set-global",
+      "emoji": "🎓",
+      "label": "SET (усі сфери)",
+      "subtitle": "Science · Entrepreneurship · Technology — без прив’язки до одного іспиту",
+      "ready": true,
+      "tracks": [
+        {
+          "id": "science",
+          "label": "🩺 Science",
+          "topics": [
+            { "id": "sci-bio", "emoji": "🧬", "title": "Біологія · базові поняття", "stub": true },
+            { "id": "sci-chem", "emoji": "⚗️", "title": "Хімія · реакції", "stub": true }
+          ]
+        },
+        {
+          "id": "entrepreneurship",
+          "label": "💼 Entrepreneurship",
+          "topics": [
+            { "id": "ent-marketing", "emoji": "📈", "title": "Маркетинг · 4P", "stub": true },
+            { "id": "ent-finance", "emoji": "💰", "title": "Фінанси · базові метрики", "stub": true }
+          ]
+        }
       ]
     }
   ]

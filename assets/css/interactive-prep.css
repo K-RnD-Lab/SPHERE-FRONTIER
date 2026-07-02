@@ -5,6 +5,22 @@
 }
 
 .pl-layout { padding: 0 24px 48px; max-width: 960px; margin: 0 auto; }
+.pl-country-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.pl-country-btn { text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px; cursor: pointer; color: var(--ink); font: inherit; display: flex; flex-direction: column; gap: 6px; transition: border-color .12s; }
+.pl-country-btn:hover:not(:disabled) { border-color: var(--accent); }
+.pl-country-btn.stub { opacity: .65; cursor: not-allowed; border-style: dashed; }
+.pl-country-emoji { font-size: 28px; }
+.pl-country-sub { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.pl-breadcrumb { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-size: 14px; color: var(--muted); }
+.pl-map-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+.pl-map-sub { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
+.pl-topic-meta { font-size: 13px; color: var(--muted); }
+.pl-stub-hint { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+.pl-stub-grid { margin-top: 8px; opacity: .85; }
+.pl-stub-toggle { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+.pl-ext-label { color: var(--muted); margin-right: 6px; }
+.pl-theory-done { margin-top: 14px; padding: 10px 18px; border-radius: 12px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; font: inherit; font-weight: 600; }
+.pl-theory-done:disabled { opacity: .6; cursor: default; }
 .pl-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); }
 .pl-track { margin-bottom: 24px; }
 .pl-track h3 { margin: 0 0 12px; font-size: 15px; color: var(--muted); font-weight: 600; }
