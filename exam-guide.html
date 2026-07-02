@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Master Prep Exam Guide v25 — K R&D Lab</title>
+  <link rel="stylesheet" href="./assets/css/rnd-lab.css">
+  <style>
+    .eg-nav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+    .eg-nav a{font-size:13px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink)}
+    .eg-nav a:hover{border-color:var(--accent);color:var(--accent)}
+    .eg-block{background:var(--card-bg);border:1px solid var(--line);border-radius:18px;padding:22px;margin:18px 0}
+    .eg-block h2{margin:0 0 8px;font-size:20px}
+    .eg-block h3{margin:18px 0 8px;font-size:15px}
+    .eg-block pre{background:var(--input-bg);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:13px;line-height:1.5;overflow:auto;white-space:pre-wrap}
+    .eg-block ul,.eg-block ol{font-size:14px;line-height:1.6;padding-left:1.2em}
+    .eg-block li{margin:6px 0}
+    .eg-tag{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,var(--accent) 12%,transparent);margin-right:6px}
+    .eg-cta{margin-top:14px}
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+  <script>const th=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",th);document.getElementById("themeToggle").textContent=th==="dark"?"☀️":"🌙";</script>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">K R&D Lab / Master Prep / Exam Guide v25</p>
+      <h1>Посібник MASTER PREP v25</h1>
+      <p class="lede">Веб-доповнення до PDF <code>master_prep_exam_guide_v25_detailed_examples.pdf</code>. Повний текст — у PDF; тут — оновлення та лінки на інтерактив.</p>
+      <div class="hero-links">
+        <a href="./interactive-prep.html#/ua/it-block-05-cyber/L1" class="link-pill">🧩 Інтерактив · кібер + ризики</a>
+        <a href="./trainer.html" class="link-pill">Trainer (MCQ)</a>
+        <a href="./interactive-prep.html" class="link-pill">Усі теми інтерактиву</a>
+      </div>
+    </section>
+
+    <nav class="eg-nav" aria-label="Блоки IT">
+      <a href="#block-07">🔐 Блок 07 · кібер</a>
+      <a href="#risk-pyramid">📊 Ризик-піраміда (SET)</a>
+      <a href="#siem-tls">SIEM + SSL/TLS</a>
+      <a href="#traps">Пастки</a>
+    </nav>
+
+    <article class="eg-block" id="block-07">
+      <span class="eg-tag">Блок 07</span>
+      <h2>🔐 Кібербезпека і криптографія</h2>
+      <p>Канон PDF v25, стор. 56–58. Ціль: розвести hash, encryption, signature, authentication, authorization, TLS.</p>
+      <pre>CIA ↔ hash ↔ encryption ↔ signature ↔ TLS ↔ access
+
+Hash        → відбиток, односторонній, не decrypt
+Encryption  → encrypt/decrypt з ключем (AES, Калина)
+Signature   → авторство + цілісність
+Authn       → хто ти
+Authz       → що тобі можна
+HTTPS       → HTTP поверх TLS</pre>
+      <h3>Українські алгоритми (пастка)</h3>
+      <ul>
+        <li><strong>Купина</strong> — криптографічна hash-функція</li>
+        <li><strong>Калина, Струмок, AES/Rijndael</strong> — шифри (не hash)</li>
+      </ul>
+      <div class="eg-cta">
+        <a href="./interactive-prep.html#/ua/it-block-05-cyber/L1" class="link-pill">Пройти L1–L3 в інтерактиві →</a>
+      </div>
+    </article>
+
+    <article class="eg-block" id="siem-tls">
+      <span class="eg-tag">Доповнення v25.1</span>
+      <h2>SIEM і SSL/TLS (ЄФВВ SETup)</h2>
+      <p>Теми з бота SET, які доповнюють блок 07 для магістратури SET / ЄФВВ.</p>
+      <h3>SIEM (Security Information and Event Management)</h3>
+      <ul>
+        <li>Збирає події з мережевих пристроїв, серверів, БД, датчиків безпеки, застосунків</li>
+        <li><strong>Ключовий механізм:</strong> автентифікація джерел подій (не «просто шифрування»)</li>
+        <li>Атомарне спрацювання IDS: оповіщення при <em>кожному</em> збігу сигнатури</li>
+      </ul>
+      <h3>SSL/TLS</h3>
+      <ul>
+        <li>Механізми: <strong>шифрування, автентифікація, цілісність, цифровий підпис</strong></li>
+        <li>На іспиті TLS часто «прив’язують» до транспортного рівня (захищені сесії веб/пошта)</li>
+        <li>HTTPS = HTTP + TLS (канал, не «безпека всього сайту»)</li>
+      </ul>
+    </article>
+
+    <article class="eg-block" id="risk-pyramid">
+      <span class="eg-tag">Доповнення v25.1</span>
+      <h2>📊 Ризик-менеджмент (піраміда стратегій)</h2>
+      <p>Блок питань SET bot (≈30–75): управління інформаційними ризиками.</p>
+      <pre>Оцінка
+  активи → загрози → вразливості → ризик
+  Risk exposure = ймовірність × потенційні втрати
+
+4 стратегії (зверху вниз — від «жити з ризиком» до «прибрати»):
+  1. Прийняти (accept)   — усвідомлене рішення керівництва, прийнятний рівень
+  2. Зменшити (mitigate) — технічні + організаційні + адміністративні контролі
+  3. Передати (transfer)  — страхування, аутсорс (не зменшує P атаки!)
+  4. Уникнути (avoid)    — відмова від активності / системи
+
+Компенсація прийнятого ризику: резервні копії, плани реагування, страховки</pre>
+      <h3>Якісний vs кількісний аналіз</h3>
+      <ul>
+        <li><strong>Якісний</strong> — експертні оцінки (суб’єктивність — головна проблема)</li>
+        <li><strong>Кількісний</strong> — математика (Монте-Карло, historical data)</li>
+      </ul>
+      <div class="eg-cta">
+        <a href="./interactive-prep.html#/ua/it-block-05-cyber/L3" class="link-pill">Match-пари ризиків (L3) →</a>
+      </div>
+    </article>
+
+    <article class="eg-block" id="traps">
+      <span class="eg-tag">Пастки</span>
+      <h2>⚠ Типові пастки (кібер + ризики)</h2>
+      <ol>
+        <li>SIEM → шифрування ❌ → <strong>автентифікація</strong> джерел</li>
+        <li>Страхування зменшує атаки ❌ → лише <strong>компенсує збитки</strong></li>
+        <li>Hash можна розшифрувати ❌ → односторонній відбиток</li>
+        <li>Encoding (Base64) = encryption ❌</li>
+        <li>Загрози лише «зовнішні / внутрішні» ❌ → ще <strong>природні</strong></li>
+        <li>Друкарські пастки: <code>Bublic</code>, <code>primate</code> — читай уважно</li>
+      </ol>
+    </article>
+
+    <p style="font-size:13px;color:var(--muted);margin-top:24px">
+      PDF-джерело: <code>master_prep_exam_guide_v25_detailed_examples.pdf</code> (109 стор.).
+      Інтерактив: <code>it-block-05-cyber</code> (блок 07 посібника + SET ризики).
+    </p>
+  </main>
+  <script>
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      document.getElementById("themeToggle").textContent = next === "dark" ? "☀️" : "🌙";
+    });
+  </script>
+</body>
+</html>

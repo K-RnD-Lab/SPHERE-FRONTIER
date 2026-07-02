@@ -41,7 +41,7 @@
             { "id": "testing-blackbox", "emoji": "🧪", "title": "Тестування ПЗ" },
             { "id": "stack-queue", "emoji": "📚", "title": "Стек vs черга" },
             { "id": "binary-basics", "emoji": "🔢", "title": "Binary / signed" },
-            { "id": "it-block-05", "emoji": "05", "title": "Блок 05 · кібербезпека", "stub": true },
+            { "id": "it-block-05-cyber", "emoji": "🔐", "title": "Кібербезпека та ризики" },
             { "id": "security-trio", "emoji": "🔐", "title": "Hash / encrypt / signature", "stub": true },
             { "id": "ml-types", "emoji": "🤖", "title": "Classification vs regression", "stub": true }
           ]
