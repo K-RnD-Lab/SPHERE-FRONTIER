@@ -7,9 +7,11 @@ let APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbzDJy4ysMJpXiDXI1_n
 // i18n
 const I18N={
   ua:{
-    eyebrow:"K Mentorship Hub / 🧭 REAL-PREP-EDUCATION",
+    eyebrow:"K R&D Lab / S7-I-R1 / 🎓 Master Training",
+    uiLang:"Мова інтерфейсу",
+    qLang:"Мова питань",
     title:"Master Training",
-    lede:"\u{1F91D} You've got this. Pick foundation, a sphere exam, or a combo path \u2014 and train.",
+    lede:"🤝 Обери сферу — 🩺 Science, 💼 Entrepreneurship, 💻 Technology — і тренуйся разом із спільнотою.",
     subF:"\u{1F9EE} Logic, Math",
     subEn:"\u{1F4D6} Reading, Grammar, Vocabulary, Listening",
     subS:"\u{1F52C} Biology, Chemistry, Physics, Bioinformatics",
@@ -18,20 +20,20 @@ const I18N={
     subST:"\u{1F9EC} Biotech, Bioinformatics, Data Analysis",
     subET:"\u{1F4CA} Digital Marketing, ERP, IT Management",
     subSE:"\u{1F48A} Pharma, Health Economics, Biotech Business",
-    msgTitle:"Your trainer is ready.",
-    msgBody:"Pick a sphere and level \u2014 then press Start. You've got this!",
-    startTitle:"Ready to begin?",
-    startDesc:"Choose your subject and mode, then press Start.",
-    startBtn:"Start Session",
-    timerLabel:"elapsed",
-    timerExam:"remaining",
-    pracHint:"Practice: 10 questions at your own pace.",
-    simHint:"Simulation: all available questions with countdown timer.",
-    practice:"Practice",
-    simulation:"Simulation",
-    resources:"Resources",
-    back:"Back",
-    next:"Next",
+    msgTitle:"Тренажер готовий.",
+    msgBody:"Обери сферу й рівень — потім натисни Start.",
+    startTitle:"Готові почати?",
+    startDesc:"Обери предмет і режим, потім натисни Start.",
+    startBtn:"Почати сесію",
+    timerLabel:"минуло",
+    timerExam:"залишилось",
+    pracHint:"Практика: 10 питань у своєму темпі.",
+    simHint:"Симуляція: усі доступні питання з таймером.",
+    practice:"Практика",
+    simulation:"Симуляція",
+    resources:"Ресурси",
+    back:"Назад",
+    next:"Далі",
     desc:"Descriptive",
     diag:"Diagnostic",
     presc:"Prescriptive",
@@ -42,22 +44,23 @@ const I18N={
     predTitle:"Predictive \u2014 what's next?",
     readiness:"Readiness signal",
     sharedTitle:"Overall progress by subject",
-    endTitle:"Session complete!",
-    endGreat:"Well done!",
-    endMsg:"Every session is a step forward. Keep going!",
-    newSession:"New session",
-    allSubjects:"All subjects",
-    correct:"Correct!",
-    wrong:"Incorrect. Answer: ",
-    finish:"Finish \u2708",
-    min:"min",
-    sessions:"sessions",
-    accBySub:"Accuracy by subject",
-    weakZones:"Weak zones (errors)",
-    priority:"Learning priority (to 80%)",
-    needMin2:"Need at least 2 sessions",
-    forecast:"Next session forecast: ",
-    totalAcc:"Overall accuracy (all sessions)"
+    endTitle:"Сесію завершено!",
+    endGreat:"Молодець!",
+    endMsg:"Кожна сесія — крок уперед. Продовжуй!",
+    newSession:"Нова сесія",
+    allSubjects:"Усі предмети",
+    correct:"Правильно!",
+    wrong:"Неправильно. Відповідь: ",
+    finish:"Фініш 🏁",
+    min:"хв",
+    sessions:"сесій",
+    accBySub:"Точність за предметами",
+    weakZones:"Слабкі зони (помилки)",
+    priority:"Пріоритет навчання (до 80%)",
+    needMin2:"Потрібно щонайменше 2 сесії",
+    forecast:"Прогноз наступної сесії: ",
+    totalAcc:"Загальна точність (усі сесії)",
+    qLangUkSoon:"Банк українською — незабаро; поки питання English."
   },
   en:{
     eyebrow:"K Mentorship Hub / 🧭 REAL-PREP-EDUCATION",
@@ -103,10 +106,35 @@ const I18N={
     finish:"Finish 🏁",min:"min",sessions:"sessions",
     accBySub:"Accuracy by subject",weakZones:"Weak zones (errors)",
     priority:"Study priority (to 80%)",needMin2:"Need at least 2 sessions",
-    forecast:"Next session forecast: ",totalAcc:"Overall accuracy (all sessions)"
+    forecast:"Next session forecast: ",    totalAcc:"Overall accuracy (all sessions)",
+    qLangUkSoon:"Ukrainian question bank coming soon; using English for now."
   }
 };
 let lang=localStorage.getItem("mt_lang")||"ua";
+let qLang=localStorage.getItem("mt_qlang")||"en";
+
+function isQuestionLangLocked(){
+  return state.subject==="english"|| (state.sphere && state.sphere!=="F");
+}
+
+function syncQLangControl(){
+  const el=document.getElementById("qLang");
+  const label=el?.closest("label");
+  if(!el)return;
+  if(isQuestionLangLocked()){
+    el.disabled=true;
+    label?.classList.add("dimmed");
+    el.innerHTML=`<option value="en">${lang==="en"?"English (SET exam)":"English (іспит SET)"}</option>`;
+    qLang="en";
+    return;
+  }
+  el.disabled=false;
+  label?.classList.remove("dimmed");
+  el.innerHTML=lang==="en"
+    ?'<option value="ua">Ukrainian</option><option value="en">English</option>'
+    :'<option value="ua">Українська</option><option value="en">English</option>';
+  el.value=qLang==="ua"||qLang==="uk"?"ua":"en";
+}
 function t(k){return(I18N[lang]||I18N.ua)[k]||k;}
 function applyI18N(){
   document.querySelectorAll("[data-i18n]").forEach(el=>{
@@ -245,14 +273,19 @@ loadSheetsData();
 // Language controls
 document.getElementById("uiLang").value=lang;
 applyI18N();
+syncQLangControl();
 document.getElementById("uiLang").addEventListener("change",e=>{
   lang=e.target.value;
   localStorage.setItem("mt_lang",lang);
   applyI18N();
+  syncQLangControl();
   if(state.sphere){initSubjects();renderQ();renderStats();renderAnalytics();}
 });
-// Question language is locked to EN (questions are in English)
-// qLang select stays disabled
+document.getElementById("qLang").addEventListener("change",e=>{
+  if(isQuestionLangLocked())return;
+  qLang=e.target.value;
+  localStorage.setItem("mt_qlang",qLang);
+});
 
 // Sphere cards
 document.querySelectorAll(".sphere-card").forEach(c=>{
@@ -262,6 +295,7 @@ document.querySelectorAll(".sphere-card").forEach(c=>{
     const sp=c.dataset.sphere;
     state.sphere=sp==="foundation"||sp==="english"?"F":sp;
     state.subject=sp==="english"?"english":"all";
+    syncQLangControl();
     document.getElementById("sphereSection").style.display="none";
     document.getElementById("msgBox").style.display="none";
     showStartScreen();
@@ -321,7 +355,8 @@ function showStartScreen(){
   });
   // Wire subject filter on start screen
   const sf=document.getElementById("subjectFilter");
-  if(sf)sf.onchange=e=>{state.subject=e.target.value;};
+  if(sf)sf.onchange=e=>{state.subject=e.target.value;syncQLangControl();};
+  syncQLangControl();
   // Update mode hint
   const hint=document.getElementById("modeHint");
   if(hint)hint.textContent=state.mode==="simulation"?t('simHint'):t('pracHint');
@@ -407,7 +442,9 @@ function renderQ(){
     else if(ua===i)c+=" selected";
     return `<div class="${c}" data-i="${i}">${o}</div>`;
   }).join("");
-  area.innerHTML=`<div class="q-card"><div style="font-size:12px;color:var(--muted);margin-bottom:8px">${q.subject}</div><h3>${q.q}</h3><div class="q-options">${oh}</div>${answered?`<div style="margin-top:12px;font-size:13px;color:${ua===q.ans?'#22c55e':'#ef4444'}">${ua===q.ans?'✅ '+t('correct'):'❌ '+t('wrong')+q.opts[q.ans]}</div>`:''}</div>`;
+  const ukNote=!isQuestionLangLocked()&&(qLang==="ua"||qLang==="uk")
+    ?`<p style="font-size:12px;color:var(--muted);margin:0 0 10px">${t('qLangUkSoon')}</p>`:'';
+  area.innerHTML=`${ukNote}<div class="q-card"><div style="font-size:12px;color:var(--muted);margin-bottom:8px">${q.subject}</div><h3>${q.q}</h3><div class="q-options">${oh}</div>${answered?`<div style="margin-top:12px;font-size:13px;color:${ua===q.ans?'#22c55e':'#ef4444'}">${ua===q.ans?'✅ '+t('correct'):'❌ '+t('wrong')+q.opts[q.ans]}</div>`:''}</div>`;
   area.querySelectorAll(".q-opt:not(.correct):not(.wrong):not(.reveal)").forEach(el=>{
     el.addEventListener("click",()=>{
       const idx=parseInt(el.dataset.i);state.answers[state.currentIdx]=idx;

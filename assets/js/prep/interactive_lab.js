@@ -7,6 +7,10 @@ let ilRenderGen = 0;
 let ilTopicCache = null;
 let ilTopicCacheId = '';
 
+function ilT(key, ...args) {
+  return SiteI18n?.t(key, ...args) ?? key;
+}
+
 function ilProgress() {
   try { return JSON.parse(localStorage.getItem(IL_STORAGE) || '{}'); } catch { return {}; }
 }
@@ -83,13 +87,13 @@ function topicCardHtml(t) {
     return `
       <button type="button" class="pl-topic-btn stub" disabled>
         <strong>${t.emoji} ${PrepLevelsEngine.escapeHtml(t.title)}</strong><br>
-        <span class="pl-topic-meta">у розробці</span>
+        <span class="pl-topic-meta">${ilT('inDev')}</span>
       </button>`;
   }
   return `
     <button type="button" class="pl-topic-btn" data-topic="${t.id}">
       <strong>${t.emoji} ${PrepLevelsEngine.escapeHtml(t.title)}</strong><br>
-      <span class="pl-topic-meta">${done}/3 рівнів</span>
+      <span class="pl-topic-meta">${ilT('levelsProgress', done)}</span>
     </button>`;
 }
 
@@ -99,13 +103,13 @@ function renderCountries(root) {
       <span class="pl-country-emoji">${c.emoji}</span>
       <strong>${PrepLevelsEngine.escapeHtml(c.label)}</strong>
       <span class="pl-country-sub">${PrepLevelsEngine.escapeHtml(c.subtitle || '')}</span>
-      ${c.ready ? '' : '<span class="pl-topic-meta">незабаром</span>'}
+      ${c.ready ? '' : `<span class="pl-topic-meta">${ilT('soon')}</span>`}
     </button>`).join('');
 
   root.innerHTML = `
-    <p class="pl-note">Спочатку обери <strong>країну / контекст іспиту</strong>. Потім — тему з трьома рівнями (схема → заглушки → практика). Тести з варіантами — у <a href="trainer.html">Trainer</a>.</p>
+    <p class="pl-note" data-i18n="introNote" data-i18n-html="1">${ilT('introNote')}</p>
     <section class="pl-card">
-      <h2>Де готуєшся?</h2>
+      <h2 data-i18n="countriesTitle">${ilT('countriesTitle')}</h2>
       <div class="pl-country-grid">${cards}</div>
     </section>`;
 
@@ -117,7 +121,7 @@ function renderCountries(root) {
 function renderMap(root, countryId) {
   const country = ilCountry(countryId);
   if (!country) {
-    root.innerHTML = '<p class="pl-card">Невідомий контекст. <button type="button" class="ghost" id="il-home">← Країни</button></p>';
+    root.innerHTML = `<p class="pl-card">${ilT('backCountries')} <button type="button" class="ghost" id="il-home">${ilT('backCountries')}</button></p>`;
     root.querySelector('#il-home')?.addEventListener('click', () => { location.hash = '#/'; });
     return;
   }
@@ -135,12 +139,12 @@ function renderMap(root, countryId) {
       ? `<div class="pl-topic-grid pl-stub-grid">${stubs.map(topicCardHtml).join('')}</div>`
       : '';
     const stubNote = !showStubs && stubs.length
-      ? `<p class="pl-stub-hint">+${stubs.length} у розробці</p>`
+      ? `<p class="pl-stub-hint">+${stubs.length} ${ilT('inDev')}</p>`
       : '';
     return `
       <section class="pl-track">
         <h3>${PrepLevelsEngine.escapeHtml(tr.label)}</h3>
-        <div class="pl-topic-grid">${grid || '<p class="pl-stub-hint">Готові теми з’являться тут</p>'}</div>
+        <div class="pl-topic-grid">${grid || `<p class="pl-stub-hint">${ilT('soon')}</p>`}</div>
         ${stubNote}
         ${stubGrid}
       </section>`;
@@ -148,19 +152,19 @@ function renderMap(root, countryId) {
 
   root.innerHTML = `
     <nav class="pl-breadcrumb">
-      <button type="button" class="ghost" id="il-back-country">← Країни</button>
+      <button type="button" class="ghost" id="il-back-country">${ilT('backCountries')}</button>
       <span>${country.emoji} ${PrepLevelsEngine.escapeHtml(country.label)}</span>
     </nav>
-    ${external ? `<p class="pl-external"><span class="pl-ext-label">Офіційні демо:</span>${external}</p>` : ''}
+    ${external ? `<p class="pl-external"><span class="pl-ext-label">${ilT('officialDemo')}</span>${external}</p>` : ''}
     <section class="pl-card">
       <div class="pl-map-head">
         <div>
-          <h2>Теми</h2>
+          <h2 data-i18n="topicsTitle">${ilT('topicsTitle')}</h2>
           <p class="pl-map-sub">${PrepLevelsEngine.escapeHtml(country.subtitle || '')}</p>
         </div>
         <label class="pl-stub-toggle">
           <input type="checkbox" id="il-stub-toggle" ${showStubs ? 'checked' : ''}>
-          Показати майбутні
+          <span data-i18n="showFuture">${ilT('showFuture')}</span>
         </label>
       </div>
       ${body}
@@ -183,10 +187,21 @@ function updateLevelTabs(tabsEl, levels, levelId, prog) {
     const level = levels[i];
     tab.classList.toggle('active', level.id === levelId);
     tab.classList.toggle('done', Boolean(prog[level.id]));
+    tab.classList.toggle('needs-l1', level.id !== 'L1' && !prog.L1);
   });
 }
 
-function mountLevelBody(bodyEl, topic, topicId, levelId, gen) {
+function ilGoLevel(countryId, topicId, levelId) {
+  const nextHash = `#/${countryId}/${topicId}/${levelId}`;
+  if (location.hash === nextHash) {
+    render();
+  } else {
+    location.hash = nextHash;
+  }
+}
+
+function mountLevelBody(bodyEl, topic, topicId, levelId, countryId, gen) {
+  const prog = ilProgress()[topicId] || {};
   const level = topic.levels.find((l) => l.id === levelId) || topic.levels[0];
   bodyEl.innerHTML = '';
   PrepLevelsEngine.renderLevel(bodyEl, level, (lid) => {
@@ -196,6 +211,11 @@ function mountLevelBody(bodyEl, topic, topicId, levelId, gen) {
     ilSave(all);
     const tabsEl = document.getElementById('il-tabs');
     if (tabsEl) updateLevelTabs(tabsEl, topic.levels, levelId, all[topicId]);
+    if (lid === 'L1') mountLevelBody(bodyEl, topic, topicId, levelId, countryId, gen);
+  }, {
+    l1Incomplete: level.id !== 'L1' && !prog.L1,
+    theoryComplete: level.id === 'L1' && Boolean(prog.L1),
+    onGoTheory: () => ilGoLevel(countryId, topicId, 'L1'),
   });
 }
 
@@ -210,27 +230,27 @@ async function renderTopic(root, countryId, topicId, levelId) {
     if (gen !== ilRenderGen) return;
     root.innerHTML = `
       <nav class="pl-breadcrumb">
-        <button type="button" class="ghost" id="il-back-map">← Теми</button>
+        <button type="button" class="ghost" id="il-back-map">${ilT('backTopics')}</button>
       </nav>
-      <p class="pl-card">JSON для цієї теми ще не додано.</p>`;
+      <p class="pl-card">${ilT('jsonMissing')}</p>`;
     root.querySelector('#il-back-map')?.addEventListener('click', () => { location.hash = `#/${countryId}`; });
     return;
   }
   if (gen !== ilRenderGen) return;
 
-  const resolvedLevel = topic.levels.find((l) => l.id === levelId)?.id || topic.levels[0].id;
   const prog = ilProgress()[topicId] || {};
+  const resolvedLevel = topic.levels.find((l) => l.id === levelId)?.id || topic.levels[0].id;
 
   const existing = root.querySelector('[data-il-topic-shell]');
   if (existing && existing.dataset.topicId === topicId) {
     updateLevelTabs(root.querySelector('#il-tabs'), topic.levels, resolvedLevel, prog);
-    mountLevelBody(root.querySelector('#il-body'), topic, topicId, resolvedLevel, gen);
+    mountLevelBody(root.querySelector('#il-body'), topic, topicId, resolvedLevel, countryId, gen);
     return;
   }
 
   root.innerHTML = `
     <nav class="pl-breadcrumb">
-      <button type="button" class="ghost" id="il-back-map">← ${country ? PrepLevelsEngine.escapeHtml(country.label) : 'Теми'}</button>
+      <button type="button" class="ghost" id="il-back-map">← ${country ? PrepLevelsEngine.escapeHtml(country.label) : ilT('backTopics')}</button>
     </nav>
     <section class="pl-card" data-il-topic-shell data-topic-id="${PrepLevelsEngine.escapeHtml(topicId)}">
       <h2>${PrepLevelsEngine.escapeHtml(topic.title)}</h2>
@@ -245,23 +265,18 @@ async function renderTopic(root, countryId, topicId, levelId) {
   topic.levels.forEach((level, i) => {
     const tab = document.createElement('button');
     tab.type = 'button';
-    tab.className = `pl-level-tab ${level.id === resolvedLevel ? 'active' : ''} ${prog[level.id] ? 'done' : ''}`;
-    tab.textContent = `Рівень ${i + 1}`;
+    tab.className = `pl-level-tab ${level.id === resolvedLevel ? 'active' : ''} ${prog[level.id] ? 'done' : ''} ${level.id !== 'L1' && !prog.L1 ? 'needs-l1' : ''}`;
+    tab.textContent = ilT('levelN', i + 1);
+    tab.title = level.id === 'L1' ? ilT('levelTheory') : '';
     tab.dataset.levelId = level.id;
     tab.addEventListener('click', () => {
       if (level.id === resolvedLevel) return;
-      const nextHash = `#/${countryId}/${topicId}/${level.id}`;
-      if (location.hash === nextHash) {
-        mountLevelBody(root.querySelector('#il-body'), topic, topicId, level.id, ++ilRenderGen);
-        updateLevelTabs(tabs, topic.levels, level.id, ilProgress()[topicId] || {});
-      } else {
-        location.hash = nextHash;
-      }
+      ilGoLevel(countryId, topicId, level.id);
     });
     tabs.appendChild(tab);
   });
 
-  mountLevelBody(root.querySelector('#il-body'), topic, topicId, resolvedLevel, gen);
+  mountLevelBody(root.querySelector('#il-body'), topic, topicId, resolvedLevel, countryId, gen);
 }
 
 async function render() {
@@ -291,6 +306,9 @@ async function boot() {
     document.getElementById('il-app').innerHTML = `<p class="pl-card">Помилка: ${PrepLevelsEngine?.escapeHtml?.(e.message) || e.message}</p>`;
     return;
   }
+  const hero = document.querySelector('.hero');
+  if (hero) SiteI18n.mountLangSelect(hero, { onChange: () => render() });
+  SiteI18n.apply(document);
   window.addEventListener('hashchange', render);
   if (!location.hash || location.hash === '#') location.hash = '#/';
   await render();

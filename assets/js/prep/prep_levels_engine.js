@@ -46,6 +46,19 @@
     root.appendChild(wrap);
   }
 
+  function ui(key, ...args) {
+    if (global.SiteI18n?.t) return global.SiteI18n.t(key, ...args);
+    const fb = {
+      check: 'Перевірити', reset: 'Скинути', hint: 'Підказка',
+      okBlank: '✅ Збірка правильна!', checkOrder: 'Перевірити порядок',
+      okOrder: '✅ Порядок вірний!', okMatch: '✅ Усі пари зібрано!',
+      wrongPair: '❌ Не та пара.', wrongOrder: '❌ Ще не так — подумай про логіку кроків.',
+      theoryDone: 'Прочитала — далі ✓', theoryRead: '✓ Теорію пройдено', theoryReread: 'Перечитати',
+      unknownLevel: 'Невідомий тип рівня.'
+    };
+    return fb[key] || key;
+  }
+
   function mountFillBlanks(root, level, onComplete) {
     const answers = level.answers || [];
     const filled = answers.map(() => '');
@@ -87,23 +100,23 @@
     actions.className = 'pl-actions';
     const check = document.createElement('button');
     check.type = 'button';
-    check.textContent = 'Перевірити';
+    check.textContent = ui('check');
     const reset = document.createElement('button');
     reset.type = 'button';
     reset.className = 'ghost';
-    reset.textContent = 'Скинути';
+    reset.textContent = ui('reset');
     const hint = document.createElement('button');
     hint.type = 'button';
     hint.className = 'ghost';
-    hint.textContent = 'Підказка';
+    hint.textContent = ui('hint');
     let hintsUsed = 0;
     const hints = level.hints || [];
 
     check.addEventListener('click', () => {
       const ok = answers.every((a, i) => filled[i] === a);
       feedback.textContent = ok
-        ? '✅ Збірка правильна!'
-        : `❌ Перевір порядок. Очікується: ${answers.join(', ')}`;
+        ? ui('okBlank')
+        : `❌ ${ui('wrongBlank')}: ${answers.join(', ')}`;
       if (ok && onComplete) onComplete(level.id);
     });
     reset.addEventListener('click', () => {
@@ -151,11 +164,11 @@
     feedback.className = 'pl-feedback';
     const check = document.createElement('button');
     check.type = 'button';
-    check.textContent = 'Перевірити порядок';
+    check.textContent = ui('checkOrder');
     check.addEventListener('click', () => {
       const current = [...list.children].map((n) => n.dataset.value);
       const ok = current.every((v, i) => v === level.items[i]);
-      feedback.textContent = ok ? '✅ Порядок вірний!' : '❌ Ще не так — подумай про логіку кроків.';
+      feedback.textContent = ok ? ui('okOrder') : ui('wrongOrder');
       if (ok && onComplete) onComplete(level.id);
     });
     root.append(list, check, feedback);
@@ -200,11 +213,11 @@
           selected = null;
           matched += 1;
           if (matched === level.pairs.length) {
-            feedback.textContent = '✅ Усі пари зібрано!';
+            feedback.textContent = ui('okMatch');
             if (onComplete) onComplete(level.id);
           }
         } else {
-          feedback.textContent = '❌ Не та пара.';
+          feedback.textContent = ui('wrongPair');
           selected = null;
           leftCol.querySelectorAll('.pl-match-btn').forEach((b) => b.classList.remove('sel'));
         }
@@ -216,12 +229,28 @@
     root.append(grid, feedback);
   }
 
-  function renderLevel(container, level, onComplete) {
+  function renderLevel(container, level, onComplete, opts = {}) {
     const head = document.createElement('div');
     head.className = 'pl-level-head';
     head.innerHTML = `<h3>${escapeHtml(level.title)}</h3><p>${escapeHtml(level.instruction || '')}</p>`;
     const body = document.createElement('div');
     container.append(head, body);
+
+    if (opts.l1Incomplete && level.id !== 'L1') {
+      const banner = document.createElement('div');
+      banner.className = 'pl-l1-banner';
+      const msg = document.createElement('p');
+      msg.textContent = ui('l1Incomplete');
+      const back = document.createElement('button');
+      back.type = 'button';
+      back.className = 'pl-back-theory';
+      back.textContent = ui('backToTheory');
+      back.addEventListener('click', () => {
+        if (opts.onGoTheory) opts.onGoTheory();
+      });
+      banner.append(msg, back);
+      container.insertBefore(banner, head);
+    }
 
     switch (level.type) {
       case 'theory': {
@@ -230,12 +259,28 @@
           const doneBtn = document.createElement('button');
           doneBtn.type = 'button';
           doneBtn.className = 'pl-theory-done';
-          doneBtn.textContent = 'Прочитала — далі ✓';
-          doneBtn.addEventListener('click', () => {
+          if (opts.theoryComplete) {
+            doneBtn.textContent = ui('theoryRead');
             doneBtn.disabled = true;
-            onComplete(level.id);
-          });
-          body.appendChild(doneBtn);
+            const again = document.createElement('button');
+            again.type = 'button';
+            again.className = 'ghost pl-theory-again';
+            again.textContent = ui('theoryReread');
+            again.addEventListener('click', () => {
+              doneBtn.disabled = false;
+              doneBtn.textContent = ui('theoryDone');
+              again.remove();
+            });
+            body.append(doneBtn, again);
+          } else {
+            doneBtn.textContent = ui('theoryDone');
+            doneBtn.addEventListener('click', () => {
+              doneBtn.disabled = true;
+              doneBtn.textContent = ui('theoryRead');
+              onComplete(level.id);
+            });
+            body.appendChild(doneBtn);
+          }
         }
         break;
       }
@@ -249,7 +294,7 @@
         mountMatch(body, level, onComplete);
         break;
       default:
-        body.textContent = 'Невідомий тип рівня.';
+        body.textContent = ui('unknownLevel');
     }
   }
 

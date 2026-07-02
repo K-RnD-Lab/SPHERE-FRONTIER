@@ -25,12 +25,12 @@
   <main class="page">
     <section class="hero">
       <p class="eyebrow">K R&D Lab / Master Prep / Exam Guide v25</p>
-      <h1>Посібник MASTER PREP v25</h1>
-      <p class="lede">Веб-доповнення до PDF <code>master_prep_exam_guide_v25_detailed_examples.pdf</code>. Повний текст — у PDF; тут — оновлення та лінки на інтерактив.</p>
+      <h1 data-i18n="guideTitle">Посібник MASTER PREP v25</h1>
+      <p class="lede" data-i18n="guideLede">Веб-доповнення до PDF. Повний текст — у PDF; тут — оновлення та лінки на інтерактив.</p>
       <div class="hero-links">
-        <a href="./interactive-prep.html#/ua/it-block-05-cyber/L1" class="link-pill">🧩 Інтерактив · кібер + ризики</a>
-        <a href="./trainer.html" class="link-pill">Trainer (MCQ)</a>
-        <a href="./interactive-prep.html" class="link-pill">Усі теми інтерактиву</a>
+        <a href="./interactive-prep.html#/ua/it-block-05-cyber/L1" class="link-pill" data-i18n="interactiveLink">🧩 Інтерактив · кібер + ризики</a>
+        <a href="./trainer.html" class="link-pill" data-i18n="trainerLink">Trainer (MCQ)</a>
+        <a href="./interactive-prep.html" class="link-pill" data-i18n="interactiveLink">Усі теми інтерактиву</a>
       </div>
     </section>
 
@@ -124,6 +124,7 @@ HTTPS       → HTTP поверх TLS</pre>
       Інтерактив: <code>it-block-05-cyber</code> (блок 07 посібника + SET ризики).
     </p>
   </main>
+  <script src="./assets/js/site-i18n.js"></script>
   <script>
     document.getElementById("themeToggle").addEventListener("click", () => {
       const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
@@ -131,6 +132,8 @@ HTTPS       → HTTP поверх TLS</pre>
       localStorage.setItem("theme", next);
       document.getElementById("themeToggle").textContent = next === "dark" ? "☀️" : "🌙";
     });
+    SiteI18n.mountLangSelect(document.querySelector('.hero'), { onChange: () => SiteI18n.apply(document) });
+    SiteI18n.apply(document);
   </script>
 </body>
 </html>
